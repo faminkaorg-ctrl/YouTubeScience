@@ -183,155 +183,393 @@
             </div>
         </div>
     </section>
-<section id="process" class="py-32 relative z-10 bg-dark overflow-hidden border-t border-white/5">
+<section id="process" class="py-32 relative z-10 bg-[#020202] overflow-hidden border-t border-white/5" style="perspective: 1200px;">
+    
+    <style>
+        /* Глобальные стеклянные эффекты */
+        .glass-card { background: rgba(10, 10, 10, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05); border-radius: 2rem; overflow: hidden; }
+        .red-gradient-text { background: linear-gradient(135deg, #fff 0%, #E52D27 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        <div class="absolute top-[20%] left-[-10%] w-[600px] h-[600px] bg-yt/10 rounded-full blur-[150px] pointer-events-none"></div>
-        <div class="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[150px] pointer-events-none"></div>
+        /* Линия пути клиента */
+        .journey-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: rgba(255,255,255,0.05); transform: translateX(-50%); z-index: 1; }
+        .journey-progress { width: 100%; background: linear-gradient(to bottom, #E52D27, #ff8c00, #E52D27); box-shadow: 0 0 20px #E52D27; border-radius: 10px; }
 
-        <div class="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
-            
-            <div class="mb-32 text-center gsap-fade-up">
-                <div class="inline-block bg-white/5 border border-white/10 text-white px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-6 backdrop-blur-sm">От идеи до миллионов продаж</div>
-                <h2 class="font-display text-5xl md:text-7xl lg:text-[6rem] font-black uppercase mb-8 leading-none">
-                    Цикл <br><span class="text-yt text-stroke">Производства</span>
-                </h2>
-                <p class="text-xl text-gray-400 max-w-3xl mx-auto font-light leading-relaxed">
-                    6 профильных отделов, которые берут ваш бизнес и делают из него медийную машину. Полный цикл работы ваших соцсетей на самом высшем уровне.
-                </p>
+        .mega-step { min-h-[60vh]; }
+        .step-marker { position: absolute; left: 1/2; transform: translateX(-50%); z-index: 20; justify-content: center; align-items: center; }
+        .marker-dot { width: 4px; height: 4px; background: #E52D27; border-radius: 50%; opacity: 0; transition: 0.5s; box-shadow: 0 0 10px #E52D27; }
+
+        /* ЭТАП 1: Командный Центр (NEW) */
+        .war-room-grid { background-size: 40px 40px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px); position: absolute; inset: 0; z-index: 0; }
+        .expert-card { background: rgba(20,20,20,0.9); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 10px; display: flex; align-items: center; gap: 10px; position: absolute; opacity: 0; transform: scale(0.8); z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .expert-avatar { width: 40px; height: 40px; border-radius: 8px; border: 1px solid #E52D27; }
+        .expert-info { display: flex; flex-direction: column; }
+        .expert-role { font-size: 0.65rem; color: #E52D27; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; }
+        .expert-name { font-size: 0.85rem; color: #fff; font-family: 'Unbounded', sans-serif; }
+        
+        .ec-1 { top: 10%; left: 5%; }
+        .ec-2 { top: 10%; right: 5%; }
+        .ec-3 { bottom: 15%; left: 10%; }
+        .ec-4 { bottom: 15%; right: 10%; }
+        .ec-5 { top: 40%; left: -5%; } /* Выступает за край для объема */
+        
+        .strategy-core { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(229,45,39,0.2) 0%, transparent 70%); border: 1px solid rgba(229,45,39,0.5); display: flex; justify-content: center; align-items: center; z-index: 5; opacity: 0; }
+        .strategy-core::after { content: ''; position: absolute; width: 60px; height: 60px; background: #E52D27; border-radius: 50%; box-shadow: 0 0 40px #E52D27; animation: pulse-core 2s infinite; }
+        @keyframes pulse-core { 0% { transform: scale(0.9); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.8; } }
+        
+        /* Лазерные линии связи */
+        .laser-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+        .laser-line { fill: none; stroke: rgba(229,45,39,0.6); stroke-width: 2; stroke-dasharray: 100; stroke-dashoffset: 100; opacity: 0; }
+
+        /* ЭТАП 2: Алгоритмический конвейер (NEW) */
+        .content-engine { padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; position: relative; z-index: 10; }
+        .content-node { background: #111; border: 1px solid #333; border-radius: 16px; padding: 1.5rem; position: relative; overflow: hidden; opacity: 0; transform: translateX(50px); }
+        .content-node::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #E52D27; }
+        .node-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); pb-2; }
+        .node-bars { display: flex; gap: 5px; height: 6px; width: 100%; background: #000; border-radius: 4px; overflow: hidden; }
+        .n-bar { height: 100%; width: 0; }
+        .nb-hook { background: #E52D27; } .nb-val { background: #0078D7; } .nb-sale { background: #27C93F; }
+
+        /* ЭТАП 3: Переключатель Студия/Дом (FIXED) */
+        .toggle-wrapper { display: flex; background: rgba(0,0,0,0.8); border-radius: 100px; padding: 6px; border: 1px solid rgba(255,255,255,0.1); width: fit-content; margin: 0 auto 2rem auto; position: relative; z-index: 20; }
+        .toggle-btn { padding: 12px 30px; border-radius: 100px; font-weight: bold; color: #888; cursor: pointer; transition: color 0.3s; z-index: 2; position: relative; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; }
+        .toggle-btn.active { color: #fff; }
+        .toggle-indicator { position: absolute; top: 6px; bottom: 6px; left: 6px; width: calc(50% - 6px); background: #E52D27; border-radius: 100px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1; box-shadow: 0 0 15px rgba(229,45,39,0.5); }
+        .view-content { display: none; opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
+        .view-content.active { display: block; opacity: 1; transform: translateY(0); }
+        
+        .pipeline-track { display: flex; align-items: center; justify-content: space-between; position: relative; margin-top: 3rem; }
+        .pipeline-track::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(255,255,255,0.2); transform: translateY(-50%); z-index: 0; border-style: dashed; }
+        .pipe-node { width: 50px; height: 50px; border-radius: 50%; background: #0a0a0a; border: 2px solid #E52D27; display: flex; justify-content: center; align-items: center; position: relative; z-index: 1; font-size: 1.2rem; color: #E52D27; }
+
+        /* ЭТАП 4: ФИНАЛ И ЛИДЫ (FIXED) */
+        .lead-burst { position: absolute; inset: 0; pointer-events: none; }
+        .lead-card-anim { position: absolute; background: rgba(20,20,20,0.95); border-left: 4px solid #27C93F; padding: 12px 20px; border-radius: 8px; font-size: 0.85rem; color: #fff; opacity: 0; box-shadow: 0 10px 20px rgba(0,0,0,0.8); white-space: nowrap; font-family: 'Unbounded', sans-serif; }
+        .glow-counter { text-shadow: 0 0 40px rgba(39,201,63,0.6); }
+    </style>
+
+    <div class="absolute top-[10%] left-[-20%] w-[800px] h-[800px] bg-yt/10 rounded-full blur-[200px] pointer-events-none"></div>
+    <div class="absolute bottom-[10%] right-[-20%] w-[800px] h-[800px] bg-blue-900/10 rounded-full blur-[200px] pointer-events-none"></div>
+
+    <div class="max-w-[1200px] mx-auto px-6 relative z-10">
+        
+        <div class="text-center mb-32 cp-reveal">
+            <div class="inline-block border border-yt/30 bg-yt/10 text-yt px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6">Ваш путь к масштабу</div>
+            <h2 class="font-display text-5xl md:text-7xl font-black uppercase mb-8 leading-none tracking-tighter cp-title">
+                Как мы <span class="red-gradient-text">работаем</span>
+            </h2>
+            <p class="text-xl md:text-2xl text-gray-400 max-w-4xl mx-auto font-light leading-relaxed">
+                Мы не просто снимаем видео. Мы строим полноценный отдел медиа-маркетинга внутри вашего бизнеса. Прозрачно. Понятно. На результат. 4 точных шага к потоку лидов.
+            </p>
+        </div>
+
+        <div class="relative w-full pb-20" id="client-journey">
+            <div class="journey-line hidden md:block"><div class="journey-progress h-0" id="jp-bar"></div></div>
+
+            <div class="mega-step relative flex flex-col md:flex-row justify-between items-center w-full mb-40 cp-step">
+                <div class="hidden md:flex absolute top-[-5px] left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#0a0a0a] border-[3px] border-[#333] rounded-full z-20 step-marker"><div class="marker-dot"></div></div>
+                
+                <div class="w-full md:w-[45%] mb-10 md:mb-0 text-left md:text-right pr-0 md:pr-12 cp-text" data-dir="-1">
+                    <div class="text-yt font-display font-black text-7xl mb-2 opacity-20">ШАГ 01</div>
+                    <h3 class="font-display font-black text-3xl md:text-4xl text-white uppercase mb-6">Командный Центр</h3>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                        Никаких брифов на почту. Мы устраиваем глубокий Zoom-разбор. <strong class="text-white">Сразу 5 профильных экспертов</strong> погружаются в ваш бизнес, чтобы создать железобетонную стратегию захвата рынка.
+                    </p>
+                    <ul class="space-y-4 text-sm font-semibold tracking-wide text-gray-300 inline-block text-left">
+                        <li class="flex items-center"><i class="fa-solid fa-crosshairs text-yt mr-4 text-lg"></i>Целевая потребность: Лиды или Охват?</li>
+                        <li class="flex items-center"><i class="fa-solid fa-network-wired text-yt mr-4 text-lg"></i>Выбор экосистемы (YT, IG, TG, VK)</li>
+                        <li class="flex items-center"><i class="fa-solid fa-route text-yt mr-4 text-lg"></i>Проектирование CJM (Путь клиента)</li>
+                        <li class="flex items-center"><i class="fa-solid fa-location-dot text-yt mr-4 text-lg"></i>Локация: наша студия или ваш дом</li>
+                    </ul>
+                </div>
+                
+                <div class="w-full md:w-[45%] pl-0 md:pl-12 cp-visual">
+                    <div class="glass-card h-[450px] relative border-yt/20" id="war-room-container">
+                        <div class="war-room-grid"></div>
+                        <div class="absolute top-4 left-4 text-xs font-mono text-gray-500 uppercase tracking-widest bg-black/50 px-2 py-1 rounded">Syncing Experts...</div>
+                        
+                        <svg class="laser-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <line x1="20" y1="20" x2="50" y2="50" class="laser-line line-1" />
+                            <line x1="80" y1="20" x2="50" y2="50" class="laser-line line-2" />
+                            <line x1="20" y1="80" x2="50" y2="50" class="laser-line line-3" />
+                            <line x1="80" y1="80" x2="50" y2="50" class="laser-line line-4" />
+                        </svg>
+
+                        <div class="expert-card ec-1">
+                            <img src="https://ui-avatars.com/api/?name=П&background=000&color=E52D27" class="expert-avatar">
+                            <div class="expert-info"><span class="expert-role">Продюсер</span><span class="expert-name">Визуал & Съемка</span></div>
+                        </div>
+                        <div class="expert-card ec-2">
+                            <img src="https://ui-avatars.com/api/?name=М&background=000&color=E52D27" class="expert-avatar">
+                            <div class="expert-info"><span class="expert-role">Маркетолог</span><span class="expert-name">Воронка продаж</span></div>
+                        </div>
+                        <div class="expert-card ec-3">
+                            <img src="https://ui-avatars.com/api/?name=С&background=000&color=E52D27" class="expert-avatar">
+                            <div class="expert-info"><span class="expert-role">Сценарист</span><span class="expert-name">Смыслы & Хуки</span></div>
+                        </div>
+                        <div class="expert-card ec-4">
+                            <img src="https://ui-avatars.com/api/?name=Т&background=000&color=E52D27" class="expert-avatar">
+                            <div class="expert-info"><span class="expert-role">Таргетолог</span><span class="expert-name">Посевы & Трафик</span></div>
+                        </div>
+
+                        <div class="strategy-core">
+                            <span class="absolute text-[10px] text-white font-bold tracking-widest mt-20 uppercase">Стратегия</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="relative max-w-[1200px] mx-auto" id="process-timeline">
+            <div class="mega-step relative flex flex-col md:flex-row-reverse justify-between items-center w-full mb-40 cp-step">
+                <div class="hidden md:flex absolute top-[-5px] left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#0a0a0a] border-[3px] border-[#333] rounded-full z-20 step-marker"><div class="marker-dot"></div></div>
                 
-                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-white/10 transform md:-translate-x-1/2 rounded-full hidden md:block">
-                    <div class="process-progress w-full bg-gradient-to-b from-yt via-yt to-purple-600 rounded-full h-0 shadow-[0_0_20px_rgba(229,45,39,0.5)]"></div>
-                </div>
-
-                <div class="step-card relative flex flex-col md:flex-row justify-between items-center w-full mb-32 group">
-                    <div class="absolute left-4 md:left-1/2 w-6 h-6 bg-dark border-4 border-white/20 rounded-full transform md:-translate-x-1/2 z-20 group-hover:border-yt transition-colors hidden md:block step-dot"></div>
-                    
-                    <div class="w-full md:w-[45%] mb-8 md:mb-0 md:pr-12 text-left md:text-right step-content-left">
-                        <div class="text-yt font-display font-black text-6xl mb-4 opacity-50">01</div>
-                        <h3 class="font-display font-black text-3xl text-white uppercase mb-4">Аналитика & SMM</h3>
-                        <p class="text-gray-400 mb-6 leading-relaxed text-lg">Всё начинается с анализа вашей ниши и задач. Мы подбираем инструменты digital, создаем конкурентный контент и стратегию воронок.</p>
-                        <ul class="space-y-3 text-sm font-semibold tracking-wide text-gray-300 inline-block text-left">
-                            <li><i class="fa-solid fa-check text-yt mr-2"></i> Подбор инструментов развития</li>
-                            <li><i class="fa-solid fa-check text-yt mr-2"></i> Создание и ведение соцсетей</li>
-                            <li><i class="fa-solid fa-check text-yt mr-2"></i> Вывод контента на 100 000+ просмотров</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="w-full md:w-[45%] md:pl-12 step-img-right">
-                        <div class="glass p-2 rounded-[2rem] border border-white/10 transform transition-transform duration-700 hover:scale-105 hover:-rotate-2">
-                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop" alt="Аналитика" class="w-full h-[300px] object-cover rounded-[1.5rem] filter grayscale hover:grayscale-0 transition-all duration-500">
-                        </div>
+                <div class="w-full md:w-[45%] mb-10 md:mb-0 pl-0 md:pl-12 cp-text" data-dir="1">
+                    <div class="text-yt font-display font-black text-7xl mb-2 opacity-20">ШАГ 02</div>
+                    <h3 class="font-display font-black text-3xl md:text-4xl text-white uppercase mb-6">Конвейер Смыслов</h3>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                        Исходя из стратегии, мы проектируем контент-план. Это не список тем "о чем поговорить". Это алгоритмически выверенная структура, где каждый ролик собирается по формуле идеального удержания и конверсии.
+                    </p>
+                    <div class="flex items-center gap-4 text-sm text-gray-400 font-bold bg-[#111] p-4 rounded-xl border border-white/5">
+                        <div class="flex items-center gap-2"><div class="w-3 h-3 bg-yt rounded-full"></div> Внимание (Хук)</div>
+                        <div class="flex items-center gap-2"><div class="w-3 h-3 bg-blue-500 rounded-full"></div> Ценность</div>
+                        <div class="flex items-center gap-2"><div class="w-3 h-3 bg-green-500 rounded-full"></div> Продажа (CTA)</div>
                     </div>
                 </div>
-
-                <div class="step-card relative flex flex-col md:flex-row-reverse justify-between items-center w-full mb-32 group">
-                    <div class="absolute left-4 md:left-1/2 w-6 h-6 bg-dark border-4 border-white/20 rounded-full transform md:-translate-x-1/2 z-20 group-hover:border-yt transition-colors hidden md:block step-dot"></div>
-                    
-                    <div class="w-full md:w-[45%] mb-8 md:mb-0 md:pl-12 text-left step-content-right">
-                        <div class="text-yt font-display font-black text-6xl mb-4 opacity-50">02</div>
-                        <h3 class="font-display font-black text-3xl text-white uppercase mb-4">Сценарии & Креатив</h3>
-                        <p class="text-gray-400 mb-6 leading-relaxed text-lg">Создаем каркас продающего сценария под вашу нишу и генерируем вирусные идеи. Детально прописываем каждый кадр.</p>
-                        <ul class="space-y-3 text-sm font-semibold tracking-wide text-gray-300">
-                            <li><i class="fa-solid fa-check text-yt mr-2"></i> Контент-план и уникальные рубрики</li>
-                            <li><i class="fa-solid fa-check text-yt mr-2"></i> ТЗ для спикера (манера и темп речи)</li>
-                            <li><i class="fa-solid fa-check text-yt mr-2"></i> Пропись картинки, текста и эмоций</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="w-full md:w-[45%] md:pr-12 step-img-left">
-                        <div class="glass p-2 rounded-[2rem] border border-white/10 transform transition-transform duration-700 hover:scale-105 hover:rotate-2">
-                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000&auto=format&fit=crop" alt="Сценарии" class="w-full h-[300px] object-cover rounded-[1.5rem] filter grayscale hover:grayscale-0 transition-all duration-500">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="step-card relative flex flex-col items-center w-full mb-32 group">
-                    <div class="absolute left-4 md:left-1/2 w-6 h-6 bg-dark border-4 border-yt rounded-full transform md:-translate-x-1/2 z-20 shadow-[0_0_15px_rgba(229,45,39,0.8)] hidden md:block step-dot"></div>
-                    
-                    <div class="w-full bg-surface border border-white/10 rounded-[3rem] overflow-hidden relative step-scale-up">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/80 to-transparent z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1598550476439-6847785fcea6?q=80&w=1500&auto=format&fit=crop" alt="Студийная съемка" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity z-0 transform transition-transform duration-1000 hover:scale-110">
-                        
-                        <div class="relative z-20 p-10 md:p-16 text-center">
-                            <div class="text-yt font-display font-black text-6xl mb-4">03</div>
-                            <h3 class="font-display font-black text-4xl md:text-5xl text-white uppercase mb-6"><span class="text-transparent -webkit-text-stroke-1 -webkit-text-stroke-white">Съемка &</span> Продюсер</h3>
-                            <p class="text-gray-300 text-xl max-w-3xl mx-auto mb-10">
-                                Полный контроль площадки. Наш продюсер выстраивает наилучший продающий кадр и работает со спикером для достижения идеального результата.
-                            </p>
+                
+                <div class="w-full md:w-[45%] pr-0 md:pr-12 cp-visual">
+                    <div class="glass-card min-h-[450px] bg-gradient-to-b from-[#111] to-[#0a0a0a] border border-[#222]" id="content-engine-container">
+                        <div class="content-engine">
                             
-                            <div class="flex flex-wrap justify-center gap-4">
-                                <div class="glass px-6 py-4 rounded-2xl flex flex-col items-center border border-white/10">
-                                    <span class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">Студия и Оператор</span>
-                                    <span class="text-white font-bold text-lg"><i class="fa-solid fa-location-dot text-yt mr-2"></i> Москва</span>
+                            <div class="content-node cn-1">
+                                <div class="node-header">
+                                    <span class="text-white font-bold font-display text-sm">Видео 01: Боль клиента</span>
+                                    <i class="fa-solid fa-check-circle text-gray-600"></i>
                                 </div>
-                                <div class="glass px-6 py-4 rounded-2xl flex flex-col items-center border border-white/10">
-                                    <span class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">Студия и Оператор</span>
-                                    <span class="text-white font-bold text-lg"><i class="fa-solid fa-location-dot text-yt mr-2"></i> Питер</span>
+                                <div class="text-xs text-gray-500 mb-3">Почему 90% экспертов сливают бюджет?</div>
+                                <div class="node-bars">
+                                    <div class="n-bar nb-hook nbh-1"></div>
+                                    <div class="n-bar nb-val nbv-1"></div>
+                                    <div class="n-bar nb-sale nbs-1"></div>
                                 </div>
-                                <div class="glass px-6 py-4 rounded-2xl flex flex-col items-center border border-white/10">
-                                    <span class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">Студия и Оператор</span>
-                                    <span class="text-white font-bold text-lg"><i class="fa-solid fa-location-dot text-yt mr-2"></i> Краснодар</span>
+                            </div>
+
+                            <div class="content-node cn-2">
+                                <div class="node-header">
+                                    <span class="text-white font-bold font-display text-sm">Видео 02: Разбор Кейса</span>
+                                    <i class="fa-solid fa-check-circle text-gray-600"></i>
+                                </div>
+                                <div class="text-xs text-gray-500 mb-3">Как мы сделали X3 лидов за месяц.</div>
+                                <div class="node-bars">
+                                    <div class="n-bar nb-hook nbh-2"></div>
+                                    <div class="n-bar nb-val nbv-2"></div>
+                                    <div class="n-bar nb-sale nbs-2"></div>
+                                </div>
+                            </div>
+
+                            <div class="content-node cn-3">
+                                <div class="node-header">
+                                    <span class="text-white font-bold font-display text-sm">Видео 03: Решение + CTA</span>
+                                    <i class="fa-solid fa-check-circle text-gray-600"></i>
+                                </div>
+                                <div class="text-xs text-gray-500 mb-3">Секретная связка. Ссылка в описании.</div>
+                                <div class="node-bars">
+                                    <div class="n-bar nb-hook nbh-3"></div>
+                                    <div class="n-bar nb-val nbv-3"></div>
+                                    <div class="n-bar nb-sale nbs-3"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mega-step relative flex flex-col md:flex-row justify-between items-center w-full mb-40 cp-step">
+                <div class="hidden md:flex absolute top-[-5px] left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#0a0a0a] border-[3px] border-[#333] rounded-full z-20 step-marker"><div class="marker-dot"></div></div>
+                
+                <div class="w-full md:w-[45%] mb-10 md:mb-0 text-left md:text-right pr-0 md:pr-12 cp-text" data-dir="-1">
+                    <div class="text-yt font-display font-black text-7xl mb-2 opacity-20">ШАГ 03</div>
+                    <h3 class="font-display font-black text-3xl md:text-4xl text-white uppercase mb-6">Съемка & Продакшн</h3>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                        Два формата на выбор: премиальная запись в наших филиалах под руководством продюсера (он выжмет из вас идеальную подачу) или дистанционный сетап у вас дома. Далее материал уходит на завод упаковки.
+                    </p>
+                    
+                    <div class="pipeline-track mt-10">
+                        <div class="flex flex-col items-center">
+                            <div class="pipe-node"><i class="fa-solid fa-scissors"></i></div>
+                            <span class="text-[10px] text-gray-400 mt-2 uppercase font-bold tracking-widest">Монтаж</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="pipe-node"><i class="fa-solid fa-image"></i></div>
+                            <span class="text-[10px] text-gray-400 mt-2 uppercase font-bold tracking-widest">Превью</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="pipe-node"><i class="fa-brands fa-youtube"></i></div>
+                            <span class="text-[10px] text-gray-400 mt-2 uppercase font-bold tracking-widest">Релиз</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-[45%] pl-0 md:pl-12 cp-visual">
+                    <div class="glass-card p-4 h-[450px] flex flex-col relative border border-white/10">
+                        
+                        <div class="toggle-wrapper" id="shoot-toggle">
+                            <div class="toggle-indicator" id="toggle-bg"></div>
+                            <div class="toggle-btn active" data-target="view-studio">Студия</div>
+                            <div class="toggle-btn" data-target="view-home">Ваш Дом</div>
+                        </div>
+
+                        <div class="relative w-full h-[330px]">
+                            <div class="view-content active absolute inset-0 w-full h-full rounded-xl overflow-hidden" id="view-studio">
+                                <img src="https://images.unsplash.com/photo-1598550476439-6847785fcea6?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 right-4">
+                                    <div class="text-white font-bold text-lg mb-1"><i class="fa-solid fa-video text-yt mr-2"></i>МСК / СПБ / КРД</div>
+                                    <p class="text-xs text-gray-300">Наш продюсер, свет, суфлер и камеры 4K. Просто приходите.</p>
+                                </div>
+                            </div>
+
+                            <div class="view-content absolute inset-0 w-full h-full rounded-xl overflow-hidden" id="view-home">
+                                <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 right-4">
+                                    <div class="text-white font-bold text-lg mb-1"><i class="fa-solid fa-mobile-screen text-blue-500 mr-2"></i>Дистанционно</div>
+                                    <p class="text-xs text-gray-300">Настроим свет и звук по видеосвязи из того оборудования, что у вас есть.</p>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
-
-                <div class="step-card relative flex flex-col md:flex-row justify-between items-center w-full mb-32 group">
-                    <div class="absolute left-4 md:left-1/2 w-6 h-6 bg-dark border-4 border-white/20 rounded-full transform md:-translate-x-1/2 z-20 group-hover:border-yt transition-colors hidden md:block step-dot"></div>
-                    
-                    <div class="w-full md:w-[45%] mb-8 md:mb-0 md:pr-12 text-left md:text-right step-content-left">
-                        <div class="text-yt font-display font-black text-6xl mb-4 opacity-50">04</div>
-                        <h3 class="font-display font-black text-3xl text-white uppercase mb-4">Монтаж & Дизайн</h3>
-                        <p class="text-gray-400 mb-6 leading-relaxed text-lg">Современный креативный монтаж, субтитры и эффекты. Дизайнерский отдел создает высококликабельные превью, поддерживая единый стиль бренда.</p>
-                        <ul class="space-y-3 text-sm font-semibold tracking-wide text-gray-300 inline-block text-left">
-                            <li><i class="fa-solid fa-check text-yt mr-2"></i> Рекомендации по свету и локации</li>
-                            <li><i class="fa-solid fa-check text-yt mr-2"></i> Графика для соцсетей от ТОП дизайнеров</li>
-                            <li><i class="fa-solid fa-check text-yt mr-2"></i> Создание превью с максимальным CTR</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="w-full md:w-[45%] md:pl-12 step-img-right">
-                        <div class="glass p-2 rounded-[2rem] border border-white/10 transform transition-transform duration-700 hover:scale-105 hover:-rotate-2">
-                            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=1000&auto=format&fit=crop" alt="Монтаж" class="w-full h-[300px] object-cover rounded-[1.5rem] filter grayscale hover:grayscale-0 transition-all duration-500">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="step-card relative flex flex-col md:flex-row-reverse justify-between items-center w-full group">
-                    <div class="absolute left-4 md:left-1/2 w-6 h-6 bg-dark border-4 border-white/20 rounded-full transform md:-translate-x-1/2 z-20 group-hover:border-yt transition-colors hidden md:block step-dot"></div>
-                    
-                    <div class="w-full md:w-[45%] mb-8 md:mb-0 md:pl-12 text-left step-content-right">
-                        <div class="text-yt font-display font-black text-6xl mb-4 opacity-50">05</div>
-                        <h3 class="font-display font-black text-3xl text-white uppercase mb-4">Тех. отдел & Реклама</h3>
-                        <p class="text-gray-400 mb-6 leading-relaxed text-lg">Оптимизируем и выводим ролики в ТОПы по ключевым запросам. Запускаем мощный трафик из всех возможных Digital-источников.</p>
-                        <div class="grid grid-cols-2 gap-4">
-                            <ul class="space-y-3 text-sm font-semibold tracking-wide text-gray-300">
-                                <li><i class="fa-solid fa-bolt text-yt mr-2"></i> Посевы Telegram</li>
-                                <li><i class="fa-solid fa-bolt text-yt mr-2"></i> Коллаборации и СМИ</li>
-                                <li><i class="fa-solid fa-bolt text-yt mr-2"></i> Avito / 2GIS</li>
-                            </ul>
-                            <ul class="space-y-3 text-sm font-semibold tracking-wide text-gray-300">
-                                <li><i class="fa-solid fa-bolt text-yt mr-2"></i> Таргет Yandex</li>
-                                <li><i class="fa-solid fa-bolt text-yt mr-2"></i> Таргет Google</li>
-                                <li><i class="fa-solid fa-bolt text-yt mr-2"></i> Таргет Вконтакте</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="w-full md:w-[45%] md:pr-12 step-img-left">
-                        <div class="glass p-2 rounded-[2rem] border border-white/10 transform transition-transform duration-700 hover:scale-105 hover:rotate-2">
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop" alt="Таргет и реклама" class="w-full h-[300px] object-cover rounded-[1.5rem] filter grayscale hover:grayscale-0 transition-all duration-500">
-                        </div>
-                    </div>
-                </div>
-
             </div>
+
+            <div class="mega-step relative flex flex-col md:flex-row-reverse justify-between items-center w-full cp-step">
+                <div class="hidden md:flex absolute top-[-5px] left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#0a0a0a] border-[3px] border-[#333] rounded-full z-20 step-marker"><div class="marker-dot"></div></div>
+                
+                <div class="w-full md:w-[45%] mb-10 md:mb-0 pl-0 md:pl-12 cp-text" data-dir="1">
+                    <div class="text-green-500 font-display font-black text-7xl mb-2 opacity-20">ФИНАЛ</div>
+                    <h3 class="font-display font-black text-4xl md:text-5xl text-white uppercase mb-6 glow-text text-shadow">Поток Лидов</h3>
+                    <p class="text-gray-400 text-xl leading-relaxed mb-8">
+                        Видео опубликовано, рекламные посевы в Telegram запущены. Воронка прогревает зрителей 24/7 без вашего участия. Вы просто собираете теплые заявки.
+                    </p>
+                    <a href="#contact" class="inline-block bg-yt text-white px-10 py-5 rounded-full font-bold uppercase tracking-widest hover:bg-white hover:text-yt transition-colors shadow-[0_0_30px_rgba(229,45,39,0.5)]">
+                        Начать работу
+                    </a>
+                </div>
+                
+                <div class="w-full md:w-[45%] pr-0 md:pr-12 cp-visual">
+                    <div class="glass-card p-8 h-[400px] relative overflow-hidden flex flex-col justify-center items-center border border-green-500/20" id="leads-container">
+                        <div class="absolute inset-0 bg-green-500/5 z-0"></div>
+                        
+                        <div class="text-center z-10 relative">
+                            <div class="text-gray-400 text-sm font-bold uppercase tracking-widest mb-2">Новых заявок</div>
+                            <div class="text-7xl md:text-8xl font-display font-black text-white glow-counter" id="lead-counter">0</div>
+                        </div>
+
+                        <div class="lead-burst">
+                            <div class="lead-card-anim lc-1" style="bottom: 20px; left: 20px;">Новая заявка: +7 (999) 123...</div>
+                            <div class="lead-card-anim lc-2" style="top: 20px; right: 20px;">Оплата курса: 45 000 ₽</div>
+                            <div class="lead-card-anim lc-3" style="bottom: 80px; right: 40px;">Запись на консультацию</div>
+                            <div class="lead-card-anim lc-4" style="top: 80px; left: 30px;">Новая заявка: TG @user1</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </section>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 1. Анимация центральной линии
+            gsap.to("#jp-bar", {
+                height: "100%", ease: "none",
+                scrollTrigger: { trigger: "#client-journey", start: "top center", end: "bottom center", scrub: 0.5 }
+            });
+
+            // 2. Базовые выезды для всех шагов
+            const steps = document.querySelectorAll('.cp-step');
+            steps.forEach(step => {
+                const text = step.querySelector('.cp-text');
+                const visual = step.querySelector('.cp-visual');
+                const marker = step.querySelector('.step-marker');
+                const dot = step.querySelector('.marker-dot');
+                const dir = text.getAttribute('data-dir');
+
+                if(marker) {
+                    gsap.to(marker, { scrollTrigger: { trigger: step, start: "top center", toggleClass: "border-yt" } });
+                    gsap.to(dot, { opacity: 1, scrollTrigger: { trigger: step, start: "top center" } });
+                }
+
+                gsap.from(text, { scrollTrigger: { trigger: step, start: "top 75%" }, x: 50 * dir, opacity: 0, duration: 1, ease: "power3.out" });
+                gsap.from(visual, { scrollTrigger: { trigger: step, start: "top 75%" }, y: 50, scale: 0.95, opacity: 0, duration: 1, delay: 0.2, ease: "power3.out" });
+            });
+
+            // 3. ЭТАП 1: War Room Анимация
+            const warRoomTl = gsap.timeline({ scrollTrigger: { trigger: "#war-room-container", start: "top 70%" } });
+            warRoomTl.from(".expert-card", { scale: 0, opacity: 0, duration: 0.6, stagger: 0.2, ease: "back.out(2)" });
+            warRoomTl.to(".strategy-core", { opacity: 1, scale: 1, duration: 0.5 }, "-=0.2");
+            warRoomTl.to(".laser-line", { strokeDashoffset: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power2.inOut" });
+
+            // 4. ЭТАП 2: Конвейер Контента Анимация
+            const engineTl = gsap.timeline({ scrollTrigger: { trigger: "#content-engine-container", start: "top 70%" } });
+            engineTl.to(".content-node", { x: 0, opacity: 1, duration: 0.6, stagger: 0.3, ease: "power3.out" });
+            
+            // Заполнение шкал (Хук 20%, Ценность 60%, Продажа 20%)
+            engineTl.to(".nbh-1, .nbh-2, .nbh-3", { width: "20%", duration: 0.5, ease: "power1.inOut" }, "+=0.2");
+            engineTl.to(".nbv-1, .nbv-2, .nbv-3", { width: "60%", duration: 0.8, ease: "power1.inOut" }, "-=0.1");
+            engineTl.to(".nbs-1, .nbs-2, .nbs-3", { width: "20%", duration: 0.5, ease: "power1.inOut" }, "-=0.1");
+            engineTl.to(".fa-check-circle", { color: "#27C93F", stagger: 0.2, duration: 0.3 });
+
+            // 5. ЭТАП 3: Toggle Студия/Дом
+            const toggleBtns = document.querySelectorAll('.toggle-btn');
+            const toggleBg = document.getElementById('toggle-bg');
+            const views = document.querySelectorAll('.view-content');
+
+            toggleBtns.forEach((btn, index) => {
+                btn.addEventListener('click', () => {
+                    // Плашка
+                    toggleBg.style.transform = index === 0 ? 'translateX(0)' : 'translateX(100%)';
+                    
+                    // Кнопки
+                    toggleBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Вьюхи (с небольшим таймаутом для плавности opacity)
+                    const targetId = btn.getAttribute('data-target');
+                    views.forEach(view => {
+                        if(view.id === targetId) {
+                            view.classList.add('active');
+                            setTimeout(() => view.style.opacity = '1', 50);
+                        } else {
+                            view.classList.remove('active');
+                            view.style.opacity = '0';
+                        }
+                    });
+                });
+            });
+
+            // 6. ЭТАП 4: Дашборд Лидов
+            ScrollTrigger.create({
+                trigger: "#leads-container",
+                start: "top 75%",
+                once: true,
+                onEnter: () => {
+                    // Счетчик
+                    gsap.to("#lead-counter", { innerHTML: 485, duration: 3, snap: { innerHTML: 1 }, ease: "power3.out" });
+                    
+                    // Красивый вылет лидов по краям
+                    gsap.to(".lc-1", { y: -20, opacity: 1, duration: 0.8, delay: 0.5, ease: "back.out(1.5)" });
+                    gsap.to(".lc-2", { y: 20, opacity: 1, duration: 0.8, delay: 1.2, ease: "back.out(1.5)" });
+                    gsap.to(".lc-3", { y: -20, opacity: 1, duration: 0.8, delay: 1.8, ease: "back.out(1.5)" });
+                    gsap.to(".lc-4", { y: 20, opacity: 1, duration: 0.8, delay: 2.5, ease: "back.out(1.5)" });
+                }
+            });
+        });
+    </script>
+</section>
 
     <script>
         document.addEventListener("DOMContentLoaded", (event) => {
