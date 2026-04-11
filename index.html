@@ -76,12 +76,41 @@
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         
         .text-stroke { -webkit-text-stroke: 1px rgba(255,255,255,0.4); color: transparent; }
+        /* ========================================= */
+        /* СТИЛИ ДЛЯ TELEGRAM МОДАЛКИ                */
+        /* ========================================= */
+        .tg-fly-icon { animation: fly-paper-plane 3s ease-in-out infinite; }
+        @keyframes fly-paper-plane {
+            0% { transform: translate(0px, 0px) rotate(0deg); }
+            50% { transform: translate(10px, -15px) rotate(15deg); }
+            100% { transform: translate(0px, 0px) rotate(0deg); }
+        }
+        .tg-pulse-ring { animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
     </style>
+    
 </head>
 <body class="selection:bg-yt selection:text-white">
 
     <div id="preloader">
         <div class="loader-text" data-text="ЮТУБ НАУКА">ЮТУБ НАУКА</div>
+    </div>
+    <div id="tg-modal" class="fixed inset-0 z-[10000] hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-md modal-bg cursor-pointer"></div>
+        <div class="relative bg-surface border border-[#2AABEE]/30 rounded-[2rem] p-10 max-w-md w-full mx-4 shadow-[0_0_60px_rgba(42,171,238,0.2)] transform scale-95 transition-transform duration-300 modal-content text-center">
+            <button class="absolute top-5 right-5 text-gray-500 hover:text-white close-modal transition-colors"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            <div class="w-28 h-28 bg-[#2AABEE]/10 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                <div class="absolute inset-0 border-2 border-[#2AABEE]/50 rounded-full tg-pulse-ring"></div>
+                <i class="fa-solid fa-paper-plane absolute top-2 right-2 text-[#2AABEE] text-2xl tg-fly-icon z-20"></i>
+                <i class="fa-brands fa-telegram text-7xl text-[#2AABEE] relative z-10 drop-shadow-[0_0_15px_rgba(42,171,238,0.8)]"></i>
+            </div>
+            <h3 class="font-display font-black text-3xl text-white mb-3">Свяжитесь с нами</h3>
+            <p class="text-gray-400 mb-8 text-[15px] leading-relaxed">Просто напиши, и мы назначим любое удобное для вас время звонка!</p>
+            <a href="https://t.me/agentyotuube" target="_blank" class="block w-full bg-[#2AABEE] text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-sm md:text-base hover:bg-[#1c92d2] transition-all hover:scale-105 shadow-[0_0_20px_rgba(42,171,238,0.4)]">Написать в Telegram</a>
+        </div>
     </div>
 
     <div class="noise"></div>
@@ -104,7 +133,7 @@
                 <a href="#team" class="hover:text-white transition-colors hover-trigger">Команда</a>
                 <a href="#pricing" class="hover:text-white transition-colors hover-trigger">Услуги</a>
             </div>
-            <a href="#contact" class="bg-yt text-white px-6 py-2 rounded-full text-sm font-bold uppercase tracking-wider hover:bg-white hover:text-yt transition-colors hover-trigger shadow-[0_0_15px_rgba(229,45,39,0.4)]">
+            <a href="#" class="bg-yt text-white px-6 py-2 rounded-full text-sm font-bold uppercase tracking-wider hover:bg-white hover:text-yt transition-colors hover-trigger shadow-[0_0_15px_rgba(229,45,39,0.4)] open-modal-btn">
                 Оставить заявку
             </a>
         </div>
@@ -123,8 +152,8 @@
                 Мы берем бизнес или эксперта и за счет инструментов Digital: <strong class="text-white">Воронки, SMМ, Авито и таргет</strong> — выводим на совершенно новый уровень масштаба и дохода.
             </p>
             <div class="gsap-hero flex flex-col sm:flex-row justify-center gap-6">
-                <a href="#cases" class="bg-white text-dark px-10 py-5 rounded-full font-bold text-lg hover:bg-gray-200 transition-all hover-trigger flex items-center justify-center gap-3">
-                    Смотреть кейсы <i class="fa-solid fa-arrow-down"></i>
+                <a href="#" class="bg-white text-dark px-10 py-5 rounded-full font-bold text-lg hover:bg-gray-200 transition-all hover-trigger flex items-center justify-center gap-3 open-modal-btn shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                    Связаться с нами <i class="fa-brands fa-telegram text-[#2AABEE]"></i>
                 </a>
                 <a href="https://www.youtube.com/@%D0%AE%D1%82%D1%83%D0%B1%D0%9D%D0%B0%D1%83%D0%BA%D0%B0%D0%9F%D1%80%D0%BE%D0%B4%D1%8E%D1%81%D0%B5%D1%80" target="_blank" class="glass px-10 py-5 rounded-full font-bold text-lg hover:bg-white/10 transition-all hover-trigger flex items-center justify-center gap-3">
                     <i class="fa-brands fa-youtube text-yt"></i> Наш YouTube
@@ -184,7 +213,93 @@
         </div>
     </section>
 <section id="process" class="py-32 relative z-10 bg-[#020202] overflow-hidden border-t border-white/5" style="perspective: 1200px;">
-    
+<section id="personal-brand" class="py-32 relative z-10 bg-[#050505] overflow-hidden border-t border-white/5">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-yt/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
+
+        <div class="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                
+                <div class="w-full lg:w-1/2 pb-text-anim">
+                    <div class="inline-block border border-yt/30 bg-yt/10 text-yt px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6">Ваш главный актив</div>
+                    <h2 class="font-display text-5xl md:text-6xl font-black uppercase mb-6 leading-none tracking-tighter text-white">
+                        Упаковка <br><span class="red-gradient-text">Личного Бренда</span>
+                    </h2>
+                    <p class="text-xl text-gray-400 mb-8 font-light leading-relaxed">
+                        В 2026 году люди покупают у людей. Мы не просто ставим камеру и снимаем говорящую голову. Мы проводим глубокую распаковку вашей личности, находим уникальные триггеры и создаем медийный образ, которому доверяют миллионы.
+                    </p>
+                    
+                    <ul class="space-y-5 text-sm font-semibold tracking-wide text-gray-300 mb-10">
+                        <li class="flex items-center"><div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mr-4 border border-white/10"><i class="fa-solid fa-user-astronaut text-yt"></i></div> <div><span class="text-white block text-base mb-1">Распаковка смыслов</span> Выявляем вашу суперсилу и позиционирование.</div></li>
+                        <li class="flex items-center"><div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mr-4 border border-white/10"><i class="fa-solid fa-masks-theater text-yt"></i></div> <div><span class="text-white block text-base mb-1">Сторителлинг</span> Пишем сценарии так, чтобы зритель влюблялся в вас.</div></li>
+                        <li class="flex items-center"><div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mr-4 border border-white/10"><i class="fa-solid fa-camera-retro text-yt"></i></div> <div><span class="text-white block text-base mb-1">Премиальный визуал</span> Кино-картинка, подчеркивающая ваш статус.</div></li>
+                    </ul>
+                    
+                    <a href="#" class="inline-block bg-white text-dark px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-yt hover:text-white transition-colors shadow-[0_0_20px_rgba(255,255,255,0.1)] open-modal-btn">
+                        Хочу сильный бренд
+                    </a>
+                </div>
+                
+                <div class="w-full lg:w-1/2 pb-video-anim relative group perspective-[1000px]">
+                    <div class="absolute inset-0 bg-yt blur-[40px] opacity-20 group-hover:opacity-40 transition-opacity duration-700 rounded-3xl z-0"></div>
+                    
+                    <div class="glass-card p-2 md:p-4 rounded-[2rem] border border-white/10 transform transition-transform duration-700 hover:rotate-y-0 relative z-10" id="pb-video-card" style="transform: rotateY(-5deg) rotateX(2deg);">
+                        
+                        <div class="absolute inset-0 border border-yt/30 rounded-[2rem] pointer-events-none z-20 overflow-hidden">
+                            <div class="w-full h-[2px] bg-yt/50 absolute top-0 left-0 blur-[1px] animate-[scan_3s_linear_infinite]"></div>
+                        </div>
+
+                        <div class="relative w-full overflow-hidden rounded-2xl bg-black" style="padding-top: 56.25%;">
+                            <iframe 
+                                class="absolute top-0 left-0 w-full h-full z-10" 
+                                src="https://www.youtube.com/embed/t2KBilpqoOE?start=19" 
+                                title="Упаковка личного бренда" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <style>
+            @keyframes scan {
+                0% { transform: translateY(-10px); }
+                100% { transform: translateY(400px); }
+            }
+        </style>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                    // Анимация выезда текста слева
+                    gsap.from(".pb-text-anim", {
+                        scrollTrigger: { trigger: "#personal-brand", start: "top 75%" },
+                        x: -100, opacity: 0, duration: 1.2, ease: "power3.out"
+                    });
+                    
+                    // Анимация выезда видео справа
+                    gsap.from(".pb-video-anim", {
+                        scrollTrigger: { trigger: "#personal-brand", start: "top 75%" },
+                        x: 100, opacity: 0, duration: 1.2, ease: "power3.out", delay: 0.2
+                    });
+
+                    // Легкое "парение" (float effect) для карточки видео
+                    gsap.to("#pb-video-card", {
+                        y: -15,
+                        rotationX: 0,
+                        rotationY: 0,
+                        duration: 4,
+                        repeat: -1,
+                        yoyo: true,
+                        ease: "sine.inOut"
+                    });
+                }
+            });
+        </script>
+    </section>    
     <style>
         /* Глобальные стеклянные эффекты */
         .glass-card { background: rgba(10, 10, 10, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05); border-radius: 2rem; overflow: hidden; }
@@ -572,7 +687,32 @@
 </section>
 
     <script>
-        document.addEventListener("DOMContentLoaded", (event) => {
+        document.addEventListener("DOMContentLoaded", (event) => { // =====================================
+            // ЛОГИКА TELEGRAM МОДАЛКИ
+            // =====================================
+            const modal = document.getElementById('tg-modal');
+            const modalContent = modal.querySelector('.modal-content');
+            
+            document.querySelectorAll('.open-modal-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    modal.classList.remove('hidden');
+                    setTimeout(() => { 
+                        modal.classList.remove('opacity-0'); 
+                        modalContent.classList.remove('scale-95'); 
+                        modalContent.classList.add('scale-100'); 
+                    }, 10);
+                });
+            });
+
+            document.querySelectorAll('.close-modal, .modal-bg').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    modal.classList.add('opacity-0'); 
+                    modalContent.classList.remove('scale-100'); 
+                    modalContent.classList.add('scale-95');
+                    setTimeout(() => modal.classList.add('hidden'), 300);
+                });
+            });
             gsap.registerPlugin(ScrollTrigger);
 
             // Анимация заполнения центральной линии
@@ -640,174 +780,325 @@
         });
     </script>
     ```
-    <section id="cases" class="py-32 relative z-10 px-6 md:px-12">
-        <div class="max-w-[1200px] mx-auto">
-            <div class="mb-24 text-center gsap-fade-up">
-                <h2 class="font-display text-5xl md:text-7xl font-black uppercase mb-6">Наши <span class="text-yt">Кейсы</span></h2>
-                <p class="text-xl text-gray-400">Каналы с которыми мы работали и работаем по сей день</p>
-            </div>
+    <style>
+        /* Стили для нового блока кейсов */
+        .cases-super-wrapper { overflow: hidden; position: relative; }
+        .cases-slider { display: flex; width: max-content; will-change: transform; }
+        .case-panel { width: 100vw; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; }
+        
+        .case-glass-card { background: rgba(15,15,15,0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); border-radius: 2rem; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+        .metric-box { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); border-radius: 1rem; padding: 1.5rem; transition: transform 0.3s; }
+        .metric-box:hover { transform: translateY(-5px); }
+        
+        .point-a { border-left: 4px solid #555; }
+        .point-b-red { border-left: 4px solid #E52D27; box-shadow: inset 20px 0 50px -20px rgba(229,45,39,0.1); }
+        .point-b-blue { border-left: 4px solid #3B82F6; box-shadow: inset 20px 0 50px -20px rgba(59,130,246,0.1); }
+        .point-b-yellow { border-left: 4px solid #EAB308; box-shadow: inset 20px 0 50px -20px rgba(234,179,8,0.1); }
+        .point-b-purple { border-left: 4px solid #A855F7; box-shadow: inset 20px 0 50px -20px rgba(168,85,247,0.1); } /* Фиолетовая тема для IC Consulting */
 
-            <div class="relative">
+        .tech-tag { display: inline-block; padding: 4px 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; margin-right: 8px; margin-bottom: 8px; color: #aaa; }
+
+        /* Адаптив для мобилок */
+        @media (max-width: 768px) {
+            .cases-slider { flex-direction: column; width: 100%; }
+            .case-panel { width: 100%; min-height: auto; padding: 2rem 1rem; }
+            .case-glass-card { flex-direction: column; }
+        }
+    </style>
+
+    <section id="cases-pro" class="bg-[#020202] relative z-10 border-t border-white/5 pt-24">
+        
+        <div class="max-w-[1200px] mx-auto px-6 mb-10 text-center relative z-20">
+            <div class="inline-block border border-yt/30 bg-yt/10 text-yt px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6">Архитектура успеха</div>
+            <h2 class="font-display text-5xl md:text-7xl font-black uppercase mb-6">Наши <span class="red-gradient-text">Кейсы</span></h2>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto">Мы не продаем просмотры. Мы продаем выстроенную систему, которая конвертирует внимание в деньги.</p>
+        </div>
+
+        <div id="cases-pin-wrapper" class="cases-super-wrapper">
+            <div id="cases-slider" class="cases-slider">
                 
-                <div class="case-card top-[10vh] bg-surface border border-white/10 rounded-[3rem] p-8 md:p-16 mb-12 shadow-2xl z-10">
-                    <div class="flex flex-col lg:flex-row gap-12 items-center">
-                        <div class="lg:w-1/2">
-                            <div class="inline-block border border-yt text-yt px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6">Майнинг</div>
-                            <h3 class="font-display text-5xl md:text-6xl font-black uppercase mb-6 text-white">GET ASIC</h3>
-                            <p class="text-gray-400 text-lg mb-10 leading-relaxed">
-                                Благодаря стратегическому маркетингу и внедрению воронки продаж внутри роликов, а так-же выхода в рекомендации, компания вышла на новый уровень масштаба: от скромных 5 лидов и 1 продажи в месяц до 100 лидов и многократного роста доходов.
-                            </p>
+                <div class="case-panel">
+                    <div class="max-w-[1400px] mx-auto w-full case-glass-card flex flex-col md:flex-row">
+                        <div class="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/5">
+                            <div class="text-yt text-sm font-bold uppercase tracking-widest mb-4">Оборудование для Майнинга</div>
+                            <h3 class="font-display text-5xl md:text-6xl font-black text-white mb-6 uppercase">GET ASIC</h3>
                             
-                            <div class="grid grid-cols-2 gap-4 md:gap-6 bg-dark p-6 rounded-3xl border border-white/5">
+                            <div class="mb-6">
+                                <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-circle-exclamation text-gray-500"></i> Проблема клиента</h4>
+                                <p class="text-gray-400 text-sm leading-relaxed">Были случайные продажи и низкие охваты. Канал велся "для галочки", без четкой структуры продающих сценариев. Трафик не переходил в заявки.</p>
+                            </div>
+                            
+                            <div class="mb-8">
+                                <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench text-yt"></i> Что мы внедрили</h4>
+                                <p class="text-gray-400 text-sm leading-relaxed mb-4">Полностью переработали контент-план. Внедрили воронки прямо внутрь длинных видео (крючок $\rightarrow$ экспертность $\rightarrow$ закрытие на лид-магнит). Настроили перелив трафика из Shorts в основные ролики. Сделали агрессивное SEO под целевые запросы инвесторов.</p>
                                 <div>
-                                    <div class="text-gray-500 font-bold mb-4 uppercase text-xs tracking-widest border-b border-white/10 pb-2">Точка А</div>
-                                    <ul class="space-y-3 text-sm text-gray-400">
-                                        <li class="flex justify-between"><span>Лиды:</span> <span class="font-bold text-white">3-5 / мес</span></li>
-                                        <li class="flex justify-between"><span>Продажи:</span> <span class="font-bold text-white">1-2 ед.</span></li>
-                                        <li class="flex justify-between"><span>Подписчики:</span> <span class="font-bold text-white">7 тыс.</span></li>
-                                        <li class="flex justify-between"><span>Просмотры:</span> <span class="font-bold text-white">31 тыс.</span></li>
-                                    </ul>
-                                </div>
-                                <div class="bg-yt/10 -m-2 p-4 rounded-2xl border border-yt/30">
-                                    <div class="text-yt font-bold mb-4 uppercase text-xs tracking-widest border-b border-yt/20 pb-2">Точка Б (После)</div>
-                                    <ul class="space-y-3 text-sm text-white">
-                                        <li class="flex justify-between"><span>Лиды:</span> <span class="font-bold text-yt text-lg">100+</span></li>
-                                        <li class="flex justify-between"><span>Продажи:</span> <span class="font-bold text-yt text-lg">20-55</span></li>
-                                        <li class="flex justify-between"><span>Подписчики:</span> <span class="font-bold">21 тыс.</span></li>
-                                        <li class="flex justify-between"><span>Просмотры:</span> <span class="font-bold text-yt">3.9 млн</span></li>
-                                    </ul>
+                                    <span class="tech-tag">Воронки в видео</span>
+                                    <span class="tech-tag">SEO Оптимизация</span>
+                                    <span class="tech-tag">Shorts-трафик</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="lg:w-1/2 w-full">
-                            <div class="bg-dark rounded-3xl overflow-hidden relative border border-white/10 p-10 text-center hover-trigger group">
-                                <div class="absolute inset-0 bg-gradient-to-t from-yt/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                <i class="fa-brands fa-youtube text-[100px] text-yt mb-6"></i>
-                                <div class="text-5xl md:text-6xl font-display font-black text-white mb-4">11.8 МЛН</div>
-                                <div class="text-gray-400 font-bold uppercase tracking-widest text-sm">Просмотров за год</div>
+
+                        <div class="w-full md:w-1/2 p-8 md:p-16 bg-gradient-to-br from-transparent to-yt/5 flex flex-col justify-center">
+                            <div class="text-2xl font-display font-black text-white mb-8">Метрики роста</div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="metric-box point-a">
+                                    <div class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-4">Точка А (До нас)</div>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <div class="text-gray-500 text-xs mb-1">Лиды в месяц</div>
+                                            <div class="text-white font-bold text-xl">3-5 заявок</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-500 text-xs mb-1">Охват канала</div>
+                                            <div class="text-white font-bold text-xl">31 000 просм.</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-500 text-xs mb-1">Продажи</div>
+                                            <div class="text-white font-bold text-xl">1-2 шт.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="metric-box point-b-red relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-solid fa-rocket text-6xl text-yt"></i></div>
+                                    <div class="text-xs text-yt font-bold uppercase tracking-widest mb-4">Точка Б (Результат)</div>
+                                    <div class="space-y-4 relative z-10">
+                                        <div>
+                                            <div class="text-gray-300 text-xs mb-1">Лиды в месяц</div>
+                                            <div class="text-yt font-display font-black text-2xl">100+ заявок</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-300 text-xs mb-1">Охват канала</div>
+                                            <div class="text-yt font-display font-black text-2xl">3.9 МЛН просм.</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-300 text-xs mb-1">Продажи</div>
+                                            <div class="text-white font-display font-black text-2xl">20-55 шт.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 bg-dark border border-white/10 rounded-xl p-4 flex items-center justify-between">
+                                <div class="text-gray-400 text-sm">Годовой охват:</div>
+                                <div class="text-2xl font-display font-black text-white">11.8 МЛН</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="case-card top-[13vh] bg-[#0a0a0a] border border-white/10 rounded-[3rem] p-8 md:p-16 mb-12 shadow-2xl z-20">
-                    <div class="flex flex-col lg:flex-row-reverse gap-12 items-center">
-                        <div class="lg:w-1/2">
-                            <div class="inline-block border border-blue-500 text-blue-500 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6">Эксперт / Крипта</div>
-                            <h3 class="font-display text-5xl md:text-6xl font-black uppercase mb-6 text-white">SER CRYPTO</h3>
-                            <p class="text-gray-400 text-lg mb-10 leading-relaxed">
-                                Запрос был прост — развиться внутри медиа пространства как эксперт. Результат: достигли миллионов просмотров, обеспечив широкую аудиторию. Увеличили поток клиентов на обучение за счет трафика из соцсетей.
-                            </p>
+                <div class="case-panel">
+                    <div class="max-w-[1400px] mx-auto w-full case-glass-card flex flex-col md:flex-row">
+                        <div class="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/5">
+                            <div class="text-blue-500 text-sm font-bold uppercase tracking-widest mb-4">Эксперт / Криптовалюта</div>
+                            <h3 class="font-display text-5xl md:text-6xl font-black text-white mb-6 uppercase">SER CRYPTO</h3>
                             
-                            <div class="grid grid-cols-2 gap-4 md:gap-6 bg-surface p-6 rounded-3xl border border-white/5">
+                            <div class="mb-6">
+                                <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-circle-exclamation text-gray-500"></i> Проблема клиента</h4>
+                                <p class="text-gray-400 text-sm leading-relaxed">Сильная экспертность, но нулевая медийность. Очень дорогие лиды из холодного трафика. Нужно было стать лидером мнений в узкой крипто-нише и запустить поток на обучение.</p>
+                            </div>
+                            
+                            <div class="mb-8">
+                                <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench text-blue-500"></i> Что мы внедрили</h4>
+                                <p class="text-gray-400 text-sm leading-relaxed mb-4">Переупаковали позиционирование: сделали ставку на формат "Реалити-шоу" и жесткие разборы рынка. Организовали премиальный продакшн в студии. Параллельно залили мощный трафик через посевы в 50+ Telegram-каналах для быстрого старта алгоритмов.</p>
                                 <div>
-                                    <div class="text-gray-500 font-bold mb-4 uppercase text-xs tracking-widest border-b border-white/10 pb-2">Точка А</div>
-                                    <ul class="space-y-3 text-sm text-gray-400">
-                                        <li class="flex justify-between"><span>Лиды:</span> <span class="font-bold text-white">20-35 / мес</span></li>
-                                        <li class="flex justify-between"><span>Заявки:</span> <span class="font-bold text-white">4-7</span></li>
-                                        <li class="flex justify-between"><span>Подписчики:</span> <span class="font-bold text-white">1.2 тыс.</span></li>
-                                        <li class="flex justify-between"><span>Просмотры:</span> <span class="font-bold text-white">360 тыс.</span></li>
-                                    </ul>
-                                </div>
-                                <div class="bg-blue-900/20 -m-2 p-4 rounded-2xl border border-blue-500/30">
-                                    <div class="text-blue-500 font-bold mb-4 uppercase text-xs tracking-widest border-b border-blue-500/20 pb-2">Точка Б (После)</div>
-                                    <ul class="space-y-3 text-sm text-white">
-                                        <li class="flex justify-between"><span>Лиды:</span> <span class="font-bold text-blue-500 text-lg">1000+</span></li>
-                                        <li class="flex justify-between"><span>Заявки:</span> <span class="font-bold text-blue-500 text-lg">250+</span></li>
-                                        <li class="flex justify-between"><span>Подписчики:</span> <span class="font-bold">101 тыс.</span></li>
-                                        <li class="flex justify-between"><span>Просмотры:</span> <span class="font-bold text-blue-500">7.1 млн</span></li>
-                                    </ul>
+                                    <span class="tech-tag">Telegram Посевы</span>
+                                    <span class="tech-tag">Премиум Продакшн</span>
+                                    <span class="tech-tag">Формат Реалити</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="lg:w-1/2 w-full">
-                            <div class="bg-surface rounded-3xl overflow-hidden relative border border-white/10 p-10 text-center hover-trigger group">
-                                <div class="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                <i class="fa-solid fa-chart-line text-[100px] text-blue-500 mb-6"></i>
-                                <div class="text-5xl md:text-6xl font-display font-black text-white mb-4">+90.9 ТЫС</div>
-                                <div class="text-gray-400 font-bold uppercase tracking-widest text-sm">Новой аудитории</div>
+
+                        <div class="w-full md:w-1/2 p-8 md:p-16 bg-gradient-to-br from-transparent to-blue-900/10 flex flex-col justify-center">
+                            <div class="text-2xl font-display font-black text-white mb-8">Метрики роста</div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="metric-box point-a">
+                                    <div class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-4">Точка А</div>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <div class="text-gray-500 text-xs mb-1">Лиды в месяц</div>
+                                            <div class="text-white font-bold text-xl">20-35 шт.</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-500 text-xs mb-1">Подписчики</div>
+                                            <div class="text-white font-bold text-xl">1 200 чел.</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-500 text-xs mb-1">Покупки обучения</div>
+                                            <div class="text-white font-bold text-xl">4-7 шт.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="metric-box point-b-blue relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-solid fa-chart-line text-6xl text-blue-500"></i></div>
+                                    <div class="text-xs text-blue-500 font-bold uppercase tracking-widest mb-4">Точка Б (Результат)</div>
+                                    <div class="space-y-4 relative z-10">
+                                        <div>
+                                            <div class="text-gray-300 text-xs mb-1">Лиды в месяц</div>
+                                            <div class="text-blue-500 font-display font-black text-2xl">1000+ заявок</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-300 text-xs mb-1">Подписчики</div>
+                                            <div class="text-blue-500 font-display font-black text-2xl">101 000 чел.</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-300 text-xs mb-1">Покупки обучения</div>
+                                            <div class="text-white font-display font-black text-2xl">250+ шт.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 bg-dark border border-white/10 rounded-xl p-4 flex items-center justify-between">
+                                <div class="text-gray-400 text-sm">Новой аудитории:</div>
+                                <div class="text-2xl font-display font-black text-white">+90.9 ТЫС</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="case-card top-[16vh] bg-surface border border-white/10 rounded-[3rem] p-8 md:p-16 mb-12 shadow-2xl z-30">
-                    <div class="flex flex-col lg:flex-row gap-12 items-center">
-                        <div class="lg:w-1/2">
-                            <div class="inline-block border border-yellow-500 text-yellow-500 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6">Опт / Автотовары</div>
-                            <h3 class="font-display text-5xl md:text-6xl font-black uppercase mb-6 text-white">NTS AUTO</h3>
-                            <p class="text-gray-400 text-lg mb-10 leading-relaxed">
-                                Запрос: были охваты в медиа, но совсем не было продаж. Принято решение простроить воронки продаж внутри длинных видео и внедрить рубрики контента. Вышли на огромное количество продаж товаров.
-                            </p>
+                <div class="case-panel">
+                    <div class="max-w-[1400px] mx-auto w-full case-glass-card flex flex-col md:flex-row">
+                        <div class="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/5">
+                            <div class="text-yellow-500 text-sm font-bold uppercase tracking-widest mb-4">Опт / Автотовары</div>
+                            <h3 class="font-display text-5xl md:text-6xl font-black text-white mb-6 uppercase">NTS AUTO</h3>
                             
-                            <div class="grid grid-cols-2 gap-4 md:gap-6 bg-dark p-6 rounded-3xl border border-white/5">
+                            <div class="mb-6">
+                                <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-circle-exclamation text-gray-500"></i> Проблема клиента</h4>
+                                <p class="text-gray-400 text-sm leading-relaxed">Были неплохие просмотры развлекательного контента, но зрители не покупали B2B-товары оптом. Воронка была сломана: аудитория не понимала, что им продают бизнес.</p>
+                            </div>
+                            
+                            <div class="mb-8">
+                                <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench text-yellow-500"></i> Что мы внедрили</h4>
+                                <p class="text-gray-400 text-sm leading-relaxed mb-4">Сместили фокус сценариев на бизнес-аудиторию (выгоды, маржинальность, логистика). Изменили призыв к действию (CTA) — начали вести трафик на лендинг с оптовым прайсом. Подключили Яндекс.Директ для ретаргетинга по тем, кто посмотрел видео.</p>
                                 <div>
-                                    <div class="text-gray-500 font-bold mb-4 uppercase text-xs tracking-widest border-b border-white/10 pb-2">Точка А</div>
-                                    <ul class="space-y-3 text-sm text-gray-400">
-                                        <li class="flex justify-between"><span>Лиды:</span> <span class="font-bold text-white">5-25 / мес</span></li>
-                                        <li class="flex justify-between"><span>Покупки:</span> <span class="font-bold text-white">0-5</span></li>
-                                        <li class="flex justify-between"><span>Подписчики:</span> <span class="font-bold text-white">12 тыс.</span></li>
-                                        <li class="flex justify-between"><span>Просмотры:</span> <span class="font-bold text-white">125 тыс.</span></li>
-                                    </ul>
-                                </div>
-                                <div class="bg-yellow-900/20 -m-2 p-4 rounded-2xl border border-yellow-500/30">
-                                    <div class="text-yellow-500 font-bold mb-4 uppercase text-xs tracking-widest border-b border-yellow-500/20 pb-2">Точка Б (После)</div>
-                                    <ul class="space-y-3 text-sm text-white">
-                                        <li class="flex justify-between"><span>Лиды:</span> <span class="font-bold text-yellow-500 text-lg">700+</span></li>
-                                        <li class="flex justify-between"><span>Покупки:</span> <span class="font-bold text-yellow-500 text-lg">300+</span></li>
-                                        <li class="flex justify-between"><span>Подписчики:</span> <span class="font-bold">38 тыс.</span></li>
-                                        <li class="flex justify-between"><span>Просмотры:</span> <span class="font-bold text-yellow-500">11.8 млн</span></li>
-                                    </ul>
+                                    <span class="tech-tag">B2B Воронка</span>
+                                    <span class="tech-tag">Яндекс Директ</span>
+                                    <span class="tech-tag">Ретаргетинг</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="lg:w-1/2 w-full">
-                            <div class="bg-dark rounded-3xl overflow-hidden relative border border-white/10 p-10 text-center hover-trigger group">
-                                <div class="absolute inset-0 bg-gradient-to-t from-yellow-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                <i class="fa-solid fa-car-side text-[100px] text-yellow-500 mb-6"></i>
-                                <div class="text-5xl md:text-6xl font-display font-black text-white mb-4">300+</div>
-                                <div class="text-gray-400 font-bold uppercase tracking-widest text-sm">Оптовых поставок</div>
+
+                        <div class="w-full md:w-1/2 p-8 md:p-16 bg-gradient-to-br from-transparent to-yellow-900/10 flex flex-col justify-center">
+                            <div class="text-2xl font-display font-black text-white mb-8">Метрики роста</div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="metric-box point-a">
+                                    <div class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-4">Точка А</div>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <div class="text-gray-500 text-xs mb-1">Оптовые лиды</div>
+                                            <div class="text-white font-bold text-xl">5-25 шт.</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-500 text-xs mb-1">Просмотры</div>
+                                            <div class="text-white font-bold text-xl">125 000 просм.</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-500 text-xs mb-1">Покупки (Опт)</div>
+                                            <div class="text-white font-bold text-xl">0-5 шт.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="metric-box point-b-yellow relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-solid fa-car-side text-6xl text-yellow-500"></i></div>
+                                    <div class="text-xs text-yellow-500 font-bold uppercase tracking-widest mb-4">Точка Б (Результат)</div>
+                                    <div class="space-y-4 relative z-10">
+                                        <div>
+                                            <div class="text-gray-300 text-xs mb-1">Оптовые лиды</div>
+                                            <div class="text-yellow-500 font-display font-black text-2xl">700+ шт.</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-300 text-xs mb-1">Просмотры</div>
+                                            <div class="text-yellow-500 font-display font-black text-2xl">11.8 МЛН</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-300 text-xs mb-1">Покупки (Опт)</div>
+                                            <div class="text-white font-display font-black text-2xl">300+ шт.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 text-center">
+                                <a href="#" class="inline-block bg-white text-dark px-8 py-3 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-yt hover:text-white transition-colors open-modal-btn">Хочу так же</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="case-card top-[19vh] bg-[#0a0a0a] border border-white/10 rounded-[3rem] p-8 md:p-16 shadow-2xl z-40">
-                    <div class="flex flex-col lg:flex-row-reverse gap-12 items-center">
-                        <div class="lg:w-1/2">
-                            <div class="inline-block border border-purple-500 text-purple-500 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6">Бизнес в Турции</div>
-                            <h3 class="font-display text-5xl md:text-6xl font-black uppercase mb-6 text-white">IC CONSULTING</h3>
-                            <p class="text-gray-400 text-lg mb-10 leading-relaxed">
-                                Развитие сразу 3 бизнесов (Lavanta Ride, Реэкспорт, Личный бренд). Построили сеть каналов, отдел продаж через Bitrix24 за счет чего вышли на большие просмотры и стабильную лидогенерацию.
-                            </p>
+                <div class="case-panel">
+                    <div class="max-w-[1400px] mx-auto w-full case-glass-card flex flex-col md:flex-row">
+                        <div class="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/5">
+                            <div class="text-purple-500 text-sm font-bold uppercase tracking-widest mb-4">Бизнес в Турции</div>
+                            <h3 class="font-display text-5xl md:text-6xl font-black text-white mb-6 uppercase">IC CONSULTING</h3>
                             
-                            <div class="grid grid-cols-2 gap-4 md:gap-6 bg-surface p-6 rounded-3xl border border-white/5">
+                            <div class="mb-6">
+                                <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-circle-exclamation text-gray-500"></i> Проблема клиента</h4>
+                                <p class="text-gray-400 text-sm leading-relaxed">Сложная структура из 3-х разных бизнесов (Lavanta Ride, Реэкспорт, Личный бренд). Трафик был нецелевым, заявки терялись, а цикл сделки по недвижимости и консалтингу сильно затягивался из-за низкого уровня доверия аудитории.</p>
+                            </div>
+                            
+                            <div class="mb-8">
+                                <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench text-purple-500"></i> Что мы внедрили</h4>
+                                <p class="text-gray-400 text-sm leading-relaxed mb-4">Построили медийную монополию: запустили сеть из нескольких смежных YouTube-каналов под каждое направление бизнеса. Упаковали личный бренд владельца для резкого повышения Trust-фактора. Связали весь входящий трафик из соцсетей напрямую с воронками в Bitrix24.</p>
                                 <div>
-                                    <div class="text-gray-500 font-bold mb-4 uppercase text-xs tracking-widest border-b border-white/10 pb-2">Точка А</div>
-                                    <ul class="space-y-3 text-sm text-gray-400">
-                                        <li class="flex justify-between"><span>Лиды:</span> <span class="font-bold text-white">50-100 / мес</span></li>
-                                        <li class="flex justify-between"><span>Покупки:</span> <span class="font-bold text-white">~10+</span></li>
-                                        <li class="flex justify-between"><span>Подписчики:</span> <span class="font-bold text-white">70 тыс.</span></li>
-                                        <li class="flex justify-between"><span>Просмотры:</span> <span class="font-bold text-white">890 тыс.</span></li>
-                                    </ul>
-                                </div>
-                                <div class="bg-purple-900/20 -m-2 p-4 rounded-2xl border border-purple-500/30">
-                                    <div class="text-purple-500 font-bold mb-4 uppercase text-xs tracking-widest border-b border-purple-500/20 pb-2">Точка Б (После)</div>
-                                    <ul class="space-y-3 text-sm text-white">
-                                        <li class="flex justify-between"><span>Лиды:</span> <span class="font-bold text-purple-500 text-lg">1000+</span></li>
-                                        <li class="flex justify-between"><span>Покупки:</span> <span class="font-bold text-purple-500 text-lg">250+</span></li>
-                                        <li class="flex justify-between"><span>Подписчики:</span> <span class="font-bold">455 тыс.</span></li>
-                                        <li class="flex justify-between"><span>Просмотры:</span> <span class="font-bold text-purple-500">47 млн</span></li>
-                                    </ul>
+                                    <span class="tech-tag">Сеть Каналов</span>
+                                    <span class="tech-tag">Интеграция Bitrix24</span>
+                                    <span class="tech-tag">Упаковка Бренда</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="lg:w-1/2 w-full">
-                            <div class="bg-surface rounded-3xl overflow-hidden relative border border-white/10 p-10 text-center hover-trigger group">
-                                <div class="absolute inset-0 bg-gradient-to-t from-purple-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                <i class="fa-brands fa-tiktok text-[100px] text-purple-500 mb-6"></i>
-                                <div class="text-5xl md:text-6xl font-display font-black text-white mb-4">47 МЛН</div>
-                                <div class="text-gray-400 font-bold uppercase tracking-widest text-sm">Просмотров аудитории</div>
+
+                        <div class="w-full md:w-1/2 p-8 md:p-16 bg-gradient-to-br from-transparent to-purple-900/10 flex flex-col justify-center">
+                            <div class="text-2xl font-display font-black text-white mb-8">Метрики роста</div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="metric-box point-a">
+                                    <div class="text-xs text-gray-500 font-bold uppercase tracking-widest mb-4">Точка А</div>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <div class="text-gray-500 text-xs mb-1">Лиды в месяц</div>
+                                            <div class="text-white font-bold text-xl">50-100 шт.</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-500 text-xs mb-1">Подписчики</div>
+                                            <div class="text-white font-bold text-xl">70 000 чел.</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-500 text-xs mb-1">Продажи (чеки)</div>
+                                            <div class="text-white font-bold text-xl">~10+ шт.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="metric-box point-b-purple relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-brands fa-tiktok text-6xl text-purple-500"></i></div>
+                                    <div class="text-xs text-purple-500 font-bold uppercase tracking-widest mb-4">Точка Б (Результат)</div>
+                                    <div class="space-y-4 relative z-10">
+                                        <div>
+                                            <div class="text-gray-300 text-xs mb-1">Лиды в месяц</div>
+                                            <div class="text-purple-500 font-display font-black text-2xl">1000+ заявок</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-300 text-xs mb-1">Подписчики</div>
+                                            <div class="text-purple-500 font-display font-black text-2xl">455 ТЫС. чел.</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-gray-300 text-xs mb-1">Продажи (чеки)</div>
+                                            <div class="text-white font-display font-black text-2xl">250+ шт.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 bg-dark border border-white/10 rounded-xl p-4 flex items-center justify-between">
+                                <div class="text-gray-400 text-sm">Общие просмотры:</div>
+                                <div class="text-2xl font-display font-black text-white">47 МИЛЛИОНОВ</div>
                             </div>
                         </div>
                     </div>
@@ -816,6 +1107,34 @@
             </div>
         </div>
     </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                
+                // Включаем горизонтальный скролл только для ПК (шире 768px)
+                let mm = gsap.matchMedia();
+
+                mm.add("(min-width: 768px)", () => {
+                    let casesSlider = document.getElementById("cases-slider");
+                    let casePanels = gsap.utils.toArray(".case-panel");
+
+                    // Длина скролла зависит от количества карточек (их теперь 4)
+                    let scrollTween = gsap.to(casePanels, {
+                        xPercent: -100 * (casePanels.length - 1),
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: "#cases-pin-wrapper",
+                            pin: true,
+                            scrub: 1, // Мягкая привязка к скроллу
+                            // Увеличиваем дистанцию скролла пропорционально
+                            end: () => "+=" + (casesSlider.offsetWidth * 0.8) 
+                        }
+                    });
+                });
+            }
+        });
+    </script>
 
     <section id="team" class="py-32 relative z-10 border-t border-white/5 bg-dark">
         <div class="max-w-[1400px] mx-auto px-6 md:px-12">
@@ -980,7 +1299,7 @@
             </div>
             
             <div class="mt-16 text-center gsap-fade-up">
-                 <a href="#contact" class="inline-block bg-white text-dark px-12 py-6 rounded-full font-bold text-xl hover:bg-yt hover:text-white transition-all transform hover:scale-105 hover-trigger shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(229,45,39,0.6)] uppercase tracking-wider">
+                 <a href="#" class="inline-block bg-white text-dark px-12 py-6 rounded-full font-bold text-xl hover:bg-yt hover:text-white transition-all transform hover:scale-105 hover-trigger shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(229,45,39,0.6)] uppercase tracking-wider open-modal-btn">
                     Обсудить стратегию
                  </a>
             </div>
@@ -1004,7 +1323,7 @@
                         <div class="font-bold text-white text-lg">@ЮтубНаука</div>
                     </div>
                 </a>
-                <a href="#" class="flex items-center gap-5 glass border border-white/10 hover:border-[#2AABEE] px-8 py-5 rounded-2xl transition-all hover-trigger group w-full sm:w-auto">
+                <a href="#" class="flex items-center gap-5 glass border border-white/10 hover:border-[#2AABEE] px-8 py-5 rounded-2xl transition-all hover-trigger group w-full sm:w-auto open-modal-btn">
                     <i class="fa-brands fa-telegram text-5xl text-gray-500 group-hover:text-[#2AABEE] transition-colors"></i>
                     <div class="text-left">
                         <div class="text-xs text-gray-500 uppercase tracking-widest font-bold">Написать нам</div>
