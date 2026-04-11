@@ -61,11 +61,17 @@
         .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(229, 45, 39, 0.5); position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 9998; pointer-events: none; transition: width 0.2s, height 0.2s, background-color 0.2s; }
         @media (hover: none) and (pointer: coarse) { .cursor-dot, .cursor-outline { display: none !important; } body { cursor: auto; } } /* Отключение курсора на мобилках */
 
-        #preloader { position: fixed; inset: 0; background: #050505; z-index: 10000; display: flex; justify-content: center; align-items: center; }
-        .loader-text { font-family: 'Unbounded', sans-serif; font-size: 2rem; font-weight: 900; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.2); position: relative; }
-        @media (min-width: 768px) { .loader-text { font-size: 3rem; } }
-        .loader-text::before { content: attr(data-text); position: absolute; left: 0; top: 0; color: #E52D27; -webkit-text-stroke: 0px; overflow: hidden; width: 0%; animation: fill 1.5s ease-in-out forwards; }
-        @keyframes fill { 100% { width: 100%; } }
+        /* ========================================= */
+        /* СТИЛИ ЭПИЧНОГО ПРЕЛОАДЕРА                 */
+        /* ========================================= */
+        .preloader-icon { opacity: 0; transform: scale(0); filter: drop-shadow(0 0 20px currentColor); z-index: 5; }
+        .pi-yt { top: 20%; left: 25%; } .pi-tg { top: 15%; right: 30%; } .pi-vk { bottom: 20%; left: 20%; }
+        .pi-tt { bottom: 25%; right: 25%; } .pi-ig { top: 50%; left: 10%; transform: translateY(-50%); }
+        .pi-dz { top: 60%; right: 12%; transform: translateY(-50%); }
+        @media (max-width: 768px) {
+            .pi-yt { top: 15%; left: 10%; } .pi-tg { top: 12%; right: 15%; } .pi-vk { bottom: 15%; left: 15%; }
+            .pi-tt { bottom: 20%; right: 10%; } .pi-ig { top: 35%; left: 5%; } .pi-dz { top: 65%; right: 5%; }
+        }
 
         /* ========================================= */
         /* ВИЗУАЛЬНЫЕ ЭФФЕКТЫ И СТЕКЛО               */
@@ -281,8 +287,26 @@
 </head>
 <body class="selection:bg-yt selection:text-white">
 
-    <div id="preloader">
-        <div class="loader-text" data-text="ЮТУБ НАУКА">ЮТУБ НАУКА</div>
+    <div id="preloader" class="fixed inset-0 z-[10000] bg-[#050505] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div class="w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-yt/20 rounded-full blur-[100px] md:blur-[150px] preloader-glow opacity-0"></div>
+        </div>
+
+        <div class="relative w-full h-full max-w-[1200px] mx-auto flex items-center justify-center">
+            <div class="preloader-icon pi-yt absolute text-yt text-6xl md:text-8xl"><i class="fa-brands fa-youtube"></i></div>
+            <div class="preloader-icon pi-tg absolute text-[#2AABEE] text-5xl md:text-7xl"><i class="fa-brands fa-telegram"></i></div>
+            <div class="preloader-icon pi-vk absolute text-[#0077FF] text-5xl md:text-7xl"><i class="fa-brands fa-vk"></i></div>
+            <div class="preloader-icon pi-tt absolute text-white text-5xl md:text-6xl"><i class="fa-brands fa-tiktok"></i></div>
+            <div class="preloader-icon pi-ig absolute text-[#E1306C] text-5xl md:text-7xl"><i class="fa-brands fa-instagram"></i></div>
+            <div class="preloader-icon pi-dz absolute text-[#FFCC00] text-6xl md:text-8xl"><i class="fa-solid fa-star"></i></div>
+
+            <div class="preloader-brand flex flex-col items-center opacity-0 scale-50 z-10">
+                <div class="text-[10px] md:text-sm text-gray-400 tracking-[0.4em] uppercase font-bold mb-3 text-center">Digital Marketing Holding</div>
+                <div class="font-display font-black text-4xl md:text-7xl text-white tracking-tighter drop-shadow-[0_0_30px_rgba(229,45,39,0.5)]">
+                    ЮТУБ<span class="text-yt">НАУКА</span>
+                </div>
+            </div>
+        </div>
     </div>
     
     <div id="tg-modal" class="fixed inset-0 z-[10000] hidden flex items-center justify-center opacity-0 transition-opacity duration-300 px-4">
@@ -1553,13 +1577,42 @@
             gsap.ticker.add((time) => { lenis.raf(time * 1000); });
             gsap.ticker.lagSmoothing(0);
 
-            // 2. Прелоадер
-            setTimeout(() => {
-                gsap.to('#preloader', { opacity: 0, duration: 0.8, onComplete: () => {
-                    document.getElementById('preloader').style.display = 'none';
+            // 2. ЭПИЧНЫЙ ПРЕЛОАДЕР СОЦСЕТЕЙ (GSAP TIMELINE)
+            // Блокируем скролл на время загрузки
+            document.body.style.overflow = 'hidden';
+            
+            const plTl = gsap.timeline();
+
+            // Появление свечения на фоне
+            plTl.to(".preloader-glow", { opacity: 1, duration: 1, ease: "power2.out" }, 0)
+            
+            // Взрывное появление иконок соцсетей (пружинящий эффект)
+            .to(".preloader-icon", { scale: 1, opacity: 1, duration: 0.8, stagger: 0.1, ease: "back.out(2)" }, 0.2)
+            
+            // Легкое парение иконок в невесомости
+            .to(".preloader-icon", { y: "random(-30, 30)", x: "random(-30, 30)", rotation: "random(-20, 20)", duration: 2, ease: "sine.inOut", yoyo: true, repeat: 1 }, "-=0.4")
+            
+            // Плавное появление названия бренда
+            .to(".preloader-brand", { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.5)" }, 1.2)
+            
+            // РАЗЛЕТ ИКОНОК ПРЯМО В КАМЕРУ (взрыв)
+            .to(".preloader-icon", { scale: window.innerWidth > 768 ? 6 : 4, opacity: 0, duration: 0.8, ease: "power4.inOut", stagger: 0.05 }, 2.8)
+            
+            // Название бренда тоже улетает в камеру
+            .to(".preloader-brand", { scale: 3, opacity: 0, duration: 0.8, ease: "power4.in" }, 2.9)
+            
+            // Открываем сайт
+            .to("#preloader", {
+                opacity: 0, duration: 0.6, ease: "power2.inOut",
+                onComplete: () => {
+                    document.getElementById("preloader").style.display = "none";
+                    document.body.style.overflow = ''; // Возвращаем скролл
                     ScrollTrigger.refresh();
-                }});
-            }, 1800);
+                    
+                    // Запускаем анимацию главного экрана сразу после исчезновения заставки
+                    gsap.from(".gsap-hero", { y: 40, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out" });
+                }
+            }, 3.1);
 
             // 3. Кастомный курсор (только для ПК)
             if (window.matchMedia("(pointer: fine)").matches) {
@@ -1626,7 +1679,7 @@
             });
 
             // 6. Базовые GSAP Появления
-            gsap.from(".gsap-hero", { y: 40, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out", delay: 1.8 });
+            
             
             gsap.utils.toArray('.gsap-fade-up').forEach(elem => {
                 gsap.from(elem, { scrollTrigger: { trigger: elem, start: "top 85%" }, y: 50, opacity: 0, duration: 1, ease: "power3.out" });
