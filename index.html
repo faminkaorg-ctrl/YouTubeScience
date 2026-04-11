@@ -483,7 +483,132 @@
             </div>
         </div>
     </section>
+<style>
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; max-width: 1200px; margin: 0 auto; }
+        @media (min-width: 768px) { .bento-grid { gap: 24px; } }
+        
+        .matrix-card { background: rgba(15, 15, 15, 0.5); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; padding: 2rem; position: relative; overflow: hidden; transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; min-height: 280px; }
+        @media (min-width: 768px) { .matrix-card { padding: 2.5rem; border-radius: 2rem; min-height: 320px; } }
+        .matrix-card:hover { border-color: rgba(255, 255, 255, 0.15); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); background: rgba(20, 20, 20, 0.8); }
+        
+        /* Внутренние свечения карточек */
+        .mc-glow { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; transition: opacity 0.4s; opacity: 0.4; z-index: 0; }
+        @media (min-width: 768px) { .mc-glow { filter: blur(80px); opacity: 0.5; } }
+        .matrix-card:hover .mc-glow { opacity: 0.8; }
+        .mc-glow-yt { top: -50px; left: -50px; width: 250px; height: 250px; background: rgba(229,45,39,0.15); }
+        .mc-glow-funnel { top: -50px; right: -50px; width: 200px; height: 200px; background: rgba(59,130,246,0.15); }
+        .mc-glow-traffic { bottom: -50px; left: -50px; width: 200px; height: 200px; background: rgba(34,197,94,0.15); }
+        .mc-glow-brand { top: -50px; left: -50px; width: 300px; height: 300px; background: rgba(168,85,247,0.12); }
 
+        /* Иконки */
+        .m-icon-box { width: 48px; height: 48px; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 1.3rem; margin-bottom: 1.5rem; position: relative; z-index: 10; flex-shrink: 0; }
+        @media (min-width: 768px) { .m-icon-box { width: 56px; height: 56px; border-radius: 14px; font-size: 1.5rem; margin-bottom: 2rem; } }
+        .mi-yt { background: rgba(229, 45, 39, 0.1); color: #E52D27; border: 1px solid rgba(229, 45, 39, 0.2); }
+        .mi-funnel { background: rgba(59, 130, 246, 0.1); color: #3B82F6; border: 1px solid rgba(59, 130, 246, 0.2); }
+        .mi-traffic { background: rgba(34, 197, 94, 0.1); color: #22C55E; border: 1px solid rgba(34, 197, 94, 0.2); }
+        .mi-brand { background: rgba(168, 85, 247, 0.1); color: #A855F7; border: 1px solid rgba(168, 85, 247, 0.2); }
+
+        /* Тексты */
+        .mc-content { position: relative; z-index: 10; }
+        .mc-title { font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: 1.3rem; color: #fff; text-transform: uppercase; margin-bottom: 0.8rem; line-height: 1.2; }
+        @media (min-width: 768px) { .mc-title { font-size: 1.8rem; margin-bottom: 1rem; } }
+        .mc-text { color: #888; font-size: 0.85rem; line-height: 1.5; margin-bottom: 1.5rem; }
+        @media (min-width: 768px) { .mc-text { font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; } }
+
+        /* Теги (Нижняя часть первой карточки) */
+        .m-tags-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+        @media (min-width: 768px) { .m-tags-wrap { gap: 8px; } }
+        .m-tag { padding: 4px 10px; border: 1px solid rgba(255,255,255,0.05); border-radius: 50px; font-size: 0.55rem; text-transform: uppercase; font-weight: bold; color: #aaa; background: rgba(255,255,255,0.02); letter-spacing: 0.5px; }
+        @media (min-width: 768px) { .m-tag { padding: 6px 14px; font-size: 0.65rem; } }
+        .m-tag.red { color: #E52D27; border-color: rgba(229,45,39,0.2); background: rgba(229,45,39,0.05); }
+
+        /* Бейдж Ядро системы */
+        .core-badge { position: absolute; top: 1.5rem; right: 1.5rem; padding: 4px 12px; border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; font-size: 0.55rem; text-transform: uppercase; font-weight: bold; color: #666; letter-spacing: 1px; z-index: 10; }
+        @media (min-width: 768px) { .core-badge { top: 2.5rem; right: 2.5rem; padding: 6px 16px; font-size: 0.65rem; } }
+
+        /* Размеры карточек для ПК и Мобилок */
+        .card-yt { grid-column: span 12; }
+        .card-funnel { grid-column: span 12; }
+        .card-traffic { grid-column: span 12; }
+        .card-brand { grid-column: span 12; }
+
+        @media (min-width: 1024px) {
+            .card-yt { grid-column: span 8; }
+            .card-funnel { grid-column: span 4; }
+            .card-traffic { grid-column: span 4; }
+            .card-brand { grid-column: span 8; }
+        }
+    </style>
+
+    <section id="services-matrix" class="py-20 md:py-32 relative z-10 bg-[#050505] overflow-hidden border-t border-white/5">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[800px] h-[400px] md:h-[800px] bg-yt/10 rounded-full blur-[100px] md:blur-[150px] pointer-events-none z-0"></div>
+
+        <div class="max-w-[1400px] mx-auto px-4 md:px-12 relative z-10">
+            
+            <div class="text-center mb-12 md:mb-16 gsap-matrix-anim">
+                <h2 class="font-display text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter leading-none mb-4 md:mb-6 text-white">
+                    Матрица <span class="text-yt">Услуг</span>
+                </h2>
+                <p class="text-sm md:text-lg text-gray-400 max-w-2xl mx-auto font-light leading-relaxed">
+                    Вы даете только свою экспертность и 4 часа в месяц. Мы закрываем 100% потребностей бизнеса в медиа.
+                </p>
+            </div>
+
+            <div class="bento-grid">
+                
+                <div class="matrix-card card-yt gsap-matrix-card">
+                    <div class="mc-glow mc-glow-yt"></div>
+                    <div class="core-badge hidden sm:block">Ядро системы</div>
+                    
+                    <div class="mc-content">
+                        <div class="m-icon-box mi-yt"><i class="fa-brands fa-youtube"></i></div>
+                        <h3 class="mc-title">YouTube Продакшн</h3>
+                        <p class="mc-text max-w-lg">Создаем каналы "под ключ". От распаковки смыслов и написания SEO-сценариев до съемок в 4K, кино-монтажа (DaVinci/Premiere) и дизайна кликабельных превью (CTR от 10%).</p>
+                    </div>
+                    
+                    <div class="m-tags-wrap relative z-10">
+                        <span class="m-tag">Сценарии</span>
+                        <span class="m-tag">Съемки МСК/СПБ</span>
+                        <span class="m-tag">Кино-Монтаж</span>
+                        <span class="m-tag red">SEO</span>
+                    </div>
+                </div>
+
+                <div class="matrix-card card-funnel gsap-matrix-card">
+                    <div class="mc-glow mc-glow-funnel"></div>
+                    <div class="mc-content">
+                        <div class="m-icon-box mi-funnel"><i class="fa-solid fa-filter"></i></div>
+                        <h3 class="mc-title">Автоворонки</h3>
+                        <p class="mc-text mb-0">Связываем просмотры с заявками. Разрабатываем логику чат-ботов в TG, создаем лид-магниты, интегрируем с вашим Bitrix24 или AmoCRM.</p>
+                    </div>
+                </div>
+
+                <div class="matrix-card card-traffic gsap-matrix-card">
+                    <div class="mc-glow mc-glow-traffic"></div>
+                    <div class="mc-content">
+                        <div class="m-icon-box mi-traffic"><i class="fa-solid fa-rocket"></i></div>
+                        <h3 class="mc-title">Трафик & Посевы</h3>
+                        <p class="mc-text mb-0">Не ждем милости алгоритмов. Закупаем рекламу в целевых Telegram-каналах, льем Яндекс.Директ и VK таргет прямо в воронку продаж.</p>
+                    </div>
+                </div>
+
+                <div class="matrix-card card-brand gsap-matrix-card">
+                    <div class="mc-glow mc-glow-brand"></div>
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end h-full gap-6 md:gap-8 relative z-10">
+                        <div class="mc-content max-w-xl">
+                            <div class="m-icon-box mi-brand"><i class="fa-solid fa-user-astronaut"></i></div>
+                            <h3 class="mc-title">Личный Бренд</h3>
+                            <p class="mc-text mb-0">В 2026 году B2B и розница покупают у людей. Делаем из вас лидера мнений. Формируем премиальный медийный образ, которому доверяют партнеры и клиенты, снижая цикл сделки в 3 раза.</p>
+                        </div>
+                        <a href="#" class="bg-yt text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-bold uppercase tracking-widest text-[10px] md:text-sm hover:bg-white hover:text-yt transition-colors shadow-[0_0_20px_rgba(229,45,39,0.4)] whitespace-nowrap open-modal-btn w-full md:w-auto text-center mt-4 md:mt-0">
+                            Упаковать бренд
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
     <section id="personal-brand" class="py-20 md:py-32 relative z-10 bg-[#050505] overflow-hidden border-t border-white/5">
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[800px] h-[400px] md:h-[800px] bg-yt/10 rounded-full blur-[100px] md:blur-[150px] pointer-events-none z-0"></div>
 
