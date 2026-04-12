@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Unbounded:wght@300;400;700;900&family=Syne:wght@600;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -19,6 +19,8 @@
                     fontFamily: {
                         sans: ['Manrope', 'sans-serif'],
                         display: ['Unbounded', 'sans-serif'],
+                        massive: ['Syne', 'sans-serif'],
+                        tech: ['Syncopate', 'sans-serif'],
                     },
                     colors: {
                         yt: '#E52D27', 
@@ -32,7 +34,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js" crossorigin="anonymous"></script>
 
     <style>
         /* ========================================= */
@@ -320,7 +322,7 @@
             </div>
             <h3 class="font-display font-black text-2xl md:text-3xl text-white mb-3">Свяжитесь с нами</h3>
             <p class="text-gray-400 mb-8 text-sm md:text-[15px] leading-relaxed">Просто напишите, и мы назначим любое удобное для вас время звонка!</p>
-            <a href="https://t.me/agentyotuube" target="_blank" class="block w-full bg-[#2AABEE] text-white py-4 md:py-5 rounded-2xl font-bold uppercase tracking-widest text-sm md:text-base hover:bg-[#1c92d2] transition-all hover:scale-105 shadow-[0_0_20px_rgba(42,171,238,0.4)]">Написать в Telegram</a>
+            <a href="https://t.me/agentyoutube" target="_blank" class="block w-full bg-[#2AABEE] text-white py-4 md:py-5 rounded-2xl font-bold uppercase tracking-widest text-sm md:text-base hover:bg-[#1c92d2] transition-all hover:scale-105 shadow-[0_0_20px_rgba(42,171,238,0.4)]">Написать в Telegram</a>
         </div>
     </div>
 
@@ -562,6 +564,216 @@
             .card-traffic { grid-column: span 4; }
             .card-brand { grid-column: span 8; }
         }
+
+        /* ========================================= */
+        /* АНИМАЦИИ МАТРИЦЫ УСЛУГ (ПОЛНОЭКРАННЫЙ ЭПИК) */
+        /* ========================================= */
+        .matrix-card { cursor: pointer; }
+        .matrix-card.is-hidden { pointer-events: none; }
+        
+        /* КАРТОЧКА СТАНОВИТСЯ ФОНОМ ВСЕГО ЭКРАНА И СКРОЛЛИТСЯ ВНУТРИ СЕБЯ */
+        .matrix-card.is-expanded { 
+            position: fixed !important; 
+            inset: 0 !important; 
+            width: 100vw !important; 
+            height: 100vh !important; 
+            z-index: 100000 !important; 
+            border-radius: 0 !important; 
+            background: #020202 !important; 
+            overflow-y: auto !important; 
+            overflow-x: hidden !important;
+            border: none !important;
+            cursor: default;
+            transform: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .matrix-card.is-expanded::-webkit-scrollbar { width: 8px; }
+        .matrix-card.is-expanded::-webkit-scrollbar-track { background: #000; }
+        .matrix-card.is-expanded::-webkit-scrollbar-thumb { background: #E52D27; border-radius: 10px; }
+        .matrix-card.is-expanded:hover { transform: none; box-shadow: none; }
+        
+        /* КНОПКА ПОДРОБНЕЕ ДО ОТКРЫТИЯ */
+        .mc-more-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Unbounded', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #fff; margin-top: 1.5rem; cursor: pointer; transition: all 0.3s; width: fit-content; position: relative; z-index: 20; background: rgba(255,255,255,0.05); padding: 14px 28px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.1); }
+        .mc-more-btn:hover { background: #E52D27; border-color: #E52D27; box-shadow: 0 0 25px rgba(229,45,39,0.5); transform: translateY(-2px); }
+        .mc-more-btn i { transition: transform 0.3s; font-size: 1.1rem; }
+        .mc-more-btn:hover i { transform: translateX(6px); }
+        
+        /* КНОПКА ЗАКРЫТИЯ - ПРИБИТА К ЭКРАНУ ПРИ СКРОЛЛЕ ВНУТРИ КАРТОЧКИ */
+        .mc-close-btn { position: fixed; top: 2rem; right: 2rem; width: 60px; height: 60px; border-radius: 50%; background: rgba(10,10,10,0.9); border: 1px solid rgba(229,45,39,0.5); display: flex; justify-content: center; align-items: center; color: #E52D27; cursor: pointer; transition: all 0.3s; z-index: 100001; opacity: 0; visibility: hidden; font-size: 1.8rem; backdrop-filter: blur(10px); }
+        .mc-close-btn:hover { background: #E52D27; color: #fff; border-color: #E52D27; transform: rotate(90deg) scale(1.1); box-shadow: 0 0 30px rgba(229,45,39,0.8); }
+
+        /* ВНУТРЕННОСТИ РАСКРЫТОЙ КАРТОЧКИ (ГИГАНТСКИЙ ЛОНГРИД) */
+        .mc-details { display: none; opacity: 0; width: 100%; max-width: 1400px; margin: 0 auto; padding: 80px 20px 150px 20px; position: relative; }
+        .mc-details.active { display: block; }
+        
+        .epic-cover { position: relative; padding-bottom: 4rem; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 4rem; text-align: center; }
+        .epic-title { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 6vw, 6.5rem); font-weight: 900; text-transform: uppercase; line-height: 0.9; color: #fff; margin-bottom: 1.5rem; letter-spacing: -2px; }
+        .epic-subtitle { font-family: 'Syncopate', sans-serif; font-size: 1.2rem; color: #E52D27; text-transform: uppercase; letter-spacing: 5px; font-weight: 700; margin-bottom: 1.5rem; display: block; }
+        
+        .epic-chapter { margin-bottom: 6rem; position: relative; }
+        .epic-chapter-title { font-family: 'Unbounded', sans-serif; font-size: 2.5rem; color: #fff; font-weight: 900; margin-bottom: 2.5rem; display: flex; align-items: center; gap: 20px; line-height: 1.2; text-transform: uppercase; }
+        @media (min-width: 768px) { .epic-chapter-title { font-size: 3.5rem; } }
+        .epic-chapter-title span { font-size: 1.2rem; color: #E52D27; opacity: 0.5; font-family: 'Syncopate', sans-serif; }
+        
+        .epic-text { font-size: 1.2rem; color: #a3a3a3; line-height: 1.9; font-weight: 300; margin-bottom: 2.5rem; }
+        @media (min-width: 768px) { .epic-text { font-size: 1.4rem; } }
+        .epic-text strong { color: #fff; font-weight: 700; background: rgba(229,45,39,0.15); padding: 2px 8px; border-radius: 6px; }
+        
+        .epic-quote { position: relative; padding: 4rem 5rem; background: linear-gradient(90deg, rgba(20,20,20,0.9), transparent); border-left: 6px solid #E52D27; border-radius: 0 30px 30px 0; margin: 6rem 0; font-family: 'Syne', sans-serif; font-size: 2rem; color: #fff; font-style: italic; line-height: 1.4; font-weight: 800; }
+        @media (min-width: 768px) { .epic-quote { font-size: 2.8rem; } }
+        .epic-quote::before { content: '"'; position: absolute; top: -30px; left: 20px; font-size: 10rem; color: rgba(229,45,39,0.1); font-family: serif; line-height: 1; pointer-events: none; }
+        
+        .epic-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin: 4rem 0; }
+        @media (min-width: 768px) { .epic-grid { grid-template-columns: 1fr 1fr; gap: 3rem; } }
+        .epic-box { background: rgba(15,15,15,0.7); border: 1px solid rgba(255,255,255,0.05); padding: 3.5rem; border-radius: 2rem; transition: transform 0.4s, border-color 0.4s; }
+        .epic-box:hover { transform: translateY(-15px); border-color: rgba(229,45,39,0.4); background: rgba(20,20,20,0.95); box-shadow: 0 30px 60px rgba(0,0,0,0.9); }
+        .eb-icon { font-size: 3.5rem; color: #E52D27; margin-bottom: 2rem; }
+        .eb-title { font-family: 'Unbounded', sans-serif; font-size: 1.6rem; color: #fff; font-weight: 900; margin-bottom: 1.5rem; text-transform: uppercase; }
+        .eb-text { color: #888; font-size: 1.1rem; line-height: 1.7; }
+        .eb-text strong { color: #fff; }
+        
+        /* БИОГРАФИЯ - АРХИТЕКТУРА ТАЙМЛАЙНА */
+        .lore-timeline { position: relative; padding-left: 3rem; margin: 6rem 0; }
+        @media (min-width: 768px) { .lore-timeline { padding-left: 5rem; } }
+        .lore-timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(to bottom, #A855F7, transparent); border-radius: 4px; }
+        .lore-node { position: relative; margin-bottom: 5rem; }
+        .lore-node::before { content: ''; position: absolute; left: -3.85rem; top: 5px; width: 24px; height: 24px; background: #050505; border: 5px solid #A855F7; border-radius: 50%; box-shadow: 0 0 25px #A855F7; }
+        @media (min-width: 768px) { .lore-node::before { left: -5.85rem; } }
+        .lore-year { font-family: 'Syncopate', sans-serif; color: #A855F7; font-size: 1rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: 3px; }
+        .lore-title { font-family: 'Unbounded', sans-serif; color: #fff; font-size: 2.2rem; font-weight: 900; margin-bottom: 1.5rem; text-transform: uppercase; line-height: 1.1; }
+        
+        .cta-gigantic { background: linear-gradient(135deg, rgba(20,20,20,0.9), #000); border: 1px solid rgba(255,255,255,0.1); padding: 6rem 3rem; border-radius: 3rem; text-align: center; margin-top: 6rem; position: relative; overflow: hidden; }
+        .cta-gigantic::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(168,85,247,0.1) 0%, transparent 70%); pointer-events: none; }
+
+        /* ================= НОВЫЕ СТИЛИ (КЕЙСЫ И ФУТЕР) ================= */
+        .noise-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.03; background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)"/%3E%3C/svg%3E'); }
+        .font-massive { font-family: 'Syne', sans-serif; }
+        .font-tech { font-family: 'Syncopate', sans-serif; }
+        
+        .bento-card { background: linear-gradient(145deg, rgba(20,20,20,0.8) 0%, rgba(5,5,5,0.95) 100%); border: 1px solid rgba(255,255,255,0.05); border-radius: 32px; overflow: hidden; position: relative; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .bento-card:hover { transform: translateY(-5px); border-color: rgba(229,45,39,0.3); box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 40px rgba(229,45,39,0.05); }
+        
+        .cases-wrapper { display: flex; flex-direction: column; }
+        @media (min-width: 1024px) {
+            .cases-wrapper { flex-direction: row; width: max-content; height: 100vh; flex-wrap: nowrap; }
+            .case-panel { width: 100vw; height: 100vh; padding: 0 6vw; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        }
+        @media (max-width: 1023px) {
+            .case-panel { width: 100%; min-height: auto; padding: 2rem 1rem; margin-bottom: 2rem; }
+        }
+        .metric-glow { position: relative; }
+        .metric-glow::before { content: ''; position: absolute; top: 0; left: -12px; bottom: 0; width: 4px; border-radius: 4px; }
+        .mg-red::before { background: #E52D27; box-shadow: 0 0 20px #E52D27; }
+        .mg-blue::before { background: #2AABEE; box-shadow: 0 0 20px #2AABEE; }
+        .mg-yellow::before { background: #eab308; box-shadow: 0 0 20px #eab308; }
+
+        .magnetic-wrap { position: relative; display: inline-flex; justify-content: center; align-items: center; cursor: pointer; }
+        .magnetic-btn { display: inline-flex; justify-content: center; align-items: center; pointer-events: none; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        /* ================================================================== */
+        /* TERMINAL SYNDICATE: ГРИД И КАРТОЧКИ                                */
+        /* ================================================================== */
+        .terminal-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; position: relative; z-index: 10; perspective: 1500px; }
+        
+        .agent-card { background: rgba(10, 10, 10, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); border-radius: 1.5rem; overflow: hidden; position: relative; cursor: pointer; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); transform-style: preserve-3d; min-height: 400px; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; }
+        .agent-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 60%, transparent 100%); z-index: 2; transition: opacity 0.5s; }
+        .agent-card::after { content: ''; position: absolute; inset: -2px; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent); z-index: 0; opacity: 0; transition: opacity 0.5s; }
+        
+        .agent-card:hover { transform: translateY(-10px) rotateX(5deg) rotateY(-5deg); border-color: rgba(229,45,39,0.4); box-shadow: 0 30px 60px rgba(229,45,39,0.15), 0 10px 20px rgba(0,0,0,0.8); }
+        .agent-card:hover::after { opacity: 1; }
+        
+        .agent-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(100%) contrast(1.1) brightness(0.8); transition: filter 0.5s, transform 0.8s ease; z-index: 1; }
+        .agent-card:hover .agent-photo { filter: grayscale(0%) contrast(1.1) brightness(1); transform: scale(1.05); }
+
+        .agent-info { position: relative; z-index: 10; transform: translateY(20px); transition: transform 0.5s; }
+        .agent-card:hover .agent-info { transform: translateY(0); }
+        .agent-id { font-family: 'Syncopate', sans-serif; font-size: 0.6rem; font-weight: 700; color: #E52D27; letter-spacing: 2px; margin-bottom: 8px; opacity: 0; transition: opacity 0.5s; display: block; }
+        .agent-card:hover .agent-id { opacity: 1; }
+        .agent-name { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 5px; text-transform: uppercase; }
+        .agent-role { font-family: 'Manrope', sans-serif; font-size: 0.8rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+        /* Размеры карточек в гриде */
+        .ac-1 { grid-column: span 12; } .ac-2 { grid-column: span 12; } .ac-3 { grid-column: span 12; } .ac-4 { grid-column: span 12; } .ac-5 { grid-column: span 12; }
+        @media (min-width: 768px) { .ac-1 { grid-column: span 6; } .ac-2 { grid-column: span 6; } .ac-3 { grid-column: span 4; } .ac-4 { grid-column: span 4; } .ac-5 { grid-column: span 4; } }
+        @media (min-width: 1024px) { .ac-1 { grid-column: span 7; } .ac-2 { grid-column: span 5; } .ac-3 { grid-column: span 4; } .ac-4 { grid-column: span 4; } .ac-5 { grid-column: span 4; } }
+
+        /* ================================================================== */
+        /* TERMINAL MODAL: ВНУТРЯНКА ДОСЬЕ                                    */
+        /* ================================================================== */
+        .term-modal { position: fixed; inset: 0; background: rgba(2,2,2,0.98); backdrop-filter: blur(20px); z-index: 100000; display: none; opacity: 0; overflow-y: auto; overflow-x: hidden; }
+        .term-close { position: fixed; top: 2rem; right: 2rem; width: 60px; height: 60px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); display: flex; justify-content: center; align-items: center; color: #fff; font-size: 1.5rem; cursor: pointer; transition: all 0.3s; z-index: 100001; }
+        .term-close:hover { background: #E52D27; border-color: #E52D27; transform: rotate(90deg); box-shadow: 0 0 30px rgba(229,45,39,0.5); }
+        
+        .term-container { min-height: 100vh; display: flex; flex-direction: column; padding: 0; }
+        @media (min-width: 1024px) { .term-container { flex-direction: row; } }
+        
+        /* Терминал: Левая колонка (Фото) */
+        .term-left { width: 100%; height: 50vh; position: relative; background: #000; overflow: hidden; }
+        @media (min-width: 1024px) { .term-left { width: 45%; height: 100vh; position: sticky; top: 0; } }
+        .term-left::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent, #020202); pointer-events: none; }
+        @media (max-width: 1023px) { .term-left::after { background: linear-gradient(to bottom, transparent, #020202); } }
+        
+        .term-photo { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1) brightness(0.9); }
+        .term-scanline { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: rgba(229,45,39,0.5); box-shadow: 0 0 20px #E52D27; opacity: 0.6; z-index: 10; animation: scanline 6s linear infinite; pointer-events: none; }
+        @keyframes scanline { 0% { top: -10%; } 100% { top: 110%; } }
+        
+        /* Терминал: Правая колонка (Контент) */
+        .term-right { width: 100%; padding: 3rem 1.5rem 6rem 1.5rem; position: relative; z-index: 20; display: flex; flex-direction: column; }
+        @media (min-width: 1024px) { .term-right { width: 55%; padding: 10vh 6rem 10vh 4rem; } }
+
+        .term-header { margin-bottom: 3rem; }
+        .term-id { display: inline-block; padding: 6px 16px; background: rgba(229,45,39,0.1); border: 1px solid rgba(229,45,39,0.3); border-radius: 50px; color: #E52D27; font-family: 'Syncopate', sans-serif; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.5rem; }
+        .term-name { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 6vw, 6rem); font-weight: 800; color: #fff; text-transform: uppercase; line-height: 0.9; margin-bottom: 1rem; letter-spacing: -2px; }
+        .term-role { font-family: 'Unbounded', sans-serif; font-size: 1rem; md:text-1.5rem; color: #888; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }
+
+        /* Табы навигации */
+        .term-nav { display: flex; gap: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; margin-bottom: 3rem; overflow-x: auto; scrollbar-width: none; }
+        .term-nav::-webkit-scrollbar { display: none; }
+        .term-tab-btn { font-family: 'Syncopate', sans-serif; font-size: 0.7rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1.5px; padding: 0.5rem 1rem; cursor: pointer; transition: all 0.3s; white-space: nowrap; position: relative; }
+        .term-tab-btn::after { content: ''; position: absolute; bottom: -1rem; left: 0; width: 0%; height: 2px; background: #E52D27; transition: width 0.3s ease; box-shadow: 0 0 10px #E52D27; }
+        .term-tab-btn:hover { color: #fff; }
+        .term-tab-btn.active { color: #fff; }
+        .term-tab-btn.active::after { width: 100%; }
+
+        /* Контент табов */
+        .term-tab-content { display: none; opacity: 0; transform: translateY(20px); }
+        .term-tab-content.active { display: block; opacity: 1; transform: translateY(0); }
+
+        /* Элементы внутри табов */
+        .term-text { color: #a3a3a3; font-size: 1rem; md:text-1.1rem; line-height: 1.8; margin-bottom: 1.5rem; font-weight: 300; }
+        .term-text strong { color: #fff; font-weight: 600; }
+        
+        .term-quote { position: relative; padding: 2rem 3rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-left: 4px solid #E52D27; border-radius: 0 20px 20px 0; margin: 3rem 0; }
+        .term-quote-text { font-family: 'Syne', sans-serif; font-size: 1.5rem; color: #fff; font-weight: 700; font-style: italic; line-height: 1.4; }
+        
+        /* Скиллы в терминале */
+        .arsenal-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 2rem; }
+        @media (min-width: 768px) { .arsenal-grid { grid-template-columns: 1fr 1fr; } }
+        
+        .arsenal-item { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); border-radius: 1rem; padding: 1.5rem; position: relative; overflow: hidden; }
+        .arsenal-item::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #E52D27; }
+        .arsenal-icon { font-size: 2rem; color: #fff; margin-bottom: 1rem; opacity: 0.8; }
+        .arsenal-title { font-family: 'Unbounded', sans-serif; font-size: 1.1rem; color: #fff; margin-bottom: 0.5rem; font-weight: 700; }
+        .arsenal-desc { color: #888; font-size: 0.85rem; line-height: 1.5; }
+
+        /* Метрики в терминале */
+        .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 3rem; }
+        @media (min-width: 768px) { .metrics-grid { gap: 2rem; } }
+        .metric-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 1rem; padding: 2rem 1.5rem; text-center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .metric-val { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 0.5rem; text-shadow: 0 0 30px rgba(255,255,255,0.2); }
+        .metric-lab { font-family: 'Syncopate', sans-serif; font-size: 0.6rem; color: #E52D27; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; text-align: center;}
+        
+        /* Блоки проектов */
+        .project-list { display: flex; flex-direction: column; gap: 1.5rem; }
+        .project-item { display: flex; flex-direction: column; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        @media (min-width: 768px) { .project-item { flex-direction: row; justify-content: space-between; align-items: center; } }
+        .project-info h4 { font-family: 'Unbounded', sans-serif; font-size: 1.2rem; color: #fff; font-weight: 700; mb-1; }
+        .project-info p { color: #666; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .project-result { text-align: left; }
+        @media (min-width: 768px) { .project-result { text-align: right; } }
+        .project-result span { display: block; font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: #22c55e; }
+        .project-result small { color: #888; font-size: 0.7rem; text-transform: uppercase; }
     </style>
 
     <section id="services-matrix" class="py-20 md:py-32 relative z-10 bg-[#050505] overflow-hidden border-t border-white/5">
@@ -569,12 +781,12 @@
 
         <div class="max-w-[1400px] mx-auto px-4 md:px-12 relative z-10">
             
-            <div class="text-center mb-12 md:mb-16 gsap-matrix-anim">
+            <div class="text-center mb-12 md:mb-16 gsap-matrix-anim section-header">
                 <h2 class="font-display text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter leading-none mb-4 md:mb-6 text-white">
                     Матрица <span class="text-yt">Услуг</span>
                 </h2>
                 <p class="text-sm md:text-lg text-gray-400 max-w-2xl mx-auto font-light leading-relaxed">
-                    Вы даете только свою экспертность и 4 часа в месяц. Мы закрываем 100% потребностей бизнеса в медиа.
+                    Вы даете только свою экспертность и 4 часа в месяц. Мы закрываем 100% потребностей бизнеса в медиа. <strong>Нажмите ПОДРОБНЕЕ</strong>, чтобы развернуть архитектуру.
                 </p>
             </div>
 
@@ -583,50 +795,238 @@
                 <div class="matrix-card card-yt gsap-matrix-card">
                     <div class="mc-glow mc-glow-yt"></div>
                     <div class="core-badge hidden sm:block">Ядро системы</div>
+                    <div class="mc-close-btn"><i class="fa-solid fa-xmark"></i></div>
                     
-                    <div class="mc-content">
-                        <div class="m-icon-box mi-yt"><i class="fa-brands fa-youtube"></i></div>
-                        <h3 class="mc-title">YouTube Продакшн</h3>
-                        <p class="mc-text max-w-lg">Создаем каналы "под ключ". От распаковки смыслов и написания SEO-сценариев до съемок в 4K, кино-монтажа (DaVinci/Premiere) и дизайна кликабельных превью (CTR от 10%).</p>
-                    </div>
-                    
-                    <div class="m-tags-wrap relative z-10">
-                        <span class="m-tag">Сценарии</span>
-                        <span class="m-tag">Съемки МСК/СПБ</span>
-                        <span class="m-tag">Кино-Монтаж</span>
-                        <span class="m-tag red">SEO</span>
+                    <div class="mc-content relative z-10 flex flex-col h-full pointer-events-none">
+                        <div>
+                            <div class="m-icon-box mi-yt"><i class="fa-brands fa-youtube"></i></div>
+                            <h3 class="mc-title">YouTube Продакшн</h3>
+                        </div>
+                        
+                        <div class="mc-short-state flex-grow flex flex-col justify-between">
+                            <p class="mc-text max-w-lg mt-2">Производство контента уровня Netflix. Глубокая распаковка смыслов, написание SEO-сценариев с удержанием внимания 50%+, кино-съемка в 4K и монтаж, манипулирующий психикой зрителя.</p>
+                            <div class="m-tags-wrap mt-4 mb-4 hidden sm:flex">
+                                <span class="m-tag">Сценарии</span><span class="m-tag">Съемки МСК/СПБ</span><span class="m-tag">Кино-Монтаж</span><span class="m-tag red">SEO Optimization</span>
+                            </div>
+                            <div class="pointer-events-auto">
+                                <button class="mc-more-btn anim-trigger">ПОДРОБНЕЕ <i class="fa-solid fa-expand"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="mc-details pointer-events-auto">
+                            <div class="epic-cover epic-anim-item">
+                                <span class="epic-subtitle">Уровень 1: Инженерия Внимания</span>
+                                <h2 class="epic-title">Нейросетевой<br>Захват<br><span class="text-yt">YouTube</span></h2>
+                            </div>
+
+                            <div class="epic-chapter epic-anim-item">
+                                <h3 class="epic-chapter-title"><span>01</span> Смерть «Говорящей Головы»</h3>
+                                <p class="epic-text">YouTube 2026 года — это самое жестокое поле когнитивной битвы. Люди обладают клиповым мышлением, их дофаминовые рецепторы выжжены TikTok и Reels. Обычная экспертная съемка на iPhone на фоне серой стены больше не генерирует доверия. <strong>Если вы хотите продавать B2B услуги или премиум-продукты на чеки от $10,000, ваш визуальный ряд должен соответствовать этому чеку.</strong></p>
+                                <p class="epic-text">Мы не "снимаем видео". Мы <strong>программируем внимание</strong>. Наша задача — провести зрителя через 30 минут сложнейшего экспертного контента так, чтобы ему казалось, что прошло 3 минуты. Это достигается за счет хирургически точного симбиоза голливудской драматургии, кино-света и агрессивного саунд-дизайна.</p>
+                            </div>
+
+                            <div class="epic-quote epic-anim-item">
+                                "Ваш контент — это единственный идеальный продавец. Он работает на вас 24/7 по всему миру, никогда не спит, не просит повышения зарплаты и не уходит к конкурентам. Он обязан быть безупречным."
+                            </div>
+
+                            <div class="epic-chapter epic-anim-item">
+                                <h3 class="epic-chapter-title"><span>02</span> Анатомия Шедевра</h3>
+                                <div class="epic-grid">
+                                    <div class="epic-box">
+                                        <i class="fa-solid fa-brain eb-icon"></i>
+                                        <div class="eb-title">Архитектура Сценария (H-V-C)</div>
+                                        <div class="eb-text">Сценаристы уровня ТВ. Формула Hook-Value-CTA. Мы прописываем каждое слово, внедряем "открытые петли" (open loops) и парадоксы. Вы не просто читаете текст, вы управляете эмоциональными качелями зрителя.</div>
+                                    </div>
+                                    <div class="epic-box">
+                                        <i class="fa-solid fa-video eb-icon"></i>
+                                        <div class="eb-title">Премиум Продакшн</div>
+                                        <div class="eb-text">Съемка на <strong>Sony Cinema Line (FX3/FX6)</strong>. Объемный студийный свет (Key, Fill, Backlight). Продюсер на площадке вытягивает из вас нужную эмоцию. Вы выглядите как абсолютный авторитет своей ниши.</div>
+                                    </div>
+                                    <div class="epic-box">
+                                        <i class="fa-solid fa-scissors eb-icon"></i>
+                                        <div class="eb-title">Ритмичный Монтаж</div>
+                                        <div class="eb-text">Динамическая смена планов каждые 5-7 секунд. Интеграция 4K B-roll вставок, сложный саунд-дизайн (свуши, райзеры), который работает на подсознание и заставляет досматривать до конца. <strong>Удержание > 50%.</strong></div>
+                                    </div>
+                                    <div class="epic-box">
+                                        <i class="fa-solid fa-magnifying-glass-chart eb-icon"></i>
+                                        <div class="eb-title">SEO & Психология CTR</div>
+                                        <div class="eb-text">Арт-директор создает 3-5 вариантов превью. Тестируем CTR до пробития планки в 10%. Оптимизируем теги и метаданные, чтобы видео стало бессмертным активом в органическом поиске YouTube и Google.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="matrix-card card-funnel gsap-matrix-card">
                     <div class="mc-glow mc-glow-funnel"></div>
-                    <div class="mc-content">
-                        <div class="m-icon-box mi-funnel"><i class="fa-solid fa-filter"></i></div>
-                        <h3 class="mc-title">Автоворонки</h3>
-                        <p class="mc-text mb-0">Связываем просмотры с заявками. Разрабатываем логику чат-ботов в TG, создаем лид-магниты, интегрируем с вашим Bitrix24 или AmoCRM.</p>
+                    <div class="mc-close-btn" style="border-color: #3B82F6; color: #3B82F6;"><i class="fa-solid fa-xmark"></i></div>
+                    
+                    <div class="mc-content relative z-10 flex flex-col h-full pointer-events-none">
+                        <div>
+                            <div class="m-icon-box mi-funnel"><i class="fa-solid fa-filter"></i></div>
+                            <h3 class="mc-title">Автоворонки</h3>
+                        </div>
+                        <div class="mc-short-state flex-grow flex flex-col justify-between">
+                            <p class="mc-text mt-2">Связываем просмотры с деньгами. Разрабатываем логику чат-ботов в TG, создаем сочные лид-магниты, интегрируем систему с вашей CRM.</p>
+                            <div class="pointer-events-auto"><button class="mc-more-btn anim-trigger" style="background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.3);">ПОДРОБНЕЕ <i class="fa-solid fa-expand"></i></button></div>
+                        </div>
+
+                        <div class="mc-details pointer-events-auto">
+                            <div class="epic-cover epic-anim-item" style="border-bottom-color: rgba(59,130,246,0.2);">
+                                <span class="epic-subtitle" style="color: #3B82F6;">Уровень 2: Конвертация</span>
+                                <h2 class="epic-title">Инженерия<br>Продаж<br><span style="color: #3B82F6;">24/7</span></h2>
+                            </div>
+
+                            <div class="epic-chapter epic-anim-item">
+                                <h3 class="epic-chapter-title"><span style="color: #3B82F6;">01</span> Просмотры — это пыль</h3>
+                                <p class="epic-text">Самое большое заблуждение бизнеса в интернете — гнаться за миллионами просмотров. Мы видели блогеров-миллионников, которые не могли продать консультацию за 5000 рублей, и видели B2B-экспертов с 10,000 подписчиков, делающих системные запуски на миллионы долларов. Разница между ними одна — <strong>Архитектура Воронки</strong>.</p>
+                                <p class="epic-text">Воронка — это невидимый лабиринт. Зритель заходит в него из любопытства, а выходит "теплым" лидом, абсолютно уверенным, что купить ваш продукт — это его собственное гениальное решение.</p>
+                            </div>
+
+                            <div class="epic-quote epic-anim-item" style="border-left-color: #3B82F6;">
+                                "Контент собирает внимание. Но только воронка превращает это внимание в звон монет на вашем банковском счету. Без воронки вы просто бесплатный развлекательный канал."
+                            </div>
+
+                            <div class="epic-chapter epic-anim-item">
+                                <h3 class="epic-chapter-title"><span style="color: #3B82F6;">02</span> Механика Захвата</h3>
+                                <div class="epic-grid">
+                                    <div class="epic-box" style="border-color: rgba(59,130,246,0.2);">
+                                        <i class="fa-solid fa-magnet eb-icon" style="color: #3B82F6;"></i>
+                                        <div class="eb-title">Триггерные Лид-магниты</div>
+                                        <div class="eb-text">Мы создаем PDF-гайды, закрытые видео-уроки и таблицы расчета ROI. Человек отдает свой контакт (входит в бота) ради этой пользы. Конверсия из просмотра в регистрацию достигает 15-20%. Это честный обмен, где зритель получает пользу, а вы — лида.</div>
+                                    </div>
+                                    <div class="epic-box" style="border-color: rgba(59,130,246,0.2);">
+                                        <i class="fa-solid fa-robot eb-icon" style="color: #3B82F6;"></i>
+                                        <div class="eb-title">Чат-Боты и Квалификация</div>
+                                        <div class="eb-text">Программируем Telegram-ботов с вариативными сценариями. Бот задает вопросы, сегментирует лидов по бюджету, срочности покупки и прогревает их кейсами 24/7 без участия вашего отдела продаж.</div>
+                                    </div>
+                                    <div class="epic-box" style="grid-column: 1 / -1; border-color: rgba(59,130,246,0.2);">
+                                        <i class="fa-solid fa-database eb-icon" style="color: #3B82F6;"></i>
+                                        <div class="eb-title">CRM Интеграция и Дожим (Long-term Nurturing)</div>
+                                        <div class="eb-text">Связываем YouTube, Telegram и ваш AmoCRM/Bitrix24. Отдел продаж видит, с какого ролика пришел лид, какие вопросы задавал бот. А те, кто не купил сразу, попадают в базу "долгосрочного дожима" и будут автоматически получать от вас контент месяцами, пока не созреют. Мы монетизируем отложенный спрос, выжимая максимум ROI из каждой копейки.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="matrix-card card-traffic gsap-matrix-card">
                     <div class="mc-glow mc-glow-traffic"></div>
-                    <div class="mc-content">
-                        <div class="m-icon-box mi-traffic"><i class="fa-solid fa-rocket"></i></div>
-                        <h3 class="mc-title">Трафик & Посевы</h3>
-                        <p class="mc-text mb-0">Не ждем милости алгоритмов. Закупаем рекламу в целевых Telegram-каналах, льем Яндекс.Директ и VK таргет прямо в воронку продаж.</p>
+                    <div class="mc-close-btn" style="border-color: #22C55E; color: #22C55E;"><i class="fa-solid fa-xmark"></i></div>
+                    
+                    <div class="mc-content relative z-10 flex flex-col h-full pointer-events-none">
+                        <div>
+                            <div class="m-icon-box mi-traffic"><i class="fa-solid fa-rocket"></i></div>
+                            <h3 class="mc-title">Трафик & Посевы</h3>
+                        </div>
+                        <div class="mc-short-state flex-grow flex flex-col justify-between">
+                            <p class="mc-text mt-2">Не ждем милости алгоритмов. Агрессивно закупаем рекламу в целевых TG-каналах, льем Яндекс.Директ и VK таргет прямо в воронку.</p>
+                            <div class="pointer-events-auto"><button class="mc-more-btn anim-trigger" style="background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3);">ПОДРОБНЕЕ <i class="fa-solid fa-expand"></i></button></div>
+                        </div>
+
+                        <div class="mc-details pointer-events-auto">
+                            <div class="epic-cover epic-anim-item" style="border-bottom-color: rgba(34,197,94,0.2);">
+                                <span class="epic-subtitle" style="color: #22C55E;">Уровень 3: Доминация</span>
+                                <h2 class="epic-title">Синдикат<br>Трафика<br><span style="color: #22C55E;">& Масштаб</span></h2>
+                            </div>
+
+                            <div class="epic-chapter epic-anim-item">
+                                <h3 class="epic-chapter-title"><span style="color: #22C55E;">01</span> Покупка Времени</h3>
+                                <p class="epic-text">Органический рост на YouTube — это мощно, но это марафон. Если бизнесу нужна лидогенерация "вчера", мы активируем протоколы платного трафика. Бизнес не может ждать полгода. Мы используем платный трафик как авиационное топливо для вашей воронки.</p>
+                                <p class="epic-text">Наша философия — выкупать самое горячее внимание на рынке, сжигая рекламные бюджеты конкурентов нашей запредельной эффективностью и окупаемостью (ROI). Трафик — это математика. Мы заливаем X рублей, чтобы вытащить 5X в кассу.</p>
+                            </div>
+
+                            <div class="epic-chapter epic-anim-item">
+                                <h3 class="epic-chapter-title"><span style="color: #22C55E;">02</span> Инструментарий Экспансии</h3>
+                                <div class="epic-grid">
+                                    <div class="epic-box" style="border-color: rgba(34,197,94,0.2);">
+                                        <i class="fa-brands fa-telegram eb-icon" style="color: #22C55E;"></i>
+                                        <div class="eb-title">Теневые Посевы (Telegram)</div>
+                                        <div class="eb-text">Наш отдел Media Buying через Telemetr/TGStat находит авторские каналы, где сидит ваша ЦА (инвесторы, предприниматели). Мы выявляем накрутку, пишем нативные посты и массово скупаем рекламу, переливая трафик прямо в ваших ботов.</div>
+                                    </div>
+                                    <div class="epic-box" style="border-color: rgba(34,197,94,0.2);">
+                                        <i class="fa-solid fa-crosshairs eb-icon" style="color: #22C55E;"></i>
+                                        <div class="eb-title">Яндекс.Директ и Ретаргет</div>
+                                        <div class="eb-text">Человек посмотрел ролик, но не купил? Мы "догоним" его баннерами по всему интернету. Настройка сложных пикселей и возврат ушедшего трафика за копейки. Оптимизация кампаний происходит на базе ИИ с отсечением неработающих связок.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="matrix-card card-brand gsap-matrix-card">
                     <div class="mc-glow mc-glow-brand"></div>
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end h-full gap-6 md:gap-8 relative z-10">
-                        <div class="mc-content max-w-xl">
-                            <div class="m-icon-box mi-brand"><i class="fa-solid fa-user-astronaut"></i></div>
-                            <h3 class="mc-title">Личный Бренд</h3>
-                            <p class="mc-text mb-0">В 2026 году B2B и розница покупают у людей. Делаем из вас лидера мнений. Формируем премиальный медийный образ, которому доверяют партнеры и клиенты, снижая цикл сделки в 3 раза.</p>
+                    <div class="mc-close-btn" style="border-color: #A855F7; color: #A855F7;"><i class="fa-solid fa-xmark"></i></div>
+                    
+                    <div class="mc-content relative z-10 flex flex-col h-full w-full pointer-events-none">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-8 w-full mc-short-state">
+                            <div class="max-w-xl">
+                                <div class="m-icon-box mi-brand"><i class="fa-solid fa-user-astronaut"></i></div>
+                                <h3 class="mc-title">Личный Бренд & Биография</h3>
+                                <p class="mc-text mb-0 mt-2">Делаем из вас лидера мнений. Формируем премиальный медийный образ, которому доверяют партнеры и клиенты, снижая цикл сделки в 3 раза.</p>
+                                <div class="pointer-events-auto"><button class="mc-more-btn anim-trigger mt-4" style="background: rgba(168,85,247,0.1); border-color: rgba(168,85,247,0.3);">ПОДРОБНЕЕ <i class="fa-solid fa-expand"></i></button></div>
+                            </div>
+                            <div class="pointer-events-auto">
+                                <a href="#" class="bg-yt text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-[10px] md:text-sm hover:bg-white hover:text-yt transition-colors shadow-[0_0_20px_rgba(229,45,39,0.4)] whitespace-nowrap open-modal-btn w-full md:w-auto text-center">
+                                    Упаковать бренд
+                                </a>
+                            </div>
                         </div>
-                        <a href="#" class="bg-yt text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-bold uppercase tracking-widest text-[10px] md:text-sm hover:bg-white hover:text-yt transition-colors shadow-[0_0_20px_rgba(229,45,39,0.4)] whitespace-nowrap open-modal-btn w-full md:w-auto text-center mt-4 md:mt-0">
-                            Упаковать бренд
-                        </a>
+
+                        <div class="mc-details pointer-events-auto">
+                            <div class="epic-cover epic-anim-item" style="border-bottom-color: rgba(168,85,247,0.2);">
+                                <span class="epic-subtitle" style="color: #A855F7;">Уровень 4: Абсолютная Власть</span>
+                                <h2 class="epic-title">Архитектура<br>Личности<br><span style="color: #A855F7;">И Легенды</span></h2>
+                            </div>
+
+                            <div class="epic-chapter epic-anim-item">
+                                <h3 class="epic-chapter-title"><span style="color: #A855F7;">01</span> Смерть Корпораций</h3>
+                                <p class="epic-text">Логотипы больше не продают. Компании с вылизанными корпоративными сайтами с улыбающимися людьми из фотостоков проигрывают молодым стартапам, основатель которых просто и честно рассказывает о "внутрянке" бизнеса в своих влогах. Люди устали от корпоративной пластмассы. <strong>Люди хотят покупать у людей.</strong> У тех, чей путь они видят, чьи ценности разделяют и кому доверяют на подсознательном уровне.</p>
+                                <p class="epic-text">Личный бренд — это ваш единственный непробиваемый финансовый ров. Ваш продукт могут скопировать конкуренты из Китая, ваш код могут украсть, а топ-менеджеров — переманить. Но вашу харизму, ваш голос и ваш уникальный жизненный опыт <strong>не скопирует никто в мире</strong>.</p>
+                            </div>
+
+                            <div class="epic-quote epic-anim-item" style="border-left-color: #A855F7;">
+                                "Когда у бизнеса есть лицо сильного лидера, цикл сделки в B2B сокращается с полугода до одной недели. Клиент приходит уже лояльным, как к старому другу. Вы перестаете конкурировать ценой, продавая за счет абсолютного доверия."
+                            </div>
+
+                            <div class="epic-chapter epic-anim-item">
+                                <h3 class="epic-chapter-title"><span style="color: #A855F7;">02</span> Распаковка Титана (Путь Героя)</h3>
+                                <p class="epic-text">Мы не придумываем вам фальшивую маску. Фальшь убивает конверсию. Мы проводим хирургическую распаковку вашей биографии, находя те самые точки боли, триумфа и трансформации. Мы используем структуру мифа <strong>Джозефа Кэмпбелла (Monomyth)</strong> и архетипы <strong>Карла Юнга</strong>, чтобы написать самую захватывающую биографию в вашей нише.</p>
+                                
+                                <div class="lore-timeline">
+                                    <div class="lore-node">
+                                        <div class="lore-year">Этап 1: Тень и Катарсис</div>
+                                        <div class="lore-title">Аудит Жизненного Пути</div>
+                                        <div class="epic-text">Наш журналист проводит с вами многочасовые сессии. Мы вытаскиваем ваши самые большие провалы и поражения. Почему? Потому что идеальных людей ненавидят. <strong>Уязвимость порождает сверхдоверие.</strong> Ваша история преодоления становится фундаментом вашей Легенды. Люди обожают истории воскрешения из пепла.</div>
+                                    </div>
+                                    <div class="lore-node">
+                                        <div class="lore-year">Этап 2: Юнгианский Архетип</div>
+                                        <div class="lore-title">Формирование Роли</div>
+                                        <div class="epic-text">Кем вы будете для рынка? Бунтарь, разрушающий старые устои? Мудрец, к которому приходят за твердыми цифрами? Или Творец-визионер? Архетип диктует всё: от тональности вашего голоса в кадре (Tone of Voice) до стиля одежды и цвета превью. Мы синхронизируем ваш внутренний стержень с мощным внешним образом.</div>
+                                    </div>
+                                    <div class="lore-node">
+                                        <div class="lore-year">Этап 3: Тотальная Экспансия</div>
+                                        <div class="lore-title">Дистрибуция Смыслов</div>
+                                        <div class="epic-text">Мы берем вашу распакованную Легенду и как паутину раскидываем её по всему интернету. Большие видео на YouTube формируют авторитет. Короткие Shorts закидывают крючки массовой аудитории. Посты в Telegram работают как интеллектуальная привязка в реальном времени. Мы создаем иллюзию вашего тотального присутствия на рынке.</div>
+                                    </div>
+                                    <div class="lore-node">
+                                        <div class="lore-year">Этап 4: Монополия и Власть</div>
+                                        <div class="lore-title">Капитализация Доверия</div>
+                                        <div class="epic-text">Итог нашей работы — вы перестаете конкурировать в кровавом океане. Люди готовы переплачивать 30-50% выше рынка просто за право работать лично с вами или вашей компанией. Ваше имя становится независимым, высоколиквидным активом, который открывает двери в любые кабинеты и привлекает любые инвестиции. Вы становитесь живой иконой своей ниши.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="cta-gigantic epic-anim-item">
+                                <h2>Войдите в Историю</h2>
+                                <p style="font-size: 1.2rem; color: #aaa; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">Оставьте конкурентов биться за копейки. Создайте свой собственный рынок, где вы — единственный непререкаемый авторитет.</p>
+                                <a href="#" class="open-modal-btn" style="background: #fff; color: #000; padding: 20px 50px; border-radius: 100px; font-family: 'Unbounded', sans-serif; font-weight: 900; text-transform: uppercase; font-size: 1.2rem; transition: transform 0.3s; display: inline-block;">Упаковать Бренд</a>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
@@ -896,263 +1296,217 @@
         </div>
     </section>
 
-    <section id="cases-pro" class="bg-[#020202] relative z-10 border-t border-white/5 pt-16 md:pt-24 pb-10">
-        <div class="max-w-[1200px] mx-auto px-4 md:px-6 mb-10 text-center relative z-20">
-            <div class="inline-block border border-yt/30 bg-yt/10 text-yt px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6">Архитектура успеха</div>
-            <h2 class="font-display text-4xl md:text-7xl font-black uppercase mb-4 md:mb-6">Наши <span class="red-gradient-text">Кейсы</span></h2>
-            <p class="text-sm md:text-xl text-gray-400 max-w-2xl mx-auto font-light">Мы не продаем просмотры. Мы продаем выстроенную систему, которая конвертирует внимание в деньги.</p>
+    <section id="cases-pro" class="py-20 lg:py-0 bg-dark relative z-10 overflow-hidden border-t border-white/5">
+        
+        <div class="lg:hidden px-4 mb-10 text-center gsap-fade-up">
+            <div class="text-yt font-tech font-bold text-[10px] tracking-widest uppercase mb-4">// PROOF OF CONCEPT</div>
+            <h2 class="font-massive text-5xl font-black uppercase tracking-tighter">Наши<br><span class="text-stroke text-transparent">Кейсы</span></h2>
         </div>
 
-        <div id="cases-pin-wrapper" class="cases-super-wrapper px-4 md:px-0">
-            <div id="cases-slider" class="cases-slider">
-                
-                <div class="case-panel">
-                    <div class="max-w-[1400px] mx-auto w-full case-glass-card flex flex-col md:flex-row">
-                        <div class="w-full md:w-1/2 p-6 sm:p-8 md:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/5">
-                            <div class="text-yt text-[10px] md:text-sm font-bold uppercase tracking-widest mb-2 md:mb-4">Оборудование для Майнинга</div>
-                            <h3 class="font-display text-4xl md:text-6xl font-black text-white mb-4 md:mb-6 uppercase">GET ASIC</h3>
-                            
-                            <div class="mb-4 md:mb-6">
-                                <h4 class="text-white font-bold text-sm md:text-base mb-2 flex items-center gap-2"><i class="fa-solid fa-circle-exclamation text-gray-500"></i> Проблема клиента</h4>
-                                <p class="text-gray-400 text-xs md:text-sm leading-relaxed">Были случайные продажи и низкие охваты. Канал велся "для галочки", без четкой структуры продающих сценариев.</p>
-                            </div>
-                            
-                            <div class="mb-4 md:mb-8">
-                                <h4 class="text-white font-bold text-sm md:text-base mb-2 flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench text-yt"></i> Что мы внедрили</h4>
-                                <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-4">Внедрили воронки прямо внутрь длинных видео. Настроили перелив трафика из Shorts. Сделали агрессивное SEO под целевые запросы инвесторов.</p>
-                                <div>
-                                    <span class="tech-tag">Воронки</span>
-                                    <span class="tech-tag">SEO</span>
-                                    <span class="tech-tag">Shorts</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="w-full md:w-1/2 p-6 sm:p-8 md:p-16 bg-gradient-to-br from-transparent to-yt/5 flex flex-col justify-center">
-                            <div class="text-xl md:text-2xl font-display font-black text-white mb-6 md:mb-8">Метрики роста</div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                                <div class="metric-box point-a">
-                                    <div class="text-[10px] md:text-xs text-gray-500 font-bold uppercase tracking-widest mb-3 md:mb-4">Точка А</div>
-                                    <div class="space-y-3 md:space-y-4">
-                                        <div>
-                                            <div class="text-gray-500 text-[10px] md:text-xs mb-1">Лиды в месяц</div>
-                                            <div class="text-white font-bold text-lg md:text-xl">3-5 шт.</div>
-                                        </div>
-                                        <div>
-                                            <div class="text-gray-500 text-[10px] md:text-xs mb-1">Продажи</div>
-                                            <div class="text-white font-bold text-lg md:text-xl">1-2 шт.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="metric-box point-b-red relative overflow-hidden">
-                                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-solid fa-rocket text-5xl md:text-6xl text-yt"></i></div>
-                                    <div class="text-[10px] md:text-xs text-yt font-bold uppercase tracking-widest mb-3 md:mb-4">Результат</div>
-                                    <div class="space-y-3 md:space-y-4 relative z-10">
-                                        <div>
-                                            <div class="text-gray-300 text-[10px] md:text-xs mb-1">Лиды в месяц</div>
-                                            <div class="text-yt font-display font-black text-xl md:text-2xl">100+ шт.</div>
-                                        </div>
-                                        <div>
-                                            <div class="text-gray-300 text-[10px] md:text-xs mb-1">Продажи</div>
-                                            <div class="text-white font-display font-black text-xl md:text-2xl">20-55 шт.</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-6 md:mt-8 bg-dark border border-white/10 rounded-xl p-3 md:p-4 flex items-center justify-between">
-                                <div class="text-gray-400 text-xs md:text-sm">Охват канала:</div>
-                                <div class="text-xl md:text-2xl font-display font-black text-white">3.9 МЛН</div>
-                            </div>
-                        </div>
-                    </div>
+        <div id="cases-pin-container" class="cases-wrapper">
+            
+            <div class="case-panel hidden lg:flex flex-col text-left justify-center px-16 w-[40vw] flex-shrink-0">
+                <div class="text-yt font-tech font-bold text-sm tracking-widest uppercase mb-6">// PROOF OF CONCEPT</div>
+                <h2 class="font-massive text-[clamp(4rem,8vw,10rem)] font-black uppercase leading-[0.85] mb-8">Масштаб<br><span class="text-stroke text-transparent">В цифрах</span></h2>
+                <p class="text-xl xl:text-2xl text-gray-400 max-w-lg border-l-4 border-yt pl-6">Мы не продаем просмотры. Мы продаем выстроенную систему, которая конвертирует внимание в реальные деньги в кассе. Листайте вправо, чтобы увидеть процесс.</p>
+                <div class="mt-16 flex items-center gap-4 opacity-50">
+                    <span class="text-xs font-tech font-bold uppercase tracking-widest text-white">Скролл вправо</span>
+                    <i class="fa-solid fa-arrow-right-long text-2xl animate-pulse"></i>
                 </div>
-
-                <div class="case-panel">
-                    <div class="max-w-[1400px] mx-auto w-full case-glass-card flex flex-col md:flex-row">
-                        <div class="w-full md:w-1/2 p-6 sm:p-8 md:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/5">
-                            <div class="text-blue-500 text-xs md:text-sm font-bold uppercase tracking-widest mb-2 md:mb-4">Эксперт / Криптовалюта</div>
-                            <h3 class="font-display text-4xl md:text-6xl font-black text-white mb-4 md:mb-6 uppercase">SER CRYPTO</h3>
-                            
-                            <div class="mb-4 md:mb-6">
-                                <h4 class="text-white font-bold text-sm md:text-base mb-2 flex items-center gap-2"><i class="fa-solid fa-circle-exclamation text-gray-500"></i> Проблема клиента</h4>
-                                <p class="text-gray-400 text-xs md:text-sm leading-relaxed">Сильная экспертность, но нулевая медийность. Очень дорогие лиды из холодного трафика.</p>
-                            </div>
-                            
-                            <div class="mb-4 md:mb-8">
-                                <h4 class="text-white font-bold text-sm md:text-base mb-2 flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench text-blue-500"></i> Что мы внедрили</h4>
-                                <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-4">Переупаковали позиционирование в "Реалити-шоу". Организовали премиальный продакшн. Залили трафик через посевы в Telegram.</p>
-                                <div>
-                                    <span class="tech-tag">TG Посевы</span>
-                                    <span class="tech-tag">Продакшн</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="w-full md:w-1/2 p-6 sm:p-8 md:p-16 bg-gradient-to-br from-transparent to-blue-900/10 flex flex-col justify-center">
-                            <div class="text-xl md:text-2xl font-display font-black text-white mb-6 md:mb-8">Метрики роста</div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                                <div class="metric-box point-a">
-                                    <div class="text-[10px] md:text-xs text-gray-500 font-bold uppercase tracking-widest mb-3 md:mb-4">Точка А</div>
-                                    <div class="space-y-3 md:space-y-4">
-                                        <div>
-                                            <div class="text-gray-500 text-[10px] md:text-xs mb-1">Лиды в месяц</div>
-                                            <div class="text-white font-bold text-lg md:text-xl">20-35 шт.</div>
-                                        </div>
-                                        <div>
-                                            <div class="text-gray-500 text-[10px] md:text-xs mb-1">Покупки</div>
-                                            <div class="text-white font-bold text-lg md:text-xl">4-7 шт.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="metric-box point-b-blue relative overflow-hidden">
-                                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-solid fa-chart-line text-5xl md:text-6xl text-blue-500"></i></div>
-                                    <div class="text-[10px] md:text-xs text-blue-500 font-bold uppercase tracking-widest mb-3 md:mb-4">Результат</div>
-                                    <div class="space-y-3 md:space-y-4 relative z-10">
-                                        <div>
-                                            <div class="text-gray-300 text-[10px] md:text-xs mb-1">Лиды в месяц</div>
-                                            <div class="text-blue-500 font-display font-black text-xl md:text-2xl">1000+ шт.</div>
-                                        </div>
-                                        <div>
-                                            <div class="text-gray-300 text-[10px] md:text-xs mb-1">Покупки</div>
-                                            <div class="text-white font-display font-black text-xl md:text-2xl">250+ шт.</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-6 md:mt-8 bg-dark border border-white/10 rounded-xl p-3 md:p-4 flex items-center justify-between">
-                                <div class="text-gray-400 text-xs md:text-sm">Подписчики:</div>
-                                <div class="text-xl md:text-2xl font-display font-black text-white">101 000 чел</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="case-panel">
-                    <div class="max-w-[1400px] mx-auto w-full case-glass-card flex flex-col md:flex-row">
-                        <div class="w-full md:w-1/2 p-6 sm:p-8 md:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/5">
-                            <div class="text-yellow-500 text-xs md:text-sm font-bold uppercase tracking-widest mb-2 md:mb-4">Опт / Автотовары</div>
-                            <h3 class="font-display text-4xl md:text-6xl font-black text-white mb-4 md:mb-6 uppercase">NTS AUTO</h3>
-                            
-                            <div class="mb-4 md:mb-6">
-                                <h4 class="text-white font-bold text-sm md:text-base mb-2 flex items-center gap-2"><i class="fa-solid fa-circle-exclamation text-gray-500"></i> Проблема клиента</h4>
-                                <p class="text-gray-400 text-xs md:text-sm leading-relaxed">Просмотры были, продаж не было. Воронка была сломана: аудитория не понимала, что им продают B2B-товары.</p>
-                            </div>
-                            
-                            <div class="mb-4 md:mb-8">
-                                <h4 class="text-white font-bold text-sm md:text-base mb-2 flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench text-yellow-500"></i> Что мы внедрили</h4>
-                                <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-4">Сместили фокус на бизнес-аудиторию (маржинальность, логистика). Изменили CTA. Подключили Яндекс.Директ для ретаргетинга.</p>
-                                <div>
-                                    <span class="tech-tag">B2B Воронка</span>
-                                    <span class="tech-tag">Директ</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="w-full md:w-1/2 p-6 sm:p-8 md:p-16 bg-gradient-to-br from-transparent to-yellow-900/10 flex flex-col justify-center">
-                            <div class="text-xl md:text-2xl font-display font-black text-white mb-6 md:mb-8">Метрики роста</div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                                <div class="metric-box point-a">
-                                    <div class="text-[10px] md:text-xs text-gray-500 font-bold uppercase tracking-widest mb-3 md:mb-4">Точка А</div>
-                                    <div class="space-y-3 md:space-y-4">
-                                        <div>
-                                            <div class="text-gray-500 text-[10px] md:text-xs mb-1">Опт Лиды</div>
-                                            <div class="text-white font-bold text-lg md:text-xl">5-25 шт.</div>
-                                        </div>
-                                        <div>
-                                            <div class="text-gray-500 text-[10px] md:text-xs mb-1">Покупки</div>
-                                            <div class="text-white font-bold text-lg md:text-xl">0-5 шт.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="metric-box point-b-yellow relative overflow-hidden">
-                                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-solid fa-car-side text-5xl md:text-6xl text-yellow-500"></i></div>
-                                    <div class="text-[10px] md:text-xs text-yellow-500 font-bold uppercase tracking-widest mb-3 md:mb-4">Результат</div>
-                                    <div class="space-y-3 md:space-y-4 relative z-10">
-                                        <div>
-                                            <div class="text-gray-300 text-[10px] md:text-xs mb-1">Опт Лиды</div>
-                                            <div class="text-yellow-500 font-display font-black text-xl md:text-2xl">700+ шт.</div>
-                                        </div>
-                                        <div>
-                                            <div class="text-gray-300 text-[10px] md:text-xs mb-1">Покупки</div>
-                                            <div class="text-white font-display font-black text-xl md:text-2xl">300+ шт.</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-6 md:mt-8 bg-dark border border-white/10 rounded-xl p-3 md:p-4 flex items-center justify-between">
-                                <div class="text-gray-400 text-xs md:text-sm">Просмотры:</div>
-                                <div class="text-xl md:text-2xl font-display font-black text-white">11.8 МЛН</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="case-panel">
-                    <div class="max-w-[1400px] mx-auto w-full case-glass-card flex flex-col md:flex-row">
-                        <div class="w-full md:w-1/2 p-6 sm:p-8 md:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/5">
-                            <div class="text-purple-500 text-xs md:text-sm font-bold uppercase tracking-widest mb-2 md:mb-4">Бизнес в Турции</div>
-                            <h3 class="font-display text-4xl md:text-6xl font-black text-white mb-4 md:mb-6 uppercase">IC CONSULTING</h3>
-                            
-                            <div class="mb-4 md:mb-6">
-                                <h4 class="text-white font-bold text-sm md:text-base mb-2 flex items-center gap-2"><i class="fa-solid fa-circle-exclamation text-gray-500"></i> Проблема клиента</h4>
-                                <p class="text-gray-400 text-xs md:text-sm leading-relaxed">Сложная структура из 3-х бизнесов. Трафик был нецелевым, цикл сделки по недвижимости затягивался из-за низкого уровня доверия.</p>
-                            </div>
-                            
-                            <div class="mb-4 md:mb-8">
-                                <h4 class="text-white font-bold text-sm md:text-base mb-2 flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench text-purple-500"></i> Что мы внедрили</h4>
-                                <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-4">Запустили сеть из смежных YouTube-каналов. Упаковали личный бренд владельца. Связали трафик из соцсетей с Bitrix24.</p>
-                                <div>
-                                    <span class="tech-tag">Сеть Каналов</span>
-                                    <span class="tech-tag">Bitrix24</span>
-                                    <span class="tech-tag">Бренд Лица</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="w-full md:w-1/2 p-6 sm:p-8 md:p-16 bg-gradient-to-br from-transparent to-purple-900/10 flex flex-col justify-center">
-                            <div class="text-xl md:text-2xl font-display font-black text-white mb-6 md:mb-8">Метрики роста</div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                                <div class="metric-box point-a">
-                                    <div class="text-[10px] md:text-xs text-gray-500 font-bold uppercase tracking-widest mb-3 md:mb-4">Точка А</div>
-                                    <div class="space-y-3 md:space-y-4">
-                                        <div>
-                                            <div class="text-gray-500 text-[10px] md:text-xs mb-1">Лиды в месяц</div>
-                                            <div class="text-white font-bold text-lg md:text-xl">50-100 шт.</div>
-                                        </div>
-                                        <div>
-                                            <div class="text-gray-500 text-[10px] md:text-xs mb-1">Покупки (чеки)</div>
-                                            <div class="text-white font-bold text-lg md:text-xl">~10+ шт.</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="metric-box point-b-purple relative overflow-hidden">
-                                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fa-brands fa-tiktok text-5xl md:text-6xl text-purple-500"></i></div>
-                                    <div class="text-[10px] md:text-xs text-purple-500 font-bold uppercase tracking-widest mb-3 md:mb-4">Результат</div>
-                                    <div class="space-y-3 md:space-y-4 relative z-10">
-                                        <div>
-                                            <div class="text-gray-300 text-[10px] md:text-xs mb-1">Лиды в месяц</div>
-                                            <div class="text-purple-500 font-display font-black text-xl md:text-2xl">1000+ заявок</div>
-                                        </div>
-                                        <div>
-                                            <div class="text-gray-300 text-[10px] md:text-xs mb-1">Покупки (чеки)</div>
-                                            <div class="text-white font-display font-black text-xl md:text-2xl">250+ шт.</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-6 md:mt-8 bg-dark border border-white/10 rounded-xl p-3 md:p-4 flex items-center justify-between">
-                                <div class="text-gray-400 text-xs md:text-sm">Просмотры:</div>
-                                <div class="text-xl md:text-2xl font-display font-black text-white">47 МИЛЛИОНОВ</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+
+            <div class="case-card bento-card border border-white/10 case-panel flex flex-col md:flex-row p-0">
+                <div class="absolute top-0 left-0 w-full h-1 bg-yt"></div>
+                <div class="w-full md:w-1/2 p-6 md:p-10 xl:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/5 bg-gradient-to-r from-transparent to-yt/5">
+                    <div class="inline-block px-3 py-1 bg-yt text-white rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-4 md:mb-6 w-max">B2B / Оборудование для Майнинга</div>
+                    <h3 class="font-massive text-4xl md:text-5xl xl:text-7xl font-black text-white uppercase mb-4 md:mb-6">GET ASIC</h3>
+                    <div class="overflow-y-auto pr-4 custom-scrollbar max-h-[40vh] md:max-h-none">
+                        <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-6">
+                            <strong class="text-white block mb-1 text-lg">Точка А (До нас):</strong>
+                            Канал велся исключительно "для галочки". Видео снимались бессистемно, без глубокого понимания поисковых алгоритмов и целевого запроса аудитории. В результате бизнес получал 3-5 случайных розничных заявок от людей с минимальным бюджетом, которые просто тратили время менеджеров. Крупные B2B инвесторы и владельцы промышленных дата-центров просто не видели в компании отраслевых экспертов, так как контент был поверхностным и не закрывал их сложные технические возражения по окупаемости и логистике из Китая.
+                        </p>
+                        <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-8">
+                            <strong class="text-white block mb-1 text-lg">Стратегия и Решение:</strong>
+                            Мы полностью пересобрали архитектуру позиционирования компании. Внедрили жесткие многоступенчатые воронки прямо внутрь длинных 30-минутных видео, где каждый ролик заканчивался призывом скачать таблицу расчета окупаемости (ROI) оборудования. Настроили массивный перелив дешевого трафика из Shorts в основной контент. Сделали агрессивную SEO-оптимизацию под узкие, но максимально "горячие" коммерческие запросы (например, "окупаемость ASIC 2026", "настройка майнинг фермы под ключ"). Выстроили систему прогрева через Telegram-бота, где менеджеры дожимали сомневающихся инвесторов контентом, закрывая сделки на миллионы рублей.
+                        </p>
+                    </div>
+                    <div class="flex gap-2 flex-wrap mt-auto">
+                        <span class="px-3 py-1.5 md:px-4 md:py-2 border border-white/20 rounded-full text-[10px] md:text-xs font-bold bg-white/5 uppercase">Воронки</span>
+                        <span class="px-3 py-1.5 md:px-4 md:py-2 border border-white/20 rounded-full text-[10px] md:text-xs font-bold bg-white/5 uppercase">SEO Optimization</span>
+                        <span class="px-3 py-1.5 md:px-4 md:py-2 border border-white/20 rounded-full text-[10px] md:text-xs font-bold bg-white/5 uppercase">Shorts Traffic</span>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 p-6 md:p-12 xl:p-16 flex flex-col justify-center relative bg-[#050505] overflow-hidden">
+                    <i class="fa-solid fa-microchip absolute -bottom-10 -right-10 text-[15rem] md:text-[20rem] text-yt opacity-[0.03]"></i>
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-8 md:gap-x-8 md:gap-y-12 relative z-10">
+                        <div>
+                            <div class="text-gray-500 font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Охват до</div>
+                            <div class="text-xl md:text-2xl font-bold text-gray-600 line-through">31 ТЫС</div>
+                        </div>
+                        <div class="metric-glow mg-red pl-4 md:pl-6">
+                            <div class="text-yt font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Охват после</div>
+                            <div class="text-3xl md:text-5xl font-display font-black text-white drop-shadow-[0_0_15px_rgba(229,45,39,0.3)]">3.9 МЛН</div>
+                        </div>
+                        <div>
+                            <div class="text-gray-500 font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Лиды до</div>
+                            <div class="text-xl md:text-2xl font-bold text-gray-600 line-through">3-5 шт</div>
+                        </div>
+                        <div class="metric-glow mg-red pl-4 md:pl-6">
+                            <div class="text-yt font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Лиды после</div>
+                            <div class="text-3xl md:text-5xl font-display font-black text-white drop-shadow-[0_0_15px_rgba(229,45,39,0.3)]">100+ шт</div>
+                        </div>
+                    </div>
+                    <div class="mt-8 md:mt-12 bg-yt/10 border border-yt/30 text-white p-4 md:p-6 rounded-2xl flex justify-between items-center relative z-10">
+                        <div class="font-bold uppercase text-[10px] md:text-xs">Продажи (чеки)</div>
+                        <div class="text-2xl md:text-4xl font-display font-black text-yt">20-55 шт.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-card bento-card border border-white/10 case-panel flex flex-col md:flex-row p-0">
+                <div class="absolute top-0 left-0 w-full h-1 bg-[#2AABEE]"></div>
+                <div class="w-full md:w-1/2 p-6 md:p-10 xl:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/5 bg-gradient-to-r from-transparent to-[#2AABEE]/5">
+                    <div class="inline-block px-3 py-1 bg-[#2AABEE] text-white rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-4 md:mb-6 w-max">Инфобизнес / Криптовалюта</div>
+                    <h3 class="font-massive text-4xl md:text-5xl xl:text-7xl font-black text-white uppercase mb-4 md:mb-6">SER CRYPTO</h3>
+                    <div class="overflow-y-auto pr-4 custom-scrollbar max-h-[40vh] md:max-h-none">
+                        <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-6">
+                            <strong class="text-white block mb-1 text-lg">Точка А (До нас):</strong>
+                            У клиента была фундаментальная, сильная экспертность в трейдинге и инвестициях, но абсолютно нулевая медийность на рынке. Предыдущие попытки запускать прямую рекламу (таргет) давали катастрофически дорогие лиды из "холодного" трафика, а конверсия в покупку премиального обучения стремилась к нулю, так как у аудитории не было сформировано базовое доверие к спикеру и его методам.
+                        </p>
+                        <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-8">
+                            <strong class="text-white block mb-1 text-lg">Стратегия и Решение:</strong>
+                            Мы радикально изменили формат контента, превратив скучные лекции в динамичное "Реалити-шоу". Клиент начал в реальном времени показывать свои сделки, P&L (прибыли и убытки) и прозрачную аналитику рынка. Мы организовали премиальный кино-продакшн (4K, студийный свет, многокамерная съемка), чтобы визуально отстроиться от 99% конкурентов в нише. Параллельно залили огромный объем трафика через точечные посевы в узкоспециализированных Telegram-каналах для быстрого буста базы лояльных подписчиков, что сразу дало взрывной рост продаж обучения.
+                        </p>
+                    </div>
+                    <div class="flex gap-2 flex-wrap mt-auto">
+                        <span class="px-3 py-1.5 md:px-4 md:py-2 border border-white/20 rounded-full text-[10px] md:text-xs font-bold bg-white/5 uppercase">TG Посевы</span>
+                        <span class="px-3 py-1.5 md:px-4 md:py-2 border border-white/20 rounded-full text-[10px] md:text-xs font-bold bg-white/5 uppercase">Реалити Формат</span>
+                        <span class="px-3 py-1.5 md:px-4 md:py-2 border border-white/20 rounded-full text-[10px] md:text-xs font-bold bg-white/5 uppercase">Кино-Продакшн</span>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 p-6 md:p-12 xl:p-16 flex flex-col justify-center relative bg-[#050505] overflow-hidden">
+                    <i class="fa-brands fa-bitcoin absolute -bottom-10 -right-10 text-[15rem] md:text-[20rem] text-[#2AABEE] opacity-[0.03]"></i>
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-8 md:gap-x-8 md:gap-y-12 relative z-10">
+                        <div>
+                            <div class="text-gray-500 font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Подписчики до</div>
+                            <div class="text-xl md:text-2xl font-bold text-gray-600 line-through">1.2 ТЫС</div>
+                        </div>
+                        <div class="metric-glow mg-blue pl-4 md:pl-6">
+                            <div class="text-[#2AABEE] font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Подписчики после</div>
+                            <div class="text-3xl md:text-5xl font-display font-black text-white drop-shadow-[0_0_15px_rgba(42,171,238,0.3)]">101 ТЫС</div>
+                        </div>
+                        <div>
+                            <div class="text-gray-500 font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Лиды до</div>
+                            <div class="text-xl md:text-2xl font-bold text-gray-600 line-through">20-35 шт</div>
+                        </div>
+                        <div class="metric-glow mg-blue pl-4 md:pl-6">
+                            <div class="text-[#2AABEE] font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Лиды после</div>
+                            <div class="text-3xl md:text-5xl font-display font-black text-white drop-shadow-[0_0_15px_rgba(42,171,238,0.3)]">1000+ шт</div>
+                        </div>
+                    </div>
+                    <div class="mt-8 md:mt-12 bg-[#2AABEE]/10 border border-[#2AABEE]/30 text-white p-4 md:p-6 rounded-2xl flex justify-between items-center relative z-10">
+                        <div class="font-bold uppercase text-[10px] md:text-xs">Покупки обучений</div>
+                        <div class="text-2xl md:text-4xl font-display font-black text-[#2AABEE]">250+ шт.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-card bento-card border border-white/10 case-panel flex flex-col md:flex-row p-0">
+                <div class="absolute top-0 left-0 w-full h-1 bg-[#eab308]"></div>
+                <div class="w-full md:w-1/2 p-6 md:p-10 xl:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/5 bg-gradient-to-r from-transparent to-[#eab308]/5">
+                    <div class="inline-block px-3 py-1 bg-[#eab308] text-black rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-4 md:mb-6 w-max">B2B / Опт Автотовары</div>
+                    <h3 class="font-massive text-4xl md:text-5xl xl:text-7xl font-black text-white uppercase mb-4 md:mb-6">NTS AUTO</h3>
+                    <div class="overflow-y-auto pr-4 custom-scrollbar max-h-[40vh] md:max-h-none">
+                        <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-6">
+                            <strong class="text-white block mb-1 text-lg">Точка А (До нас):</strong>
+                            На канале стабильно росли просмотры, видео залетали в рекомендации, но парадокс — B2B продаж не было вообще. Воронка была сломана у самого основания: из-за неправильного позиционирования и слишком "развлекательной" подачи, массовая аудитория воспринимала компанию как розничный магазин. Отдел продаж утопал в тысячах сообщений "сколько стоит 1 коврик?", в то время как бизнесу нужны были оптовые отгрузки контейнерами для магазинов и сервисов.
+                        </p>
+                        <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-8">
+                            <strong class="text-white block mb-1 text-lg">Стратегия и Решение:</strong>
+                            Радикальная смена фокуса исключительно на бизнес-аудиторию. Мы полностью переписали сценарии: убрали развлекательный элемент и начали говорить языком цифр о маржинальности, логистике из Китая, таможенном оформлении и сертификации. Изменили CTA (призыв к действию) в видео — вместо просьбы подписаться, просили переходить в бота и скачивать закрытый оптовый прайс-лист. Подключили Яндекс.Директ и мощный ретаргетинг на тех, кто досматривал профильные B2B-ролики до конца, мгновенно конвертируя их в покупателей.
+                        </p>
+                    </div>
+                    <div class="flex gap-2 flex-wrap mt-auto">
+                        <span class="px-3 py-1.5 md:px-4 md:py-2 bg-white/5 border border-white/20 rounded-full text-[10px] md:text-xs text-white font-bold uppercase">B2B Воронка</span>
+                        <span class="px-3 py-1.5 md:px-4 md:py-2 bg-white/5 border border-white/20 rounded-full text-[10px] md:text-xs text-white font-bold uppercase">Я.Директ</span>
+                        <span class="px-3 py-1.5 md:px-4 md:py-2 bg-white/5 border border-white/20 rounded-full text-[10px] md:text-xs text-white font-bold uppercase">Смена позиционирования</span>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 p-6 md:p-12 xl:p-16 flex flex-col justify-center relative bg-[#050505] overflow-hidden">
+                    <i class="fa-solid fa-car-side absolute -bottom-10 -right-10 text-[15rem] md:text-[20rem] text-[#eab308] opacity-[0.03]"></i>
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-8 md:gap-x-8 md:gap-y-12 relative z-10">
+                        <div>
+                            <div class="text-gray-500 font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Просмотры до</div>
+                            <div class="text-xl md:text-2xl font-bold text-gray-600 line-through">125 ТЫС</div>
+                        </div>
+                        <div class="metric-glow mg-yellow pl-4 md:pl-6">
+                            <div class="text-[#eab308] font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Просмотры после</div>
+                            <div class="text-3xl md:text-5xl font-display font-black text-white drop-shadow-[0_0_15px_rgba(234,179,8,0.3)]">11.8 МЛН</div>
+                        </div>
+                        <div>
+                            <div class="text-gray-500 font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Опт лиды до</div>
+                            <div class="text-xl md:text-2xl font-bold text-gray-600 line-through">5-25 шт</div>
+                        </div>
+                        <div class="metric-glow mg-yellow pl-4 md:pl-6">
+                            <div class="text-[#eab308] font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Опт лиды после</div>
+                            <div class="text-3xl md:text-5xl font-display font-black text-white drop-shadow-[0_0_15px_rgba(234,179,8,0.3)]">700+ шт</div>
+                        </div>
+                    </div>
+                    <div class="mt-8 md:mt-12 bg-[#eab308]/10 border border-[#eab308]/30 text-white p-4 md:p-6 rounded-2xl flex justify-between items-center relative z-10">
+                        <div class="font-bold uppercase text-[10px] md:text-xs">Оптовые отгрузки</div>
+                        <div class="text-2xl md:text-4xl font-display font-black text-[#eab308]">300+ шт.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-card bento-card border border-white/10 case-panel flex flex-col md:flex-row p-0">
+                <div class="absolute top-0 left-0 w-full h-1 bg-[#a855f7]"></div>
+                <div class="w-full md:w-1/2 p-6 md:p-10 xl:p-16 flex flex-col justify-center border-b md:border-b-0 md:border-r border-white/5 bg-gradient-to-r from-transparent to-[#a855f7]/5">
+                    <div class="inline-block px-3 py-1 bg-[#a855f7] text-white rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-4 md:mb-6 w-max">Недвижимость в Турции</div>
+                    <h3 class="font-massive text-4xl md:text-5xl xl:text-7xl font-black text-white uppercase mb-4 md:mb-6">IC CONSULTING</h3>
+                    <div class="overflow-y-auto pr-4 custom-scrollbar max-h-[40vh] md:max-h-none">
+                        <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-6">
+                            <strong class="text-white block mb-1 text-lg">Точка А (До нас):</strong>
+                            Компания представляла собой сложную структуру из 3-х параллельных бизнесов в Турции (элитная недвижимость, консалтинг, оформление гражданства). Трафик был размытым и нецелевым. Главная проблема — цикл сделки по недвижимости затягивался на 6-12 месяцев из-за колоссального недоверия иностранных инвесторов к зарубежному рынку. Клиенты долго сомневались и уходили к конкурентам.
+                        </p>
+                        <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-8">
+                            <strong class="text-white block mb-1 text-lg">Стратегия и Решение:</strong>
+                            Мы запустили мощную медиа-экосистему из трех смежных YouTube-каналов, перекрыв абсолютно все информационные потребности экспатов и инвесторов. Фундаментально упаковали личный бренд владельца компании как главного гаранта надежности и "своего человека" в Турции. Связали весь трафик из социальных сетей (YouTube, Instagram, Telegram) в единую CRM-систему Bitrix24. Менеджеры начали видеть весь путь клиента: от первого просмотра видео про "ВНЖ Турции" до заявки на покупку виллы за $1M+, что сократило цикл сделки в разы.
+                        </p>
+                    </div>
+                    <div class="flex gap-2 flex-wrap mt-auto">
+                        <span class="px-3 py-1.5 md:px-4 md:py-2 bg-white/5 border border-white/20 rounded-full text-[10px] md:text-xs text-white font-bold uppercase">Сеть Каналов</span>
+                        <span class="px-3 py-1.5 md:px-4 md:py-2 bg-white/5 border border-white/20 rounded-full text-[10px] md:text-xs text-white font-bold uppercase">Bitrix24</span>
+                        <span class="px-3 py-1.5 md:px-4 md:py-2 bg-white/5 border border-white/20 rounded-full text-[10px] md:text-xs text-white font-bold uppercase">Бренд Лица</span>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 p-6 md:p-12 xl:p-16 flex flex-col justify-center relative bg-[#050505] overflow-hidden">
+                    <i class="fa-solid fa-city absolute -bottom-10 -right-10 text-[15rem] md:text-[20rem] text-[#a855f7] opacity-[0.03]"></i>
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-8 md:gap-x-8 md:gap-y-12 relative z-10">
+                        <div>
+                            <div class="text-gray-500 font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Лиды в мес. до</div>
+                            <div class="text-xl md:text-2xl font-bold text-gray-600 line-through">50-100 шт</div>
+                        </div>
+                        <div class="metric-glow mg-purple pl-4 md:pl-6 before:bg-[#a855f7] before:shadow-[0_0_20px_#a855f7]">
+                            <div class="text-[#a855f7] font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Лиды в мес. после</div>
+                            <div class="text-3xl md:text-5xl font-display font-black text-white drop-shadow-[0_0_15px_rgba(168,85,247,0.3)]">1000+ заявок</div>
+                        </div>
+                        <div>
+                            <div class="text-gray-500 font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Сделки (чеки) до</div>
+                            <div class="text-xl md:text-2xl font-bold text-gray-600 line-through">~10 шт</div>
+                        </div>
+                        <div class="metric-glow mg-purple pl-4 md:pl-6 before:bg-[#a855f7] before:shadow-[0_0_20px_#a855f7]">
+                            <div class="text-[#a855f7] font-tech font-bold text-[9px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2">Сделки после</div>
+                            <div class="text-3xl md:text-5xl font-display font-black text-white drop-shadow-[0_0_15px_rgba(168,85,247,0.3)]">250+ шт</div>
+                        </div>
+                    </div>
+                    <div class="mt-8 md:mt-12 bg-[#a855f7]/10 border border-[#a855f7]/30 text-white p-4 md:p-6 rounded-2xl flex justify-between items-center relative z-10">
+                        <div class="font-bold uppercase text-[10px] md:text-xs">Тотальные Просмотры</div>
+                        <div class="text-2xl md:text-4xl font-display font-black text-[#a855f7]">47 МИЛЛИОНОВ</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -1519,63 +1873,83 @@
         </div>
     </section>
 
-    <footer id="contact" class="py-16 md:py-24 bg-dark border-t border-white/10 relative z-10 overflow-hidden">
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[15vw] md:text-[12vw] font-black text-white/[0.02] whitespace-nowrap pointer-events-none font-display z-0">
-            DIGITAL HOLDING
+    <footer id="contact" class="relative min-h-[80vh] flex flex-col justify-center items-center overflow-hidden border-t border-white/5 bg-[#000]">
+        
+        <div class="noise-bg"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[500px] bg-[#2AABEE]/10 blur-[150px] rounded-full pointer-events-none z-0 mix-blend-screen"></div>
+
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.02] select-none z-0 overflow-hidden">
+            <h1 class="font-massive text-[25vw] whitespace-nowrap text-white">HOLDING</h1>
         </div>
 
-        <div class="max-w-[1400px] mx-auto px-4 md:px-12 relative z-10 text-center">
-            <h2 class="font-display text-4xl md:text-5xl lg:text-7xl font-black uppercase mb-4 md:mb-8 gsap-fade-up">Готовы к <span class="text-yt">Масштабу?</span></h2>
-            <p class="text-sm md:text-xl text-gray-400 mb-10 md:mb-12 gsap-fade-up max-w-2xl mx-auto">Оставьте заявку, и мы покажем, как выстроить систему, которая будет приносить лиды и продажи каждый день.</p>
+        <div class="relative z-10 text-center max-w-[1200px] px-4 w-full pt-10 pb-32 md:pt-20 md:pb-40">
             
-            <div class="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-4 md:gap-6 mb-16 md:mb-20 gsap-fade-up w-full">
-                <a href="https://www.youtube.com/@%D0%AE%D1%82%D1%83%D0%B1%D0%9D%D0%B0%D1%83%D0%BA%D0%B0%D0%9F%D1%80%D0%BE%D0%B4%D1%8E%D1%81%D0%B5%D1%80" target="_blank" class="flex items-center justify-center sm:justify-start gap-4 md:gap-5 glass border border-white/10 hover:border-yt px-6 md:px-8 py-4 md:py-5 rounded-2xl transition-all hover-trigger group">
-                    <i class="fa-brands fa-youtube text-4xl md:text-5xl text-gray-500 group-hover:text-yt transition-colors"></i>
-                    <div class="text-left">
-                        <div class="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest font-bold">Наш канал</div>
-                        <div class="font-bold text-white text-base md:text-lg">@ЮтубНаука</div>
-                    </div>
-                </a>
-                <a href="#" class="flex items-center justify-center sm:justify-start gap-4 md:gap-5 glass border border-white/10 hover:border-[#2AABEE] px-6 md:px-8 py-4 md:py-5 rounded-2xl transition-all hover-trigger group open-modal-btn">
-                    <i class="fa-brands fa-telegram text-4xl md:text-5xl text-gray-500 group-hover:text-[#2AABEE] transition-colors"></i>
-                    <div class="text-left">
-                        <div class="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest font-bold">Написать нам</div>
-                        <div class="font-bold text-white text-base md:text-lg">Telegram Manager</div>
-                    </div>
+            <div class="w-20 h-20 bg-[#2AABEE]/10 border border-[#2AABEE]/30 rounded-full flex items-center justify-center mx-auto mb-8 animate-pulse shadow-[0_0_30px_rgba(42,171,238,0.2)]">
+                <i class="fa-brands fa-telegram text-[#2AABEE] text-3xl"></i>
+            </div>
+            
+            <h2 class="font-massive text-[clamp(3rem,8vw,8rem)] font-black uppercase leading-[0.9] mb-8 tracking-tighter text-white">Готовы стать<br><span class="text-stroke text-transparent">Лидером?</span></h2>
+            
+            <p class="text-gray-400 text-sm md:text-2xl mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed">Система работает только для тех, кто готов к взрывному потоку лидов. Свяжитесь напрямую с руководителями для аудита проекта.</p>
+            
+            <div class="magnetic-wrap hover-magnetic open-modal-btn">
+                <a href="https://t.me/agentyoutube" target="_blank" class="magnetic-btn inline-flex items-center justify-center px-10 md:px-16 py-5 md:py-6 bg-[#2AABEE] text-white rounded-full font-black uppercase tracking-widest text-xs md:text-sm hover:bg-[#1c92d2] transition-colors shadow-[0_0_40px_rgba(42,171,238,0.4)]">
+                    Написать в Telegram <i class="fa-solid fa-arrow-right ml-3"></i>
                 </a>
             </div>
+            
+            <p class="mt-8 text-gray-500 font-tech text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold">@agentyoutube</p>
+        </div>
 
-            <div class="border-t border-white/10 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center text-gray-600 text-[10px] md:text-sm font-semibold tracking-widest uppercase gap-3">
-                <div class="flex items-center gap-2 md:gap-3">
-                    <i class="fa-brands fa-youtube text-yt text-lg md:text-xl"></i>
-                    <p>&copy; 2026 DIGITAL MARKETING HOLDING.</p>
-                </div>
-                <div class="text-gray-500">
-                    Все права защищены
-                </div>
+        <div class="absolute bottom-0 left-0 w-full p-6 md:p-12 flex flex-col md:flex-row justify-between items-center text-[8px] md:text-[10px] text-gray-600 font-bold uppercase tracking-widest z-10 gap-4 border-t border-white/5 bg-black/50 backdrop-blur-md font-tech">
+            <div>&copy; 2026 DIGITAL MARKETING HOLDING. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</div>
+            <div class="flex gap-6">
+                <a href="https://t.me/agentyoutube" target="_blank" class="hover:text-white transition-colors hover-magnetic">Telegram</a>
+                <a href="https://www.youtube.com/@%D0%AE%D1%82%D1%83%D0%B1%D0%9D%D0%B0%D1%83%D0%BA%D0%B0%D0%9F%D1%80%D0%BE%D0%B4%D1%8E%D1%81%D0%B5%D1%80" target="_blank" class="hover:text-white transition-colors hover-magnetic">YouTube</a>
             </div>
         </div>
     </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Проверка на загрузку GSAP
-            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-            
-            // 1. Плавный скролл Lenis
-            const lenis = new Lenis({
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                smooth: true,
-                smoothTouch: false // Отключаем на телефонах для нативной физики
-            });
-            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-            requestAnimationFrame(raf);
+            const preloaderEl = document.getElementById("preloader");
+            const finishPreloader = () => {
+                if (preloaderEl) {
+                    preloaderEl.style.display = "none";
+                    preloaderEl.style.pointerEvents = "none";
+                }
+                document.body.style.overflow = "";
+            };
+
+            if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
+                finishPreloader();
+                return;
+            }
 
             gsap.registerPlugin(ScrollTrigger);
-            lenis.on('scroll', ScrollTrigger.update);
-            gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-            gsap.ticker.lagSmoothing(0);
+
+            // 1. Плавный скролл Lenis (без него сайт всё равно открывается)
+            let lenis = null;
+            if (typeof Lenis !== "undefined") {
+                try {
+                    lenis = new Lenis({
+                        duration: 1.2,
+                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                        smooth: true,
+                        smoothTouch: false
+                    });
+                    lenis.on("scroll", ScrollTrigger.update);
+                    gsap.ticker.add((time) => {
+                        lenis.raf(time * 1000);
+                    });
+                    gsap.ticker.lagSmoothing(0);
+                } catch (err) {
+                    console.warn("Lenis не инициализирован:", err);
+                    lenis = null;
+                }
+            }
+
+            try {
 
             // 2. ЭПИЧНЫЙ ПРЕЛОАДЕР СОЦСЕТЕЙ (GSAP TIMELINE)
             // Блокируем скролл на время загрузки
@@ -1605,8 +1979,7 @@
             .to("#preloader", {
                 opacity: 0, duration: 0.6, ease: "power2.inOut",
                 onComplete: () => {
-                    document.getElementById("preloader").style.display = "none";
-                    document.body.style.overflow = ''; // Возвращаем скролл
+                    finishPreloader();
                     ScrollTrigger.refresh();
                     
                     // Запускаем анимацию главного экрана сразу после исчезновения заставки
@@ -1639,13 +2012,14 @@
             // 4. Эффект навигации
             const nav = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
-                if(!nav) return;
+                if (!nav || !nav.children[0]) return;
+                const navInner = nav.children[0];
                 if (window.scrollY > 50) {
                     nav.classList.add('bg-dark/90', 'backdrop-blur-xl', 'border-b', 'border-white/5');
-                    nav.children[0].classList.remove('glass');
+                    navInner.classList.remove('glass');
                 } else {
                     nav.classList.remove('bg-dark/90', 'backdrop-blur-xl', 'border-b', 'border-white/5');
-                    nav.children[0].classList.add('glass');
+                    navInner.classList.add('glass');
                 }
             });
 
@@ -1656,7 +2030,7 @@
             document.querySelectorAll('.open-modal-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault(); 
-                    if(modal) {
+                    if (modal && modalContent) {
                         modal.classList.remove('hidden');
                         setTimeout(() => { 
                             modal.classList.remove('opacity-0'); 
@@ -1669,7 +2043,7 @@
 
             document.querySelectorAll('.close-modal, .modal-bg').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    if(modal) {
+                    if (modal && modalContent) {
                         modal.classList.add('opacity-0'); 
                         modalContent.classList.remove('scale-100'); 
                         modalContent.classList.add('scale-95');
@@ -1800,24 +2174,51 @@
                 });
             }
 
-            // 10. Кейсы (Горизонтальный скролл только на десктопах)
+            // 10. Новые Кейсы (Горизонтальный скролл) + Магнитные кнопки
             let mm = gsap.matchMedia();
-            mm.add("(min-width: 768px)", () => {
-                let casesSlider = document.getElementById("cases-slider");
-                let casePanels = gsap.utils.toArray(".case-panel");
-                if (casesSlider && casePanels.length > 0) {
-                    gsap.to(casePanels, {
-                        xPercent: -100 * (casePanels.length - 1),
+            
+            mm.add("(min-width: 1024px)", () => {
+                let casesSection = document.getElementById("cases-pro"); // Правильный ID секции!
+                let casesSlider = document.getElementById("cases-pin-container");
+                
+                if(casesSection && casesSlider) {
+                    // Анимируем весь контейнер по X, а не отдельные карточки. Это надежнее.
+                    gsap.to(casesSlider, {
+                        x: () => -(casesSlider.scrollWidth - window.innerWidth),
                         ease: "none",
                         scrollTrigger: {
-                            trigger: "#cases-pin-wrapper",
-                            pin: true,
-                            scrub: 1,
-                            end: () => "+=" + (casesSlider.offsetWidth * 0.8) 
+                            trigger: casesSection, 
+                            pin: true, // Прибиваем секцию к экрану
+                            scrub: 1,  // Плавная привязка к скроллу мыши
+                            start: "top top", // Начинаем СТРОГО когда секция касается верха экрана
+                            end: () => "+=" + (casesSlider.scrollWidth - window.innerWidth), // Длина скролла
+                            invalidateOnRefresh: true // Пересчет при ресайзе
                         }
                     });
                 }
             });
+
+            mm.add("(max-width: 1023px)", () => {
+                gsap.utils.toArray(".case-panel").forEach(panel => {
+                    gsap.from(panel, { scrollTrigger: { trigger: panel, start: "top 85%" }, y: 50, opacity: 0, duration: 1 });
+                });
+            });
+
+            // Эффект магнитных кнопок (для футера)
+            if (window.matchMedia("(pointer: fine)").matches) {
+                document.querySelectorAll('.magnetic-wrap').forEach(wrap => {
+                    const btn = wrap.querySelector('.magnetic-btn');
+                    wrap.addEventListener('mousemove', (e) => {
+                        const rect = wrap.getBoundingClientRect();
+                        const x = e.clientX - rect.left - rect.width / 2;
+                        const y = e.clientY - rect.top - rect.height / 2;
+                        gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.4, ease: "power2.out" });
+                    });
+                    wrap.addEventListener('mouseleave', () => {
+                        gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" });
+                    });
+                });
+            }
 
             // 11. FAQ Секция (База знаний)
             const faqBtn = document.getElementById("faq-btn");
@@ -1880,6 +2281,113 @@
                     }
                 });
             }
+
+            // ========================================================
+            // 12. ОХИРЕТАЛЬНАЯ АНИМАЦИЯ МАТРИЦЫ УСЛУГ (FULLSCREEN EPIC)
+            // ========================================================
+            const matrixCards = document.querySelectorAll('.matrix-card');
+            const matrixSectionHeader = document.querySelector('.section-header');
+            
+            matrixCards.forEach(card => {
+                const moreBtn = card.querySelector('.anim-trigger');
+                const closeBtn = card.querySelector('.mc-close-btn');
+                const details = card.querySelector('.mc-details');
+                const shortState = card.querySelector('.mc-short-state');
+                const epicItems = card.querySelectorAll('.epic-anim-item');
+
+                if(moreBtn && closeBtn && details) {
+                    
+                    const openEpicCard = (e) => {
+                        e.preventDefault();
+                        if (card.classList.contains('is-expanded')) return;
+
+                        // 1. Убиваем скролл основного сайта (теперь скроллится только внутри карточки)
+                        document.body.style.overflow = 'hidden';
+                        if (lenis && typeof lenis.stop === 'function') lenis.stop();
+
+                        // 2. Убираем заголовок "Матрица услуг"
+                        if(matrixSectionHeader) gsap.to(matrixSectionHeader, { opacity: 0, y: -50, duration: 0.5, ease: "power3.inOut" });
+
+                        // 3. Эпичный разлет остальных карточек (блюр, уменьшение, уход в темноту)
+                        matrixCards.forEach(otherCard => {
+                            if(otherCard !== card) {
+                                gsap.to(otherCard, { 
+                                    scale: 0.8, y: 150, opacity: 0, filter: "blur(25px)",
+                                    duration: 0.7, ease: "power3.inOut",
+                                    onComplete: () => otherCard.classList.add('is-hidden') 
+                                });
+                            }
+                        });
+
+                        // 4. Текущая карточка становится полноэкранной
+                        card.classList.add('is-expanded');
+                        details.classList.add('active');
+                        card.scrollTop = 0; // Сброс скролла наверх
+
+                        const tl = gsap.timeline();
+                        if (shortState) {
+                            tl.to(shortState, { opacity: 0, height: 0, margin: 0, padding: 0, display: 'none', duration: 0.3 });
+                        }
+                        tl.fromTo(closeBtn, { autoAlpha: 0, scale: 0, rotation: -270 }, { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.6, ease: "back.out(1.5)" }, shortState ? "+=0.2" : 0)
+                          .fromTo(details, { opacity: 0 }, { opacity: 1, duration: 0.4 }, "-=0.2")
+                          .fromTo(epicItems, 
+                              { y: 80, opacity: 0, scale: 0.98 }, 
+                              { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.1, ease: "expo.out" }, 
+                              "-=0.2"
+                          );
+                    };
+
+                    moreBtn.addEventListener('click', openEpicCard);
+
+                    closeBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+
+                        // Перед закрытием плавно отматываем лонгрид наверх
+                        gsap.to(card, { scrollTop: 0, duration: 0.5, ease: "power3.inOut" });
+
+                        const tl = gsap.timeline({
+                            onComplete: () => {
+                                card.classList.remove('is-expanded');
+                                details.classList.remove('active');
+                                
+                                // Возвращаем скролл сайту
+                                document.body.style.overflow = '';
+                                if (lenis && typeof lenis.start === 'function') lenis.start();
+
+                                // Возвращаем заголовок
+                                if(matrixSectionHeader) gsap.to(matrixSectionHeader, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
+
+                                // ВОЗВРАЩАЕМ КАРТОЧКИ ИЗ БЛЮРА
+                                matrixCards.forEach(otherCard => {
+                                    if(otherCard !== card) {
+                                        otherCard.classList.remove('is-hidden');
+                                        gsap.fromTo(otherCard, 
+                                            { scale: 0.8, y: 150, opacity: 0, filter: "blur(25px)" }, 
+                                            { scale: 1, y: 0, opacity: 1, filter: "blur(0px)", duration: 0.8, stagger: 0.1, ease: "back.out(1.2)" }
+                                        );
+                                    }
+                                });
+                                ScrollTrigger.refresh();
+                            }
+                        });
+
+                        // Анимация скрытия лонгрида
+                        tl.to(epicItems, { y: 50, opacity: 0, duration: 0.3, stagger: -0.05, ease: "power2.in" })
+                          .to(details, { opacity: 0, duration: 0.3 }, "-=0.1")
+                          .to(closeBtn, { autoAlpha: 0, scale: 0, rotation: 180, duration: 0.3 }, "-=0.2");
+                        if (shortState) {
+                            tl.set(shortState, { display: 'flex' })
+                              .to(shortState, { opacity: 1, height: "auto", duration: 0.4, ease: "power2.out" });
+                        }
+                    });
+                }
+            });
+
+            } catch (err) {
+                console.error("Ошибка инициализации страницы:", err);
+                finishPreloader();
+            }
+
         });
     </script>
 </body>
