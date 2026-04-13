@@ -34,7 +34,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
 
     <style>
         /* ========================================= */
@@ -59,8 +59,8 @@
         /* ========================================= */
         /* КУРСОР И ПРЕЛОАДЕР                        */
         /* ========================================= */
-        .cursor-dot { width: 8px; height: 8px; background: #E52D27; position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 9999; pointer-events: none; transition: width 0.2s, height 0.2s; }
-        .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(229, 45, 39, 0.5); position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 9998; pointer-events: none; transition: width 0.2s, height 0.2s, background-color 0.2s; }
+        .cursor-dot { width: 8px; height: 8px; background: #E52D27; position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 999999; pointer-events: none; transition: width 0.2s, height 0.2s; }
+        .cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(229, 45, 39, 0.5); position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 999998; pointer-events: none; transition: width 0.2s, height 0.2s, background-color 0.2s; }
         @media (hover: none) and (pointer: coarse) { .cursor-dot, .cursor-outline { display: none !important; } body { cursor: auto; } } /* Отключение курсора на мобилках */
 
         /* ========================================= */
@@ -127,71 +127,72 @@
         }
 
         /* ========================================= */
-        /* ПРОЦЕСС РАБОТЫ (CLIENT JOURNEY)           */
+        /* ========================================= */
+        /* ПРОЦЕСС РАБОТЫ (CLIENT JOURNEY) 6 ШАГОВ   */
         /* ========================================= */
         .journey-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: rgba(255,255,255,0.05); transform: translateX(-50%); z-index: 1; }
-        .journey-progress { width: 100%; background: linear-gradient(to bottom, #E52D27, #ff8c00, #E52D27); box-shadow: 0 0 20px #E52D27; border-radius: 10px; }
-        .step-marker { position: absolute; left: 50%; transform: translateX(-50%); z-index: 20; justify-content: center; align-items: center; }
-        .marker-dot { width: 4px; height: 4px; background: #E52D27; border-radius: 50%; opacity: 0; transition: 0.5s; box-shadow: 0 0 10px #E52D27; }
+        .journey-progress { width: 100%; background: linear-gradient(to bottom, #E52D27, #A855F7, #3B82F6, #22C55E); box-shadow: 0 0 20px #E52D27; border-radius: 10px; }
+        .step-marker { position: absolute; left: 50%; transform: translateX(-50%); z-index: 20; display: flex; justify-content: center; align-items: center; }
+        .marker-dot { width: 8px; height: 8px; background: #E52D27; border-radius: 50%; opacity: 0; transition: 0.5s; box-shadow: 0 0 15px #E52D27; }
 
-        .war-room-grid { background-size: 40px 40px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px); position: absolute; inset: 0; z-index: 0; border-radius: inherit; }
-        @media (min-width: 768px) { .war-room-grid { background-size: 40px 40px; } }
-        
-        .expert-card { background: rgba(20,20,20,0.9); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 8px; display: flex; align-items: center; gap: 8px; position: absolute; opacity: 0; transform: scale(0.8); z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.5); white-space: nowrap; }
-        @media (min-width: 768px) { .expert-card { padding: 10px; gap: 10px; } }
-        .expert-avatar { width: 30px; height: 30px; border-radius: 8px; border: 1px solid #E52D27; }
-        @media (min-width: 768px) { .expert-avatar { width: 40px; height: 40px; } }
+        .cp-step { opacity: 1; position: relative; margin-bottom: 6rem; }
+        @media (min-width: 768px) { .cp-step { margin-bottom: 12rem; } }
+
+        /* ШАГ 1: War Room */
+        .war-room-grid { background-size: 30px 30px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px); position: absolute; inset: 0; z-index: 0; border-radius: inherit; }
+        .expert-card { background: rgba(10,10,10,0.95); border: 1px solid rgba(229,45,39,0.3); border-radius: 12px; padding: 10px 15px; display: flex; align-items: center; gap: 12px; position: absolute; opacity: 0; transform: scale(0.8); z-index: 10; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .expert-icon { font-size: 1.2rem; color: #E52D27; }
         .expert-info { display: flex; flex-direction: column; }
-        .expert-role { font-size: 0.55rem; color: #E52D27; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; }
-        .expert-name { font-size: 0.75rem; color: #fff; font-family: 'Unbounded', sans-serif; }
-        @media (min-width: 768px) { .expert-role { font-size: 0.65rem; } .expert-name { font-size: 0.85rem; } }
-        
-        .ec-1 { top: 5%; left: 2%; } .ec-2 { top: 5%; right: 2%; } .ec-3 { bottom: 10%; left: 2%; } .ec-4 { bottom: 10%; right: 2%; }
-        @media (min-width: 768px) { .ec-1 { top: 10%; left: 5%; } .ec-2 { top: 10%; right: 5%; } .ec-3 { bottom: 15%; left: 10%; } .ec-4 { bottom: 15%; right: 10%; } }
-        
-        .strategy-core { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle, rgba(229,45,39,0.2) 0%, transparent 70%); border: 1px solid rgba(229,45,39,0.5); display: flex; justify-content: center; align-items: center; z-index: 5; opacity: 0; }
-        .strategy-core::after { content: ''; position: absolute; width: 40px; height: 40px; background: #E52D27; border-radius: 50%; box-shadow: 0 0 30px #E52D27; animation: pulse-core 2s infinite; }
-        @media (min-width: 768px) { .strategy-core { width: 120px; height: 120px; } .strategy-core::after { width: 60px; height: 60px; box-shadow: 0 0 40px #E52D27; } }
-        @keyframes pulse-core { 0% { transform: scale(0.9); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.8; } }
-        
-        .laser-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
-        .laser-line { fill: none; stroke: rgba(229,45,39,0.6); stroke-width: 2; stroke-dasharray: 100; stroke-dashoffset: 100; opacity: 0; }
+        .expert-role { font-size: 0.6rem; color: #aaa; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; }
+        .expert-name { font-size: 0.9rem; color: #fff; font-family: 'Unbounded', sans-serif; font-weight: 700; }
+        .ec-1 { top: 10%; left: 5%; } .ec-2 { top: 10%; right: 5%; } .ec-3 { bottom: 15%; left: 5%; } .ec-4 { bottom: 15%; right: 5%; }
+        .strategy-core { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, rgba(229,45,39,0.2) 0%, transparent 70%); border: 1px solid rgba(229,45,39,0.5); display: flex; justify-content: center; align-items: center; z-index: 5; opacity: 0; }
+        .strategy-core::after { content: ''; position: absolute; width: 50px; height: 50px; background: #E52D27; border-radius: 50%; box-shadow: 0 0 40px #E52D27; animation: pulse-core 2s infinite; }
+        @keyframes pulse-core { 0% { transform: scale(0.9); opacity: 0.8; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.8; } }
 
-        /* Конвейер Смыслов */
-        .content-engine { padding: 1.2rem; display: flex; flex-direction: column; gap: 1rem; position: relative; z-index: 10; height: 100%; justify-content: center; }
-        @media (min-width: 768px) { .content-engine { padding: 2rem; gap: 1.5rem; } }
-        .content-node { background: #111; border: 1px solid #333; border-radius: 12px; padding: 1rem; position: relative; overflow: hidden; opacity: 0; transform: translateX(30px); }
-        @media (min-width: 768px) { .content-node { border-radius: 16px; padding: 1.5rem; transform: translateX(50px); } }
-        .content-node::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #E52D27; }
-        .node-header { display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; }
-        @media (min-width: 768px) { .node-header { margin-bottom: 1rem; } }
-        .node-bars { display: flex; gap: 4px; height: 4px; width: 100%; background: #000; border-radius: 2px; overflow: hidden; }
-        @media (min-width: 768px) { .node-bars { gap: 5px; height: 6px; border-radius: 4px; } }
-        .n-bar { height: 100%; width: 0; }
-        .nb-hook { background: #E52D27; } .nb-val { background: #0078D7; } .nb-sale { background: #27C93F; }
+        /* ШАГ 2: Воронки */
+        .funnel-flow { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-around; padding: 2rem 0; }
+        .f-node { background: #111; border: 1px solid #333; padding: 12px 24px; border-radius: 12px; color: #fff; font-family: 'Unbounded', sans-serif; font-size: 0.85rem; font-weight: 700; z-index: 2; opacity: 0; transform: translateY(-20px); text-align: center; transition: all 0.3s; }
+        .f-line { width: 2px; height: 40px; background: linear-gradient(to bottom, rgba(59,130,246,0.2), #3B82F6); opacity: 0; }
+        .f-node.highlight { border-color: #3B82F6; box-shadow: 0 0 30px rgba(59,130,246,0.3); background: rgba(59,130,246,0.1); }
+        .f-split { display: flex; gap: 20px; width: 100%; justify-content: center; }
 
-        /* Съемка и Toggle */
-        .toggle-wrapper { display: flex; background: rgba(0,0,0,0.8); border-radius: 100px; padding: 4px; border: 1px solid rgba(255,255,255,0.1); width: fit-content; margin: 0 auto 1.5rem auto; position: relative; z-index: 20; user-select: none; }
-        .toggle-btn { padding: 10px 16px; border-radius: 100px; font-weight: bold; color: #888; cursor: pointer; transition: color 0.3s; z-index: 2; position: relative; text-transform: uppercase; letter-spacing: 1px; font-size: 0.7rem; white-space: nowrap; }
-        @media (min-width: 768px) { .toggle-wrapper { padding: 6px; margin: 0 auto 2rem auto; } .toggle-btn { padding: 12px 30px; font-size: 0.8rem; } }
+        /* ШАГ 3: Съемка (Твои старые стили Toggle сохраняем, просто цвет обновил) */
+        .toggle-wrapper { display: flex; background: rgba(0,0,0,0.8); border-radius: 100px; padding: 6px; border: 1px solid rgba(255,255,255,0.1); width: fit-content; margin: 0 auto 1.5rem auto; position: relative; z-index: 20; user-select: none; }
+        .toggle-btn { padding: 10px 24px; border-radius: 100px; font-weight: bold; color: #888; cursor: pointer; transition: color 0.3s; z-index: 2; position: relative; text-transform: uppercase; letter-spacing: 1px; font-size: 0.75rem; white-space: nowrap; }
         .toggle-btn.active { color: #fff; }
-        .toggle-indicator { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); background: #E52D27; border-radius: 100px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1; box-shadow: 0 0 10px rgba(229,45,39,0.5); }
-        @media (min-width: 768px) { .toggle-indicator { top: 6px; bottom: 6px; left: 6px; width: calc(50% - 6px); box-shadow: 0 0 15px rgba(229,45,39,0.5); } }
-        .view-content { display: none; opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
-        .view-content.active { display: block; opacity: 1; transform: translateY(0); }
-        
-        .pipeline-track { display: flex; align-items: center; justify-content: space-between; position: relative; margin-top: 2rem; }
-        .pipeline-track::before { content: ''; position: absolute; top: 40%; left: 0; right: 0; height: 1px; background: rgba(255,255,255,0.2); transform: translateY(-50%); z-index: 0; border-style: dashed; }
-        .pipe-node { width: 40px; height: 40px; border-radius: 50%; background: #0a0a0a; border: 2px solid #E52D27; display: flex; justify-content: center; align-items: center; position: relative; z-index: 1; font-size: 1rem; color: #E52D27; }
-        @media (min-width: 768px) { .pipeline-track { margin-top: 3rem; } .pipeline-track::before { top: 50%; } .pipe-node { width: 50px; height: 50px; font-size: 1.2rem; } }
+        .toggle-indicator { position: absolute; top: 6px; bottom: 6px; left: 6px; width: calc(50% - 6px); background: #E52D27; border-radius: 100px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1; box-shadow: 0 0 15px rgba(229,45,39,0.5); }
+        .view-content { display: none; opacity: 0; transition: opacity 0.4s ease; }
+        .view-content.active { display: block; opacity: 1; }
+        .rec-dot { width: 10px; height: 10px; background: #E52D27; border-radius: 50%; display: inline-block; margin-right: 8px; animation: rec-blink 1s infinite; box-shadow: 0 0 10px #E52D27; }
+        @keyframes rec-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* Лиды (Burst) */
+        /* ШАГ 4: Нейромонтаж (Таймлайн редактора) */
+        .editor-ui { background: #0a0a0a; border: 1px solid #222; border-radius: 12px; padding: 15px; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 8px; position: relative; overflow: hidden; }
+        .e-track { height: 24px; background: #141414; border-radius: 6px; display: flex; gap: 4px; padding: 3px; position: relative; overflow: hidden; }
+        @media (min-width: 768px) { .e-track { height: 32px; gap: 6px; padding: 4px; } }
+        .e-clip { background: #A855F7; height: 100%; border-radius: 4px; opacity: 0.8; transform: scaleX(0); transform-origin: left; }
+        .e-clip.red { background: #E52D27; }
+        .e-clip.blue { background: #3B82F6; }
+        .e-playhead { position: absolute; top: 0; bottom: 0; width: 2px; background: #fff; z-index: 10; left: 5%; box-shadow: 0 0 10px #fff; }
+        .e-playhead::before { content: ''; position: absolute; top: -5px; left: -4px; width: 10px; height: 10px; background: #fff; border-radius: 2px; }
+
+        /* ШАГ 5: Синдикат Трафика (Орбиты) */
+        .orbit-container { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; min-height: 250px; }
+        @media (min-width: 768px) { .orbit-container { min-height: 400px; } }
+        .orbit-core { width: 70px; height: 70px; background: #E52D27; border-radius: 50%; box-shadow: 0 0 40px #E52D27; z-index: 5; display: flex; justify-content: center; align-items: center; font-size: 2rem; color: #fff; }
+        .orbit-ring { position: absolute; border: 1px dashed rgba(255,255,255,0.15); border-radius: 50%; }
+        .or-1 { width: 180px; height: 180px; animation: spin-right 15s linear infinite; }
+        .or-2 { width: 280px; height: 280px; animation: spin-left 20s linear infinite; }
+        .orbit-sat { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; background: #111; border: 1px solid #333; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.8); }
+        @keyframes spin-right { 100% { transform: rotate(360deg); } }
+        @keyframes spin-left { 100% { transform: rotate(-360deg); } }
+
+        /* ШАГ 6: Лиды (Burst) */
         .lead-burst { position: absolute; inset: 0; pointer-events: none; }
-        .lead-card-anim { position: absolute; background: rgba(20,20,20,0.95); border-left: 3px solid #27C93F; padding: 8px 12px; border-radius: 8px; font-size: 0.65rem; color: #fff; opacity: 0; box-shadow: 0 10px 20px rgba(0,0,0,0.8); white-space: nowrap; font-family: 'Unbounded', sans-serif; }
-        @media (min-width: 768px) { .lead-card-anim { padding: 12px 20px; font-size: 0.85rem; border-left: 4px solid #27C93F; } }
+        .lead-card-anim { position: absolute; background: rgba(20,20,20,0.95); border-left: 4px solid #27C93F; padding: 12px 20px; border-radius: 8px; font-size: 0.85rem; color: #fff; opacity: 0; box-shadow: 0 10px 20px rgba(0,0,0,0.8); white-space: nowrap; font-family: 'Unbounded', sans-serif; }
         .glow-counter { text-shadow: 0 0 40px rgba(39,201,63,0.6); }
-        .lc-1 { bottom: 15px; left: 10px; } .lc-2 { top: 15px; right: 10px; } .lc-3 { bottom: 60px; right: 10px; } .lc-4 { top: 60px; left: 10px; }
-        @media (min-width: 768px) { .lc-1 { bottom: 20px; left: 20px; } .lc-2 { top: 20px; right: 20px; } .lc-3 { bottom: 80px; right: 40px; } .lc-4 { top: 80px; left: 30px; } }
+        .lc-1 { bottom: 20%; left: 5%; } .lc-2 { top: 20%; right: 5%; } .lc-3 { bottom: 40%; right: 10%; } .lc-4 { top: 40%; left: 10%; }
 
         /* ========================================= */
         /* КЕЙСЫ (АДАПТИВ)                           */
@@ -322,7 +323,7 @@
             </div>
             <h3 class="font-display font-black text-2xl md:text-3xl text-white mb-3">Свяжитесь с нами</h3>
             <p class="text-gray-400 mb-8 text-sm md:text-[15px] leading-relaxed">Просто напишите, и мы назначим любое удобное для вас время звонка!</p>
-            <a href="https://t.me/agentyoutube" target="_blank" class="block w-full bg-[#2AABEE] text-white py-4 md:py-5 rounded-2xl font-bold uppercase tracking-widest text-sm md:text-base hover:bg-[#1c92d2] transition-all hover:scale-105 shadow-[0_0_20px_rgba(42,171,238,0.4)]">Написать в Telegram</a>
+            <a href="https://t.me/agentyotuube" target="_blank" class="block w-full bg-[#2AABEE] text-white py-4 md:py-5 rounded-2xl font-bold uppercase tracking-widest text-sm md:text-base hover:bg-[#1c92d2] transition-all hover:scale-105 shadow-[0_0_20px_rgba(42,171,238,0.4)]">Написать в Telegram</a>
         </div>
     </div>
 
@@ -566,85 +567,37 @@
         }
 
         /* ========================================= */
-        /* АНИМАЦИИ МАТРИЦЫ УСЛУГ (ПОЛНОЭКРАННЫЙ ЭПИК) */
+        /* АНИМАЦИИ МАТРИЦЫ УСЛУГ (10X КОНТЕНТ)      */
         /* ========================================= */
-        .matrix-card { cursor: pointer; }
-        .matrix-card.is-hidden { pointer-events: none; }
+        .matrix-card.is-hidden { display: none !important; }
+        .matrix-card.is-expanded { grid-column: span 12 !important; min-height: 600px; cursor: default; background: rgba(12, 12, 12, 0.98); z-index: 50; border-color: #E52D27; box-shadow: 0 30px 80px rgba(0,0,0,0.9), inset 0 0 40px rgba(229,45,39,0.1); }
+        .matrix-card.is-expanded:hover { transform: none; box-shadow: 0 30px 80px rgba(0,0,0,0.9), inset 0 0 40px rgba(229,45,39,0.1); }
         
-        /* КАРТОЧКА СТАНОВИТСЯ ФОНОМ ВСЕГО ЭКРАНА И СКРОЛЛИТСЯ ВНУТРИ СЕБЯ */
-        .matrix-card.is-expanded { 
-            position: fixed !important; 
-            inset: 0 !important; 
-            width: 100vw !important; 
-            height: 100vh !important; 
-            z-index: 100000 !important; 
-            border-radius: 0 !important; 
-            background: #020202 !important; 
-            overflow-y: auto !important; 
-            overflow-x: hidden !important;
-            border: none !important;
-            cursor: default;
-            transform: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-        .matrix-card.is-expanded::-webkit-scrollbar { width: 8px; }
-        .matrix-card.is-expanded::-webkit-scrollbar-track { background: #000; }
-        .matrix-card.is-expanded::-webkit-scrollbar-thumb { background: #E52D27; border-radius: 10px; }
-        .matrix-card.is-expanded:hover { transform: none; box-shadow: none; }
-        
-        /* КНОПКА ПОДРОБНЕЕ ДО ОТКРЫТИЯ */
         .mc-more-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Unbounded', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #fff; margin-top: 1.5rem; cursor: pointer; transition: all 0.3s; width: fit-content; position: relative; z-index: 20; background: rgba(255,255,255,0.05); padding: 14px 28px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.1); }
         .mc-more-btn:hover { background: #E52D27; border-color: #E52D27; box-shadow: 0 0 25px rgba(229,45,39,0.5); transform: translateY(-2px); }
         .mc-more-btn i { transition: transform 0.3s; font-size: 1.1rem; }
         .mc-more-btn:hover i { transform: translateX(6px); }
         
-        /* КНОПКА ЗАКРЫТИЯ - ПРИБИТА К ЭКРАНУ ПРИ СКРОЛЛЕ ВНУТРИ КАРТОЧКИ */
-        .mc-close-btn { position: fixed; top: 2rem; right: 2rem; width: 60px; height: 60px; border-radius: 50%; background: rgba(10,10,10,0.9); border: 1px solid rgba(229,45,39,0.5); display: flex; justify-content: center; align-items: center; color: #E52D27; cursor: pointer; transition: all 0.3s; z-index: 100001; opacity: 0; visibility: hidden; font-size: 1.8rem; backdrop-filter: blur(10px); }
-        .mc-close-btn:hover { background: #E52D27; color: #fff; border-color: #E52D27; transform: rotate(90deg) scale(1.1); box-shadow: 0 0 30px rgba(229,45,39,0.8); }
+        .mc-close-btn { position: absolute; top: 1.5rem; right: 1.5rem; width: 50px; height: 50px; border-radius: 50%; background: rgba(229,45,39,0.1); border: 1px solid rgba(229,45,39,0.3); display: flex; justify-content: center; align-items: center; color: #E52D27; cursor: pointer; transition: all 0.3s; z-index: 100; opacity: 0; visibility: hidden; font-size: 1.5rem; backdrop-filter: blur(10px); }
+        @media (min-width: 768px) { .mc-close-btn { top: 2.5rem; right: 2.5rem; width: 60px; height: 60px; font-size: 1.8rem; } }
+        .mc-close-btn:hover { background: #E52D27; color: #fff; transform: rotate(90deg) scale(1.1); box-shadow: 0 0 30px rgba(229,45,39,0.6); }
 
-        /* ВНУТРЕННОСТИ РАСКРЫТОЙ КАРТОЧКИ (ГИГАНТСКИЙ ЛОНГРИД) */
-        .mc-details { display: none; opacity: 0; width: 100%; max-width: 1400px; margin: 0 auto; padding: 80px 20px 150px 20px; position: relative; }
+        .mc-details { display: none; opacity: 0; margin-top: 1rem; padding-top: 1rem; }
         .mc-details.active { display: block; }
+        .mc-details-header { display: flex; align-items: center; gap: 15px; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .mc-details-title { font-family: 'Unbounded', sans-serif; font-size: 1.5rem; color: #fff; text-transform: uppercase; font-weight: 900; letter-spacing: -0.5px; }
+        @media (min-width: 768px) { .mc-details-title { font-size: 2.2rem; } }
         
-        .epic-cover { position: relative; padding-bottom: 4rem; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 4rem; text-align: center; }
-        .epic-title { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 6vw, 6.5rem); font-weight: 900; text-transform: uppercase; line-height: 0.9; color: #fff; margin-bottom: 1.5rem; letter-spacing: -2px; }
-        .epic-subtitle { font-family: 'Syncopate', sans-serif; font-size: 1.2rem; color: #E52D27; text-transform: uppercase; letter-spacing: 5px; font-weight: 700; margin-bottom: 1.5rem; display: block; }
+        .mc-feature-block { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 1rem; padding: 1.5rem; transition: background 0.3s; }
+        .mc-feature-block:hover { background: rgba(255,255,255,0.04); }
+        .mc-feature-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 1rem; }
+        .mc-feature-title { font-family: 'Unbounded', sans-serif; font-size: 1rem; color: #fff; margin-bottom: 0.8rem; font-weight: 700; }
+        .mc-feature-text { color: #a3a3a3; font-size: 0.9rem; line-height: 1.6; }
+        .mc-feature-text strong { color: #fff; font-weight: 600; }
         
-        .epic-chapter { margin-bottom: 6rem; position: relative; }
-        .epic-chapter-title { font-family: 'Unbounded', sans-serif; font-size: 2.5rem; color: #fff; font-weight: 900; margin-bottom: 2.5rem; display: flex; align-items: center; gap: 20px; line-height: 1.2; text-transform: uppercase; }
-        @media (min-width: 768px) { .epic-chapter-title { font-size: 3.5rem; } }
-        .epic-chapter-title span { font-size: 1.2rem; color: #E52D27; opacity: 0.5; font-family: 'Syncopate', sans-serif; }
-        
-        .epic-text { font-size: 1.2rem; color: #a3a3a3; line-height: 1.9; font-weight: 300; margin-bottom: 2.5rem; }
-        @media (min-width: 768px) { .epic-text { font-size: 1.4rem; } }
-        .epic-text strong { color: #fff; font-weight: 700; background: rgba(229,45,39,0.15); padding: 2px 8px; border-radius: 6px; }
-        
-        .epic-quote { position: relative; padding: 4rem 5rem; background: linear-gradient(90deg, rgba(20,20,20,0.9), transparent); border-left: 6px solid #E52D27; border-radius: 0 30px 30px 0; margin: 6rem 0; font-family: 'Syne', sans-serif; font-size: 2rem; color: #fff; font-style: italic; line-height: 1.4; font-weight: 800; }
-        @media (min-width: 768px) { .epic-quote { font-size: 2.8rem; } }
-        .epic-quote::before { content: '"'; position: absolute; top: -30px; left: 20px; font-size: 10rem; color: rgba(229,45,39,0.1); font-family: serif; line-height: 1; pointer-events: none; }
-        
-        .epic-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin: 4rem 0; }
-        @media (min-width: 768px) { .epic-grid { grid-template-columns: 1fr 1fr; gap: 3rem; } }
-        .epic-box { background: rgba(15,15,15,0.7); border: 1px solid rgba(255,255,255,0.05); padding: 3.5rem; border-radius: 2rem; transition: transform 0.4s, border-color 0.4s; }
-        .epic-box:hover { transform: translateY(-15px); border-color: rgba(229,45,39,0.4); background: rgba(20,20,20,0.95); box-shadow: 0 30px 60px rgba(0,0,0,0.9); }
-        .eb-icon { font-size: 3.5rem; color: #E52D27; margin-bottom: 2rem; }
-        .eb-title { font-family: 'Unbounded', sans-serif; font-size: 1.6rem; color: #fff; font-weight: 900; margin-bottom: 1.5rem; text-transform: uppercase; }
-        .eb-text { color: #888; font-size: 1.1rem; line-height: 1.7; }
-        .eb-text strong { color: #fff; }
-        
-        /* БИОГРАФИЯ - АРХИТЕКТУРА ТАЙМЛАЙНА */
-        .lore-timeline { position: relative; padding-left: 3rem; margin: 6rem 0; }
-        @media (min-width: 768px) { .lore-timeline { padding-left: 5rem; } }
-        .lore-timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(to bottom, #A855F7, transparent); border-radius: 4px; }
-        .lore-node { position: relative; margin-bottom: 5rem; }
-        .lore-node::before { content: ''; position: absolute; left: -3.85rem; top: 5px; width: 24px; height: 24px; background: #050505; border: 5px solid #A855F7; border-radius: 50%; box-shadow: 0 0 25px #A855F7; }
-        @media (min-width: 768px) { .lore-node::before { left: -5.85rem; } }
-        .lore-year { font-family: 'Syncopate', sans-serif; color: #A855F7; font-size: 1rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: 3px; }
-        .lore-title { font-family: 'Unbounded', sans-serif; color: #fff; font-size: 2.2rem; font-weight: 900; margin-bottom: 1.5rem; text-transform: uppercase; line-height: 1.1; }
-        
-        .cta-gigantic { background: linear-gradient(135deg, rgba(20,20,20,0.9), #000); border: 1px solid rgba(255,255,255,0.1); padding: 6rem 3rem; border-radius: 3rem; text-align: center; margin-top: 6rem; position: relative; overflow: hidden; }
-        .cta-gigantic::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(168,85,247,0.1) 0%, transparent 70%); pointer-events: none; }
+        .mc-expanded-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2rem; }
+        .mc-expanded-tag { padding: 8px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; color: #ccc; display: flex; align-items: center; gap: 8px; }
+        .mc-expanded-tag i { color: #E52D27; }
 
         /* ================= НОВЫЕ СТИЛИ (КЕЙСЫ И ФУТЕР) ================= */
         .noise-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.03; background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)"/%3E%3C/svg%3E'); }
@@ -701,15 +654,15 @@
         /* ================================================================== */
         /* TERMINAL MODAL: ВНУТРЯНКА ДОСЬЕ                                    */
         /* ================================================================== */
-        .term-modal { position: fixed; inset: 0; background: rgba(2,2,2,0.98); backdrop-filter: blur(20px); z-index: 100000; display: none; opacity: 0; overflow-y: auto; overflow-x: hidden; }
-        .term-close { position: fixed; top: 2rem; right: 2rem; width: 60px; height: 60px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); display: flex; justify-content: center; align-items: center; color: #fff; font-size: 1.5rem; cursor: pointer; transition: all 0.3s; z-index: 100001; }
+        .term-modal { position: fixed; inset: 0; background: rgba(2,2,2,0.98); backdrop-filter: blur(20px); z-index: 100000; display: none; opacity: 0; overflow-y: auto; overflow-x: hidden; pointer-events: auto; }
+        .term-close { position: fixed; top: 2rem; right: 2rem; width: 60px; height: 60px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); display: flex; justify-content: center; align-items: center; color: #fff; font-size: 1.5rem; cursor: pointer; transition: all 0.3s; z-index: 100001; pointer-events: auto; }
         .term-close:hover { background: #E52D27; border-color: #E52D27; transform: rotate(90deg); box-shadow: 0 0 30px rgba(229,45,39,0.5); }
         
-        .term-container { min-height: 100vh; display: flex; flex-direction: column; padding: 0; }
+        .term-container { min-height: 100vh; display: flex; flex-direction: column; padding: 0; pointer-events: auto; }
         @media (min-width: 1024px) { .term-container { flex-direction: row; } }
         
         /* Терминал: Левая колонка (Фото) */
-        .term-left { width: 100%; height: 50vh; position: relative; background: #000; overflow: hidden; }
+        .term-left { width: 100%; height: 50vh; position: relative; background: #000; overflow: hidden; pointer-events: auto; }
         @media (min-width: 1024px) { .term-left { width: 45%; height: 100vh; position: sticky; top: 0; } }
         .term-left::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent, #020202); pointer-events: none; }
         @media (max-width: 1023px) { .term-left::after { background: linear-gradient(to bottom, transparent, #020202); } }
@@ -719,7 +672,7 @@
         @keyframes scanline { 0% { top: -10%; } 100% { top: 110%; } }
         
         /* Терминал: Правая колонка (Контент) */
-        .term-right { width: 100%; padding: 3rem 1.5rem 6rem 1.5rem; position: relative; z-index: 20; display: flex; flex-direction: column; }
+        .term-right { width: 100%; padding: 3rem 1.5rem 6rem 1.5rem; position: relative; z-index: 20; display: flex; flex-direction: column; pointer-events: auto; }
         @media (min-width: 1024px) { .term-right { width: 55%; padding: 10vh 6rem 10vh 4rem; } }
 
         .term-header { margin-bottom: 3rem; }
@@ -728,9 +681,9 @@
         .term-role { font-family: 'Unbounded', sans-serif; font-size: 1rem; md:text-1.5rem; color: #888; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }
 
         /* Табы навигации */
-        .term-nav { display: flex; gap: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; margin-bottom: 3rem; overflow-x: auto; scrollbar-width: none; }
+        .term-nav { display: flex; gap: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; margin-bottom: 3rem; overflow-x: auto; scrollbar-width: none; pointer-events: auto; }
         .term-nav::-webkit-scrollbar { display: none; }
-        .term-tab-btn { font-family: 'Syncopate', sans-serif; font-size: 0.7rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1.5px; padding: 0.5rem 1rem; cursor: pointer; transition: all 0.3s; white-space: nowrap; position: relative; }
+        .term-tab-btn { font-family: 'Syncopate', sans-serif; font-size: 0.7rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1.5px; padding: 0.5rem 1rem; cursor: pointer; transition: all 0.3s; white-space: nowrap; position: relative; pointer-events: auto; }
         .term-tab-btn::after { content: ''; position: absolute; bottom: -1rem; left: 0; width: 0%; height: 2px; background: #E52D27; transition: width 0.3s ease; box-shadow: 0 0 10px #E52D27; }
         .term-tab-btn:hover { color: #fff; }
         .term-tab-btn.active { color: #fff; }
@@ -774,6 +727,27 @@
         @media (min-width: 768px) { .project-result { text-align: right; } }
         .project-result span { display: block; font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: #22c55e; }
         .project-result small { color: #888; font-size: 0.7rem; text-transform: uppercase; }
+
+        /* ================================================================== */
+        /* ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ДЛЯ TERMINAL MODAL (Патч)                     */
+        /* ================================================================== */
+        /* Стилизация скроллбара внутри терминала */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(229,45,39,0.3); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #E52D27; }
+
+        /* Фиксы для модального окна на мобильных */
+        @media (max-width: 1023px) {
+            .term-modal { padding-top: 50px; } /* Место для крестика */
+            .term-close { top: 1rem; right: 1rem; width: 45px; height: 45px; font-size: 1.2rem; background: rgba(0,0,0,0.5); }
+            .term-header { margin-bottom: 2rem; }
+            .term-name { font-size: 2.5rem; line-height: 1; }
+            .term-quote { padding: 1.5rem; margin: 2rem 0; }
+            .term-quote-text { font-size: 1.2rem; }
+            .arsenal-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .metrics-grid { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem; }
+        }
     </style>
 
     <section id="services-matrix" class="py-20 md:py-32 relative z-10 bg-[#050505] overflow-hidden border-t border-white/5">
@@ -781,12 +755,12 @@
 
         <div class="max-w-[1400px] mx-auto px-4 md:px-12 relative z-10">
             
-            <div class="text-center mb-12 md:mb-16 gsap-matrix-anim section-header">
+            <div class="text-center mb-12 md:mb-16 gsap-matrix-anim">
                 <h2 class="font-display text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter leading-none mb-4 md:mb-6 text-white">
                     Матрица <span class="text-yt">Услуг</span>
                 </h2>
                 <p class="text-sm md:text-lg text-gray-400 max-w-2xl mx-auto font-light leading-relaxed">
-                    Вы даете только свою экспертность и 4 часа в месяц. Мы закрываем 100% потребностей бизнеса в медиа. <strong>Нажмите ПОДРОБНЕЕ</strong>, чтобы развернуть архитектуру.
+                    Вы даете только свою экспертность и 4 часа в месяц. Мы закрываем 100% потребностей бизнеса в медиа.
                 </p>
             </div>
 
@@ -797,62 +771,59 @@
                     <div class="core-badge hidden sm:block">Ядро системы</div>
                     <div class="mc-close-btn"><i class="fa-solid fa-xmark"></i></div>
                     
-                    <div class="mc-content relative z-10 flex flex-col h-full pointer-events-none">
+                    <div class="mc-content relative z-10 flex flex-col h-full">
                         <div>
                             <div class="m-icon-box mi-yt"><i class="fa-brands fa-youtube"></i></div>
                             <h3 class="mc-title">YouTube Продакшн</h3>
                         </div>
                         
                         <div class="mc-short-state flex-grow flex flex-col justify-between">
-                            <p class="mc-text max-w-lg mt-2">Производство контента уровня Netflix. Глубокая распаковка смыслов, написание SEO-сценариев с удержанием внимания 50%+, кино-съемка в 4K и монтаж, манипулирующий психикой зрителя.</p>
+                            <p class="mc-text max-w-lg mt-2">Создаем каналы "под ключ". От глубокой распаковки смыслов и SEO-сценариев до съемок в 4K, кино-монтажа и дизайна высококонверсионных превью.</p>
                             <div class="m-tags-wrap mt-4 mb-4 hidden sm:flex">
                                 <span class="m-tag">Сценарии</span><span class="m-tag">Съемки МСК/СПБ</span><span class="m-tag">Кино-Монтаж</span><span class="m-tag red">SEO Optimization</span>
                             </div>
-                            <div class="pointer-events-auto">
-                                <button class="mc-more-btn anim-trigger">ПОДРОБНЕЕ <i class="fa-solid fa-expand"></i></button>
+                            <div>
+                                <button class="mc-more-btn">Вскрыть процесс <i class="fa-solid fa-arrow-right"></i></button>
                             </div>
                         </div>
 
-                        <div class="mc-details pointer-events-auto">
-                            <div class="epic-cover epic-anim-item">
-                                <span class="epic-subtitle">Уровень 1: Инженерия Внимания</span>
-                                <h2 class="epic-title">Нейросетевой<br>Захват<br><span class="text-yt">YouTube</span></h2>
+                        <div class="mc-details">
+                            <div class="mc-details-header">
+                                <div class="w-12 h-12 rounded-xl bg-yt/10 border border-yt/30 flex items-center justify-center text-yt text-2xl"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                                <h4 class="mc-details-title">Захват алгоритмов YouTube</h4>
                             </div>
-
-                            <div class="epic-chapter epic-anim-item">
-                                <h3 class="epic-chapter-title"><span>01</span> Смерть «Говорящей Головы»</h3>
-                                <p class="epic-text">YouTube 2026 года — это самое жестокое поле когнитивной битвы. Люди обладают клиповым мышлением, их дофаминовые рецепторы выжжены TikTok и Reels. Обычная экспертная съемка на iPhone на фоне серой стены больше не генерирует доверия. <strong>Если вы хотите продавать B2B услуги или премиум-продукты на чеки от $10,000, ваш визуальный ряд должен соответствовать этому чеку.</strong></p>
-                                <p class="epic-text">Мы не "снимаем видео". Мы <strong>программируем внимание</strong>. Наша задача — провести зрителя через 30 минут сложнейшего экспертного контента так, чтобы ему казалось, что прошло 3 минуты. Это достигается за счет хирургически точного симбиоза голливудской драматургии, кино-света и агрессивного саунд-дизайна.</p>
-                            </div>
-
-                            <div class="epic-quote epic-anim-item">
-                                "Ваш контент — это единственный идеальный продавец. Он работает на вас 24/7 по всему миру, никогда не спит, не просит повышения зарплаты и не уходит к конкурентам. Он обязан быть безупречным."
-                            </div>
-
-                            <div class="epic-chapter epic-anim-item">
-                                <h3 class="epic-chapter-title"><span>02</span> Анатомия Шедевра</h3>
-                                <div class="epic-grid">
-                                    <div class="epic-box">
-                                        <i class="fa-solid fa-brain eb-icon"></i>
-                                        <div class="eb-title">Архитектура Сценария (H-V-C)</div>
-                                        <div class="eb-text">Сценаристы уровня ТВ. Формула Hook-Value-CTA. Мы прописываем каждое слово, внедряем "открытые петли" (open loops) и парадоксы. Вы не просто читаете текст, вы управляете эмоциональными качелями зрителя.</div>
-                                    </div>
-                                    <div class="epic-box">
-                                        <i class="fa-solid fa-video eb-icon"></i>
-                                        <div class="eb-title">Премиум Продакшн</div>
-                                        <div class="eb-text">Съемка на <strong>Sony Cinema Line (FX3/FX6)</strong>. Объемный студийный свет (Key, Fill, Backlight). Продюсер на площадке вытягивает из вас нужную эмоцию. Вы выглядите как абсолютный авторитет своей ниши.</div>
-                                    </div>
-                                    <div class="epic-box">
-                                        <i class="fa-solid fa-scissors eb-icon"></i>
-                                        <div class="eb-title">Ритмичный Монтаж</div>
-                                        <div class="eb-text">Динамическая смена планов каждые 5-7 секунд. Интеграция 4K B-roll вставок, сложный саунд-дизайн (свуши, райзеры), который работает на подсознание и заставляет досматривать до конца. <strong>Удержание > 50%.</strong></div>
-                                    </div>
-                                    <div class="epic-box">
-                                        <i class="fa-solid fa-magnifying-glass-chart eb-icon"></i>
-                                        <div class="eb-title">SEO & Психология CTR</div>
-                                        <div class="eb-text">Арт-директор создает 3-5 вариантов превью. Тестируем CTR до пробития планки в 10%. Оптимизируем теги и метаданные, чтобы видео стало бессмертным активом в органическом поиске YouTube и Google.</div>
-                                    </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="mc-feature-block">
+                                    <div class="mc-feature-icon bg-red-500/10 text-red-500 border border-red-500/20"><i class="fa-solid fa-brain"></i></div>
+                                    <div class="mc-feature-title">Распаковка и Аналитика</div>
+                                    <p class="mc-feature-text">Мы не пишем сценарии из головы. Целый отдел анализирует емкость рынка, ваших конкурентов и <strong>боли целевой аудитории</strong>. Мы вытаскиваем из вас твердую фактуру, оцифровываем кейсы и упаковываем их в SEO-сторителлинг, который приводит горячих лидов.</p>
                                 </div>
+                                
+                                <div class="mc-feature-block">
+                                    <div class="mc-feature-icon bg-orange-500/10 text-orange-500 border border-orange-500/20"><i class="fa-solid fa-video"></i></div>
+                                    <div class="mc-feature-title">Премиальный Продакшн</div>
+                                    <p class="mc-feature-text">Зритель 2026 года не прощает плохую картинку. Мы снимаем на <strong>кинокамеры (Sony FX/Blackmagic)</strong>, ставим объемный студийный свет и кристальный звук. Вы приезжаете на всё готовое, просто читая суфлер под руководством нашего продюсера. Есть и дистанционный сетап.</p>
+                                </div>
+
+                                <div class="mc-feature-block">
+                                    <div class="mc-feature-icon bg-blue-500/10 text-blue-500 border border-blue-500/20"><i class="fa-solid fa-scissors"></i></div>
+                                    <div class="mc-feature-title">Инженерия Удержания</div>
+                                    <p class="mc-feature-text">Монтаж — это управление психикой зрителя. Мы используем динамические зумы, сложный <strong>саунд-дизайн, перебивки и B-roll кадры</strong>. Наша цель — сделать удержание ролика выше 50%, заставляя алгоритмы YouTube продвигать вас органически в рекомендации.</p>
+                                </div>
+
+                                <div class="mc-feature-block">
+                                    <div class="mc-feature-icon bg-purple-500/10 text-purple-500 border border-purple-500/20"><i class="fa-solid fa-image"></i></div>
+                                    <div class="mc-feature-title">CTR и Кликабельность</div>
+                                    <p class="mc-feature-text">Даже шедевральный ролик не посмотрят без крутой обложки. Наш арт-отдел создает и тестирует десятки концепций превью, добиваясь <strong>CTR от 10% и выше</strong>. Заголовок и картинка — это ваш главный крючок для миллионов зрителей.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mc-expanded-tags">
+                                <div class="mc-expanded-tag"><i class="fa-solid fa-check"></i> DaVinci Resolve</div>
+                                <div class="mc-expanded-tag"><i class="fa-solid fa-check"></i> VidIQ / TubeBuddy</div>
+                                <div class="mc-expanded-tag"><i class="fa-solid fa-check"></i> 4K / 60FPS</div>
+                                <div class="mc-expanded-tag"><i class="fa-solid fa-check"></i> Студии Мск/Спб</div>
                             </div>
                         </div>
                     </div>
@@ -860,52 +831,40 @@
 
                 <div class="matrix-card card-funnel gsap-matrix-card">
                     <div class="mc-glow mc-glow-funnel"></div>
-                    <div class="mc-close-btn" style="border-color: #3B82F6; color: #3B82F6;"><i class="fa-solid fa-xmark"></i></div>
+                    <div class="mc-close-btn"><i class="fa-solid fa-xmark"></i></div>
                     
-                    <div class="mc-content relative z-10 flex flex-col h-full pointer-events-none">
+                    <div class="mc-content relative z-10 flex flex-col h-full">
                         <div>
                             <div class="m-icon-box mi-funnel"><i class="fa-solid fa-filter"></i></div>
                             <h3 class="mc-title">Автоворонки</h3>
                         </div>
+                        
                         <div class="mc-short-state flex-grow flex flex-col justify-between">
                             <p class="mc-text mt-2">Связываем просмотры с деньгами. Разрабатываем логику чат-ботов в TG, создаем сочные лид-магниты, интегрируем систему с вашей CRM.</p>
-                            <div class="pointer-events-auto"><button class="mc-more-btn anim-trigger" style="background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.3);">ПОДРОБНЕЕ <i class="fa-solid fa-expand"></i></button></div>
+                            <div><button class="mc-more-btn mt-4">Механика <i class="fa-solid fa-arrow-right"></i></button></div>
                         </div>
 
-                        <div class="mc-details pointer-events-auto">
-                            <div class="epic-cover epic-anim-item" style="border-bottom-color: rgba(59,130,246,0.2);">
-                                <span class="epic-subtitle" style="color: #3B82F6;">Уровень 2: Конвертация</span>
-                                <h2 class="epic-title">Инженерия<br>Продаж<br><span style="color: #3B82F6;">24/7</span></h2>
+                        <div class="mc-details">
+                            <div class="mc-details-header">
+                                <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-500 text-2xl"><i class="fa-solid fa-sack-dollar"></i></div>
+                                <h4 class="mc-details-title">Конвертация внимания</h4>
                             </div>
-
-                            <div class="epic-chapter epic-anim-item">
-                                <h3 class="epic-chapter-title"><span style="color: #3B82F6;">01</span> Просмотры — это пыль</h3>
-                                <p class="epic-text">Самое большое заблуждение бизнеса в интернете — гнаться за миллионами просмотров. Мы видели блогеров-миллионников, которые не могли продать консультацию за 5000 рублей, и видели B2B-экспертов с 10,000 подписчиков, делающих системные запуски на миллионы долларов. Разница между ними одна — <strong>Архитектура Воронки</strong>.</p>
-                                <p class="epic-text">Воронка — это невидимый лабиринт. Зритель заходит в него из любопытства, а выходит "теплым" лидом, абсолютно уверенным, что купить ваш продукт — это его собственное гениальное решение.</p>
-                            </div>
-
-                            <div class="epic-quote epic-anim-item" style="border-left-color: #3B82F6;">
-                                "Контент собирает внимание. Но только воронка превращает это внимание в звон монет на вашем банковском счету. Без воронки вы просто бесплатный развлекательный канал."
-                            </div>
-
-                            <div class="epic-chapter epic-anim-item">
-                                <h3 class="epic-chapter-title"><span style="color: #3B82F6;">02</span> Механика Захвата</h3>
-                                <div class="epic-grid">
-                                    <div class="epic-box" style="border-color: rgba(59,130,246,0.2);">
-                                        <i class="fa-solid fa-magnet eb-icon" style="color: #3B82F6;"></i>
-                                        <div class="eb-title">Триггерные Лид-магниты</div>
-                                        <div class="eb-text">Мы создаем PDF-гайды, закрытые видео-уроки и таблицы расчета ROI. Человек отдает свой контакт (входит в бота) ради этой пользы. Конверсия из просмотра в регистрацию достигает 15-20%. Это честный обмен, где зритель получает пользу, а вы — лида.</div>
-                                    </div>
-                                    <div class="epic-box" style="border-color: rgba(59,130,246,0.2);">
-                                        <i class="fa-solid fa-robot eb-icon" style="color: #3B82F6;"></i>
-                                        <div class="eb-title">Чат-Боты и Квалификация</div>
-                                        <div class="eb-text">Программируем Telegram-ботов с вариативными сценариями. Бот задает вопросы, сегментирует лидов по бюджету, срочности покупки и прогревает их кейсами 24/7 без участия вашего отдела продаж.</div>
-                                    </div>
-                                    <div class="epic-box" style="grid-column: 1 / -1; border-color: rgba(59,130,246,0.2);">
-                                        <i class="fa-solid fa-database eb-icon" style="color: #3B82F6;"></i>
-                                        <div class="eb-title">CRM Интеграция и Дожим (Long-term Nurturing)</div>
-                                        <div class="eb-text">Связываем YouTube, Telegram и ваш AmoCRM/Bitrix24. Отдел продаж видит, с какого ролика пришел лид, какие вопросы задавал бот. А те, кто не купил сразу, попадают в базу "долгосрочного дожима" и будут автоматически получать от вас контент месяцами, пока не созреют. Мы монетизируем отложенный спрос, выжимая максимум ROI из каждой копейки.</div>
-                                    </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="mc-feature-block">
+                                    <div class="mc-feature-icon bg-blue-500/10 text-blue-500 border border-blue-500/20"><i class="fa-solid fa-magnet"></i></div>
+                                    <div class="mc-feature-title">Лид-Магниты</div>
+                                    <p class="mc-feature-text">Миллионы просмотров — мусор, если вы не берете контакты. Мы пишем чек-листы, таблицы расчета и закрытые уроки, ради которых зритель <strong>сам отдает свой контакт</strong>.</p>
+                                </div>
+                                <div class="mc-feature-block">
+                                    <div class="mc-feature-icon bg-blue-500/10 text-blue-500 border border-blue-500/20"><i class="fa-solid fa-robot"></i></div>
+                                    <div class="mc-feature-title">Умные Чат-Боты</div>
+                                    <p class="mc-feature-text">Прописываем деревья сообщений. Бот прогревает клиента, отрабатывает возражения и задает <strong>квалифицирующие вопросы</strong> 24/7 без вашего участия.</p>
+                                </div>
+                                <div class="mc-feature-block md:col-span-2">
+                                    <div class="mc-feature-icon bg-blue-500/10 text-blue-500 border border-blue-500/20"><i class="fa-solid fa-database"></i></div>
+                                    <div class="mc-feature-title">CRM Интеграция и Дожим</div>
+                                    <p class="mc-feature-text">Каждая заявка улетает в Bitrix24/AmoCRM с UTM-метками. Ваш отдел продаж получает готового клиента. А те, кто не купил сразу, остаются в базе бота и <strong>дожимаются контентом</strong> на протяжении месяцев, превращаясь в деньги.</p>
                                 </div>
                             </div>
                         </div>
@@ -914,42 +873,38 @@
 
                 <div class="matrix-card card-traffic gsap-matrix-card">
                     <div class="mc-glow mc-glow-traffic"></div>
-                    <div class="mc-close-btn" style="border-color: #22C55E; color: #22C55E;"><i class="fa-solid fa-xmark"></i></div>
+                    <div class="mc-close-btn"><i class="fa-solid fa-xmark"></i></div>
                     
-                    <div class="mc-content relative z-10 flex flex-col h-full pointer-events-none">
+                    <div class="mc-content relative z-10 flex flex-col h-full">
                         <div>
                             <div class="m-icon-box mi-traffic"><i class="fa-solid fa-rocket"></i></div>
                             <h3 class="mc-title">Трафик & Посевы</h3>
                         </div>
+                        
                         <div class="mc-short-state flex-grow flex flex-col justify-between">
                             <p class="mc-text mt-2">Не ждем милости алгоритмов. Агрессивно закупаем рекламу в целевых TG-каналах, льем Яндекс.Директ и VK таргет прямо в воронку.</p>
-                            <div class="pointer-events-auto"><button class="mc-more-btn anim-trigger" style="background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3);">ПОДРОБНЕЕ <i class="fa-solid fa-expand"></i></button></div>
+                            <div><button class="mc-more-btn mt-4">Масштаб <i class="fa-solid fa-arrow-right"></i></button></div>
                         </div>
 
-                        <div class="mc-details pointer-events-auto">
-                            <div class="epic-cover epic-anim-item" style="border-bottom-color: rgba(34,197,94,0.2);">
-                                <span class="epic-subtitle" style="color: #22C55E;">Уровень 3: Доминация</span>
-                                <h2 class="epic-title">Синдикат<br>Трафика<br><span style="color: #22C55E;">& Масштаб</span></h2>
+                        <div class="mc-details">
+                            <div class="mc-details-header">
+                                <div class="w-12 h-12 rounded-xl bg-green-500/10 border border-green-500/30 flex items-center justify-center text-green-500 text-2xl"><i class="fa-solid fa-chart-line"></i></div>
+                                <h4 class="mc-details-title">Масштаб без ограничений</h4>
                             </div>
-
-                            <div class="epic-chapter epic-anim-item">
-                                <h3 class="epic-chapter-title"><span style="color: #22C55E;">01</span> Покупка Времени</h3>
-                                <p class="epic-text">Органический рост на YouTube — это мощно, но это марафон. Если бизнесу нужна лидогенерация "вчера", мы активируем протоколы платного трафика. Бизнес не может ждать полгода. Мы используем платный трафик как авиационное топливо для вашей воронки.</p>
-                                <p class="epic-text">Наша философия — выкупать самое горячее внимание на рынке, сжигая рекламные бюджеты конкурентов нашей запредельной эффективностью и окупаемостью (ROI). Трафик — это математика. Мы заливаем X рублей, чтобы вытащить 5X в кассу.</p>
-                            </div>
-
-                            <div class="epic-chapter epic-anim-item">
-                                <h3 class="epic-chapter-title"><span style="color: #22C55E;">02</span> Инструментарий Экспансии</h3>
-                                <div class="epic-grid">
-                                    <div class="epic-box" style="border-color: rgba(34,197,94,0.2);">
-                                        <i class="fa-brands fa-telegram eb-icon" style="color: #22C55E;"></i>
-                                        <div class="eb-title">Теневые Посевы (Telegram)</div>
-                                        <div class="eb-text">Наш отдел Media Buying через Telemetr/TGStat находит авторские каналы, где сидит ваша ЦА (инвесторы, предприниматели). Мы выявляем накрутку, пишем нативные посты и массово скупаем рекламу, переливая трафик прямо в ваших ботов.</div>
+                            
+                            <div class="grid grid-cols-1 gap-6">
+                                <div class="mc-feature-block flex flex-col md:flex-row gap-6 items-center">
+                                    <div class="mc-feature-icon bg-green-500/10 text-green-500 border border-green-500/20 w-16 h-16 shrink-0 text-2xl"><i class="fa-brands fa-telegram"></i></div>
+                                    <div>
+                                        <div class="mc-feature-title">Telegram Посевы (Telemetr / TGStat)</div>
+                                        <p class="mc-feature-text">Органика — это долго. Мы берем контроль над трафиком. Наш отдел закупки анализирует каналы, пишет нативные посты и закупает рекламу только там, где сидит <strong>платежеспособная B2B и премиум аудитория</strong>.</p>
                                     </div>
-                                    <div class="epic-box" style="border-color: rgba(34,197,94,0.2);">
-                                        <i class="fa-solid fa-crosshairs eb-icon" style="color: #22C55E;"></i>
-                                        <div class="eb-title">Яндекс.Директ и Ретаргет</div>
-                                        <div class="eb-text">Человек посмотрел ролик, но не купил? Мы "догоним" его баннерами по всему интернету. Настройка сложных пикселей и возврат ушедшего трафика за копейки. Оптимизация кампаний происходит на базе ИИ с отсечением неработающих связок.</div>
+                                </div>
+                                <div class="mc-feature-block flex flex-col md:flex-row gap-6 items-center">
+                                    <div class="mc-feature-icon bg-green-500/10 text-green-500 border border-green-500/20 w-16 h-16 shrink-0 text-2xl"><i class="fa-solid fa-crosshairs"></i></div>
+                                    <div>
+                                        <div class="mc-feature-title">Яндекс.Директ и VK Ретаргет</div>
+                                        <p class="mc-feature-text">Запускаем контекст на ваши воронки. Настраиваем пиксели и «догоняем» рекламой тех, кто смотрел ваши видео, но ушел. Оптимизируем связки каждый день, отключая убыточные кампании, чтобы держать <strong>высокий ROMI</strong>.</p>
                                     </div>
                                 </div>
                             </div>
@@ -959,73 +914,44 @@
 
                 <div class="matrix-card card-brand gsap-matrix-card">
                     <div class="mc-glow mc-glow-brand"></div>
-                    <div class="mc-close-btn" style="border-color: #A855F7; color: #A855F7;"><i class="fa-solid fa-xmark"></i></div>
+                    <div class="mc-close-btn"><i class="fa-solid fa-xmark"></i></div>
                     
-                    <div class="mc-content relative z-10 flex flex-col h-full w-full pointer-events-none">
+                    <div class="mc-content relative z-10 flex flex-col h-full w-full">
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-8 w-full mc-short-state">
                             <div class="max-w-xl">
                                 <div class="m-icon-box mi-brand"><i class="fa-solid fa-user-astronaut"></i></div>
-                                <h3 class="mc-title">Личный Бренд & Биография</h3>
+                                <h3 class="mc-title">Личный Бренд</h3>
                                 <p class="mc-text mb-0 mt-2">Делаем из вас лидера мнений. Формируем премиальный медийный образ, которому доверяют партнеры и клиенты, снижая цикл сделки в 3 раза.</p>
-                                <div class="pointer-events-auto"><button class="mc-more-btn anim-trigger mt-4" style="background: rgba(168,85,247,0.1); border-color: rgba(168,85,247,0.3);">ПОДРОБНЕЕ <i class="fa-solid fa-expand"></i></button></div>
+                                <button class="mc-more-btn mt-4">Раскрыть Бренд <i class="fa-solid fa-arrow-right"></i></button>
                             </div>
-                            <div class="pointer-events-auto">
-                                <a href="#" class="bg-yt text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-[10px] md:text-sm hover:bg-white hover:text-yt transition-colors shadow-[0_0_20px_rgba(229,45,39,0.4)] whitespace-nowrap open-modal-btn w-full md:w-auto text-center">
-                                    Упаковать бренд
-                                </a>
-                            </div>
+                            <a href="#" class="bg-yt text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-[10px] md:text-sm hover:bg-white hover:text-yt transition-colors shadow-[0_0_20px_rgba(229,45,39,0.4)] whitespace-nowrap open-modal-btn w-full md:w-auto text-center">
+                                Упаковать бренд
+                            </a>
                         </div>
 
-                        <div class="mc-details pointer-events-auto">
-                            <div class="epic-cover epic-anim-item" style="border-bottom-color: rgba(168,85,247,0.2);">
-                                <span class="epic-subtitle" style="color: #A855F7;">Уровень 4: Абсолютная Власть</span>
-                                <h2 class="epic-title">Архитектура<br>Личности<br><span style="color: #A855F7;">И Легенды</span></h2>
-                            </div>
-
-                            <div class="epic-chapter epic-anim-item">
-                                <h3 class="epic-chapter-title"><span style="color: #A855F7;">01</span> Смерть Корпораций</h3>
-                                <p class="epic-text">Логотипы больше не продают. Компании с вылизанными корпоративными сайтами с улыбающимися людьми из фотостоков проигрывают молодым стартапам, основатель которых просто и честно рассказывает о "внутрянке" бизнеса в своих влогах. Люди устали от корпоративной пластмассы. <strong>Люди хотят покупать у людей.</strong> У тех, чей путь они видят, чьи ценности разделяют и кому доверяют на подсознательном уровне.</p>
-                                <p class="epic-text">Личный бренд — это ваш единственный непробиваемый финансовый ров. Ваш продукт могут скопировать конкуренты из Китая, ваш код могут украсть, а топ-менеджеров — переманить. Но вашу харизму, ваш голос и ваш уникальный жизненный опыт <strong>не скопирует никто в мире</strong>.</p>
-                            </div>
-
-                            <div class="epic-quote epic-anim-item" style="border-left-color: #A855F7;">
-                                "Когда у бизнеса есть лицо сильного лидера, цикл сделки в B2B сокращается с полугода до одной недели. Клиент приходит уже лояльным, как к старому другу. Вы перестаете конкурировать ценой, продавая за счет абсолютного доверия."
-                            </div>
-
-                            <div class="epic-chapter epic-anim-item">
-                                <h3 class="epic-chapter-title"><span style="color: #A855F7;">02</span> Распаковка Титана (Путь Героя)</h3>
-                                <p class="epic-text">Мы не придумываем вам фальшивую маску. Фальшь убивает конверсию. Мы проводим хирургическую распаковку вашей биографии, находя те самые точки боли, триумфа и трансформации. Мы используем структуру мифа <strong>Джозефа Кэмпбелла (Monomyth)</strong> и архетипы <strong>Карла Юнга</strong>, чтобы написать самую захватывающую биографию в вашей нише.</p>
-                                
-                                <div class="lore-timeline">
-                                    <div class="lore-node">
-                                        <div class="lore-year">Этап 1: Тень и Катарсис</div>
-                                        <div class="lore-title">Аудит Жизненного Пути</div>
-                                        <div class="epic-text">Наш журналист проводит с вами многочасовые сессии. Мы вытаскиваем ваши самые большие провалы и поражения. Почему? Потому что идеальных людей ненавидят. <strong>Уязвимость порождает сверхдоверие.</strong> Ваша история преодоления становится фундаментом вашей Легенды. Люди обожают истории воскрешения из пепла.</div>
-                                    </div>
-                                    <div class="lore-node">
-                                        <div class="lore-year">Этап 2: Юнгианский Архетип</div>
-                                        <div class="lore-title">Формирование Роли</div>
-                                        <div class="epic-text">Кем вы будете для рынка? Бунтарь, разрушающий старые устои? Мудрец, к которому приходят за твердыми цифрами? Или Творец-визионер? Архетип диктует всё: от тональности вашего голоса в кадре (Tone of Voice) до стиля одежды и цвета превью. Мы синхронизируем ваш внутренний стержень с мощным внешним образом.</div>
-                                    </div>
-                                    <div class="lore-node">
-                                        <div class="lore-year">Этап 3: Тотальная Экспансия</div>
-                                        <div class="lore-title">Дистрибуция Смыслов</div>
-                                        <div class="epic-text">Мы берем вашу распакованную Легенду и как паутину раскидываем её по всему интернету. Большие видео на YouTube формируют авторитет. Короткие Shorts закидывают крючки массовой аудитории. Посты в Telegram работают как интеллектуальная привязка в реальном времени. Мы создаем иллюзию вашего тотального присутствия на рынке.</div>
-                                    </div>
-                                    <div class="lore-node">
-                                        <div class="lore-year">Этап 4: Монополия и Власть</div>
-                                        <div class="lore-title">Капитализация Доверия</div>
-                                        <div class="epic-text">Итог нашей работы — вы перестаете конкурировать в кровавом океане. Люди готовы переплачивать 30-50% выше рынка просто за право работать лично с вами или вашей компанией. Ваше имя становится независимым, высоколиквидным активом, который открывает двери в любые кабинеты и привлекает любые инвестиции. Вы становитесь живой иконой своей ниши.</div>
-                                    </div>
-                                </div>
+                        <div class="mc-details">
+                            <div class="mc-details-header">
+                                <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-500 text-2xl"><i class="fa-solid fa-crown"></i></div>
+                                <h4 class="mc-details-title">Капитализация Вашего Имени</h4>
                             </div>
                             
-                            <div class="cta-gigantic epic-anim-item">
-                                <h2>Войдите в Историю</h2>
-                                <p style="font-size: 1.2rem; color: #aaa; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">Оставьте конкурентов биться за копейки. Создайте свой собственный рынок, где вы — единственный непререкаемый авторитет.</p>
-                                <a href="#" class="open-modal-btn" style="background: #fff; color: #000; padding: 20px 50px; border-radius: 100px; font-family: 'Unbounded', sans-serif; font-weight: 900; text-transform: uppercase; font-size: 1.2rem; transition: transform 0.3s; display: inline-block;">Упаковать Бренд</a>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                                <div class="mc-feature-block">
+                                    <div class="mc-feature-icon bg-purple-500/10 text-purple-500 border border-purple-500/20"><i class="fa-solid fa-handshake"></i></div>
+                                    <div class="mc-feature-title">Люди покупают у людей</div>
+                                    <p class="mc-feature-text">Если клиент видит сильного лидера — цикл сделки сокращается с месяцев до недель. Вы перестаете конкурировать ценой, продавая за счет <strong>абсолютного доверия</strong>.</p>
+                                </div>
+                                <div class="mc-feature-block">
+                                    <div class="mc-feature-icon bg-purple-500/10 text-purple-500 border border-purple-500/20"><i class="fa-solid fa-chess-knight"></i></div>
+                                    <div class="mc-feature-title">Архитектура Образа</div>
+                                    <p class="mc-feature-text">Находим ваш архетип. Жесткий прагматик или визионер? Выстраиваем подачу, стиль и фактуру так, чтобы аудитория <strong>влюблялась в вашу подлинность</strong>.</p>
+                                </div>
+                                <div class="mc-feature-block">
+                                    <div class="mc-feature-icon bg-purple-500/10 text-purple-500 border border-purple-500/20"><i class="fa-solid fa-shield-halved"></i></div>
+                                    <div class="mc-feature-title">Защита Актива</div>
+                                    <p class="mc-feature-text">Продукт скопируют конкуренты. Вашу харизму — никогда. Личный бренд, распределенный по YouTube, Telegram и Dzen — ваш <strong>непробиваемый актив</strong> на десятилетия.</p>
+                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -1085,173 +1011,124 @@
     </section>
 
     <section id="process" class="py-20 md:py-32 relative z-10 bg-[#020202] overflow-hidden">
-        <div class="absolute top-[10%] left-[0%] md:left-[-20%] w-[400px] md:w-[800px] h-[400px] md:h-[800px] bg-yt/10 rounded-full blur-[150px] md:blur-[200px] pointer-events-none"></div>
-        <div class="absolute bottom-[10%] right-[0%] md:right-[-20%] w-[400px] md:w-[800px] h-[400px] md:h-[800px] bg-blue-900/10 rounded-full blur-[150px] md:blur-[200px] pointer-events-none"></div>
+        <div class="absolute top-[5%] left-[0%] w-[400px] h-[400px] bg-yt/10 rounded-full blur-[150px] pointer-events-none"></div>
+        <div class="absolute top-[40%] right-[0%] w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[150px] pointer-events-none"></div>
+        <div class="absolute bottom-[5%] left-[10%] w-[600px] h-[600px] bg-green-900/10 rounded-full blur-[200px] pointer-events-none"></div>
 
         <div class="max-w-[1200px] mx-auto px-4 md:px-6 relative z-10">
             
             <div class="text-center mb-16 md:mb-32 cp-reveal">
-                <div class="inline-block border border-yt/30 bg-yt/10 text-yt px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6">Ваш путь к масштабу</div>
-                <h2 class="font-display text-4xl sm:text-5xl md:text-7xl font-black uppercase mb-4 md:mb-8 leading-none tracking-tighter cp-title">
-                    Как мы <span class="red-gradient-text">работаем</span>
+                <div class="inline-block border border-yt/30 bg-yt/10 text-yt px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6">Архитектура вашего масштаба</div>
+                <h2 class="font-display text-4xl sm:text-5xl md:text-7xl font-black uppercase mb-4 md:mb-8 leading-none tracking-tighter text-white">
+                    Архитектура <span class="red-gradient-text">Захвата</span>
                 </h2>
-                <p class="text-sm sm:text-base md:text-2xl text-gray-400 max-w-4xl mx-auto font-light leading-relaxed">
-                    Мы не просто снимаем видео. Мы строим полноценный отдел медиа-маркетинга внутри вашего бизнеса. Прозрачно. Понятно. На результат. 4 точных шага к потоку лидов.
+                <p class="text-sm sm:text-base md:text-xl text-gray-400 max-w-4xl mx-auto font-light leading-relaxed">
+                    Мы не работаем в формате «вы нам платите, мы снимаем видео». Мы внедряемся в ваш бизнес как внешний <strong>in-house отдел медиа-маркетинга</strong>. 6 жестко регламентированных этапов, которые превращают пиксели на экране в чистую прибыль.
                 </p>
             </div>
 
             <div class="relative w-full pb-10 md:pb-20" id="client-journey">
                 <div class="journey-line hidden md:block"><div class="journey-progress h-0" id="jp-bar"></div></div>
 
-                <div class="mega-step relative flex flex-col md:flex-row justify-between items-center w-full cp-step">
-                    <div class="hidden md:flex absolute top-[-5px] left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#0a0a0a] border-[3px] border-[#333] rounded-full z-20 step-marker"><div class="marker-dot"></div></div>
-                    
+                <div class="cp-step relative flex flex-col md:flex-row justify-between items-center w-full" id="step-1">
+                    <div class="hidden md:flex step-marker"><div class="marker-dot"></div></div>
                     <div class="w-full md:w-[45%] mb-8 md:mb-0 text-left md:text-right pr-0 md:pr-12 cp-text" data-dir="-1">
                         <div class="text-yt font-display font-black text-5xl md:text-7xl mb-1 md:mb-2 opacity-20">ШАГ 01</div>
-                        <h3 class="font-display font-black text-2xl md:text-4xl text-white uppercase mb-4 md:mb-6">Командный Центр</h3>
-                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-6">
-                            Никаких брифов на почту. Мы устраиваем глубокий Zoom-разбор. <strong class="text-white">Сразу 5 профильных экспертов</strong> погружаются в ваш бизнес, чтобы создать железобетонную стратегию захвата рынка.
+                        <h3 class="font-display font-black text-2xl md:text-4xl text-white uppercase mb-4 md:mb-6">Глубинная Распаковка</h3>
+                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-4">
+                            Любой контент без стратегии — это слив бюджета. Мы начинаем с многочасового аудита (CustDev). Команда из 5 экспертов погружается в ваш бизнес, чтобы вытащить уникальные смыслы, которые конкуренты не смогут скопировать.
                         </p>
-                        <ul class="space-y-3 md:space-y-4 text-xs md:text-sm font-semibold tracking-wide text-gray-300 inline-block text-left">
-                            <li class="flex items-center"><i class="fa-solid fa-crosshairs text-yt mr-3 md:mr-4 text-base md:text-lg"></i>Целевая потребность: Лиды или Охват?</li>
-                            <li class="flex items-center"><i class="fa-solid fa-network-wired text-yt mr-3 md:mr-4 text-base md:text-lg"></i>Выбор экосистемы (YT, IG, TG, VK)</li>
-                            <li class="flex items-center"><i class="fa-solid fa-route text-yt mr-3 md:mr-4 text-base md:text-lg"></i>Проектирование CJM (Путь клиента)</li>
-                        </ul>
+                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-6">
+                            <strong>Для B2B:</strong> Ищем оптовиков, бьем в боли логистики, маржинальности и окупаемости.<br>
+                            <strong>Для Инфобизнеса:</strong> Строим премиальный личный бренд, формирующий фанатичную лояльность и продающий наставничество за миллионы.
+                        </p>
                     </div>
-                    
                     <div class="w-full md:w-[45%] pl-0 md:pl-12 cp-visual">
-                        <div class="glass-card h-[300px] md:h-[450px] relative border-yt/20" id="war-room-container">
+                        <div class="glass-card h-[300px] md:h-[450px] relative border-yt/20 flex items-center justify-center overflow-hidden w-room-anim">
                             <div class="war-room-grid"></div>
-                            <div class="absolute top-3 md:top-4 left-3 md:left-4 text-[10px] md:text-xs font-mono text-gray-500 uppercase tracking-widest bg-black/50 px-2 py-1 rounded z-10">Syncing...</div>
-                            
-                            <svg class="laser-svg hidden md:block" viewBox="0 0 100 100" preserveAspectRatio="none">
-                                <line x1="20" y1="20" x2="50" y2="50" class="laser-line line-1" />
-                                <line x1="80" y1="20" x2="50" y2="50" class="laser-line line-2" />
-                                <line x1="20" y1="80" x2="50" y2="50" class="laser-line line-3" />
-                                <line x1="80" y1="80" x2="50" y2="50" class="laser-line line-4" />
-                            </svg>
-
-                            <div class="expert-card ec-1"><img src="https://ui-avatars.com/api/?name=П&background=000&color=E52D27" class="expert-avatar"><div class="expert-info"><span class="expert-role">Продюсер</span><span class="expert-name">Визуал</span></div></div>
-                            <div class="expert-card ec-2"><img src="https://ui-avatars.com/api/?name=М&background=000&color=E52D27" class="expert-avatar"><div class="expert-info"><span class="expert-role">Маркетолог</span><span class="expert-name">Воронка</span></div></div>
-                            <div class="expert-card ec-3"><img src="https://ui-avatars.com/api/?name=С&background=000&color=E52D27" class="expert-avatar"><div class="expert-info"><span class="expert-role">Сценарист</span><span class="expert-name">Смыслы</span></div></div>
-                            <div class="expert-card ec-4"><img src="https://ui-avatars.com/api/?name=Т&background=000&color=E52D27" class="expert-avatar"><div class="expert-info"><span class="expert-role">Таргет</span><span class="expert-name">Трафик</span></div></div>
-
+                            <div class="expert-card ec-1"><i class="fa-solid fa-chess expert-icon"></i><div class="expert-info"><span class="expert-role">Стратег</span><span class="expert-name">Аудит</span></div></div>
+                            <div class="expert-card ec-2"><i class="fa-solid fa-magnifying-glass-chart expert-icon"></i><div class="expert-info"><span class="expert-role">Аналитик</span><span class="expert-name">Аудитория</span></div></div>
+                            <div class="expert-card ec-3"><i class="fa-solid fa-filter expert-icon"></i><div class="expert-info"><span class="expert-role">Маркетолог</span><span class="expert-name">Воронка</span></div></div>
+                            <div class="expert-card ec-4"><i class="fa-solid fa-pen-nib expert-icon"></i><div class="expert-info"><span class="expert-role">Сценарист</span><span class="expert-name">Смыслы</span></div></div>
                             <div class="strategy-core">
-                                <span class="absolute text-[8px] md:text-[10px] text-white font-bold tracking-widest mt-16 md:mt-20 uppercase">Стратегия</span>
+                                <span class="absolute text-[8px] md:text-[10px] text-white font-bold tracking-widest mt-20 md:mt-24 uppercase">План Захвата</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="mega-step relative flex flex-col md:flex-row-reverse justify-between items-center w-full cp-step">
-                    <div class="hidden md:flex absolute top-[-5px] left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#0a0a0a] border-[3px] border-[#333] rounded-full z-20 step-marker"><div class="marker-dot"></div></div>
-                    
+                <div class="cp-step relative flex flex-col md:flex-row-reverse justify-between items-center w-full" id="step-2">
+                    <div class="hidden md:flex step-marker"><div class="marker-dot"></div></div>
                     <div class="w-full md:w-[45%] mb-8 md:mb-0 pl-0 md:pl-12 cp-text" data-dir="1">
-                        <div class="text-yt font-display font-black text-5xl md:text-7xl mb-1 md:mb-2 opacity-20">ШАГ 02</div>
-                        <h3 class="font-display font-black text-2xl md:text-4xl text-white uppercase mb-4 md:mb-6">Конвейер Смыслов</h3>
-                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-6">
-                            Мы проектируем контент-план. Это алгоритмически выверенная структура, где каждый ролик собирается по формуле идеального удержания и конверсии.
+                        <div class="text-blue-500 font-display font-black text-5xl md:text-7xl mb-1 md:mb-2 opacity-20">ШАГ 02</div>
+                        <h3 class="font-display font-black text-2xl md:text-4xl text-white uppercase mb-4 md:mb-6">Инженерия Воронок</h3>
+                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-4">
+                            Просмотры не платят зарплату сотрудникам. Перед тем как включить камеру, мы проектируем невидимый лабиринт (CJM), который доведет зрителя до кассы.
                         </p>
-                        <div class="flex flex-wrap items-center gap-3 md:gap-4 text-xs md:text-sm text-gray-400 font-bold bg-[#111] p-3 md:p-4 rounded-xl border border-white/5">
-                            <div class="flex items-center gap-2"><div class="w-2 h-2 md:w-3 md:h-3 bg-yt rounded-full"></div> Внимание</div>
-                            <div class="flex items-center gap-2"><div class="w-2 h-2 md:w-3 md:h-3 bg-blue-500 rounded-full"></div> Ценность</div>
-                            <div class="flex items-center gap-2"><div class="w-2 h-2 md:w-3 md:h-3 bg-green-500 rounded-full"></div> Продажа (CTA)</div>
-                        </div>
+                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-6">
+                            Создаем <strong>кликбейтные лид-магниты</strong> (PDF-таблицы, закрытые гайды). Программируем умных Telegram-ботов, которые квалифицируют клиента (узнают его бюджет и запрос) 24/7. Вся база бесшовно интегрируется с вашей AmoCRM или Bitrix24.
+                        </p>
                     </div>
-                    
                     <div class="w-full md:w-[45%] pr-0 md:pr-12 cp-visual">
-                        <div class="glass-card min-h-[350px] md:min-h-[450px] bg-gradient-to-b from-[#111] to-[#0a0a0a] border border-[#222]" id="content-engine-container">
-                            <div class="content-engine">
-                                
-                                <div class="content-node cn-1">
-                                    <div class="node-header">
-                                        <span class="text-white font-bold font-display text-[10px] md:text-sm">Видео 01: Боль клиента</span>
-                                        <i class="fa-solid fa-check-circle text-gray-600"></i>
+                        <div class="glass-card min-h-[350px] md:min-h-[450px] bg-gradient-to-b from-[#0a0a0a] to-[#050505] border border-[#222]">
+                            <div class="funnel-flow">
+                                <div class="f-node f-n1 w-[80%]"><i class="fa-brands fa-youtube text-yt mr-2"></i> Холодный Трафик</div>
+                                <div class="f-line f-l1"></div>
+                                <div class="f-node f-n2 w-[70%]"><i class="fa-solid fa-magnet text-blue-500 mr-2"></i> Скачивание Лид-Магнита</div>
+                                <div class="f-line f-l2"></div>
+                                <div class="f-split">
+                                    <div class="flex flex-col items-center">
+                                        <div class="f-node f-n3 w-[130px] text-xs"><i class="fa-brands fa-telegram text-[#2AABEE] mb-1"></i><br>Прогрев в TG</div>
                                     </div>
-                                    <div class="text-[10px] md:text-xs text-gray-500 mb-2 md:mb-3">Почему 90% экспертов сливают бюджет?</div>
-                                    <div class="node-bars">
-                                        <div class="n-bar nb-hook nbh-1"></div><div class="n-bar nb-val nbv-1"></div><div class="n-bar nb-sale nbs-1"></div>
-                                    </div>
-                                </div>
-
-                                <div class="content-node cn-2">
-                                    <div class="node-header">
-                                        <span class="text-white font-bold font-display text-[10px] md:text-sm">Видео 02: Разбор Кейса</span>
-                                        <i class="fa-solid fa-check-circle text-gray-600"></i>
-                                    </div>
-                                    <div class="text-[10px] md:text-xs text-gray-500 mb-2 md:mb-3">Как мы сделали X3 лидов за месяц.</div>
-                                    <div class="node-bars">
-                                        <div class="n-bar nb-hook nbh-2"></div><div class="n-bar nb-val nbv-2"></div><div class="n-bar nb-sale nbs-2"></div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="f-node f-n4 w-[130px] text-xs"><i class="fa-solid fa-robot text-purple-500 mb-1"></i><br>Квалификация</div>
                                     </div>
                                 </div>
-
-                                <div class="content-node cn-3">
-                                    <div class="node-header">
-                                        <span class="text-white font-bold font-display text-[10px] md:text-sm">Видео 03: Решение + CTA</span>
-                                        <i class="fa-solid fa-check-circle text-gray-600"></i>
-                                    </div>
-                                    <div class="text-[10px] md:text-xs text-gray-500 mb-2 md:mb-3">Секретная связка. Ссылка в описании.</div>
-                                    <div class="node-bars">
-                                        <div class="n-bar nb-hook nbh-3"></div><div class="n-bar nb-val nbv-3"></div><div class="n-bar nb-sale nbs-3"></div>
-                                    </div>
-                                </div>
-
+                                <div class="f-line f-l3 mt-2"></div>
+                                <div class="f-node f-n5 w-[60%] highlight text-base"><i class="fa-solid fa-sack-dollar text-white mr-2"></i> Горячий Лид в CRM</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="mega-step relative flex flex-col md:flex-row justify-between items-center w-full cp-step">
-                    <div class="hidden md:flex absolute top-[-5px] left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#0a0a0a] border-[3px] border-[#333] rounded-full z-20 step-marker"><div class="marker-dot"></div></div>
-                    
+                <div class="cp-step relative flex flex-col md:flex-row justify-between items-center w-full" id="step-3">
+                    <div class="hidden md:flex step-marker"><div class="marker-dot"></div></div>
                     <div class="w-full md:w-[45%] mb-8 md:mb-0 text-left md:text-right pr-0 md:pr-12 cp-text" data-dir="-1">
                         <div class="text-yt font-display font-black text-5xl md:text-7xl mb-1 md:mb-2 opacity-20">ШАГ 03</div>
-                        <h3 class="font-display font-black text-2xl md:text-4xl text-white uppercase mb-4 md:mb-6">Съемка & Продакшн</h3>
-                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-6">
-                            Два формата: премиальная запись в наших филиалах под руководством продюсера или дистанционный сетап у вас дома. Далее материал уходит на завод упаковки.
+                        <h3 class="font-display font-black text-2xl md:text-4xl text-white uppercase mb-4 md:mb-6">Премиальный Продакшн</h3>
+                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-4">
+                            Сценаристы уровня ТВ пишут тексты по формуле H-V-C (Hook-Value-CTA), чтобы удерживать внимание с первых секунд. Вы не учите текст, вы читаете его с суфлера.
                         </p>
-                        
-                        <div class="pipeline-track mt-6 md:mt-10 mx-auto md:mr-0 md:ml-auto">
-                            <div class="flex flex-col items-center">
-                                <div class="pipe-node"><i class="fa-solid fa-scissors"></i></div>
-                                <span class="text-[8px] md:text-[10px] text-gray-400 mt-2 uppercase font-bold tracking-widest text-center">Монтаж</span>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <div class="pipe-node"><i class="fa-solid fa-image"></i></div>
-                                <span class="text-[8px] md:text-[10px] text-gray-400 mt-2 uppercase font-bold tracking-widest text-center">Превью</span>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <div class="pipe-node"><i class="fa-brands fa-youtube"></i></div>
-                                <span class="text-[8px] md:text-[10px] text-gray-400 mt-2 uppercase font-bold tracking-widest text-center">Релиз</span>
-                            </div>
-                        </div>
+                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-6">
+                            <strong>Оффлайн:</strong> Съемка в наших студиях (МСК, СПБ, КРД). Кинокамеры (Sony Cinema Line), объемный 3D-свет. Продюсер на площадке вытягивает из вас харизму.<br>
+                            <strong>Дистанционно:</strong> Наш тех. специалист по видеосвязи настраивает идеальный кадр, свет и звук в вашем офисе в любой точке мира.
+                        </p>
                     </div>
-                    
                     <div class="w-full md:w-[45%] pl-0 md:pl-12 cp-visual">
                         <div class="glass-card p-3 md:p-4 min-h-[300px] md:min-h-[450px] flex flex-col relative border border-white/10">
-                            
+                            <div class="absolute top-6 right-6 z-30 bg-black/80 px-3 py-1 rounded-full text-white text-[10px] font-bold tracking-widest flex items-center border border-white/10">
+                                <span class="rec-dot"></span> REC 4K
+                            </div>
                             <div class="toggle-wrapper" id="shoot-toggle">
                                 <div class="toggle-indicator" id="toggle-bg"></div>
                                 <div class="toggle-btn active" data-target="view-studio">Студия</div>
-                                <div class="toggle-btn" data-target="view-home">Ваш Дом</div>
+                                <div class="toggle-btn" data-target="view-home">Ваш Офис</div>
                             </div>
-
                             <div class="relative w-full flex-grow min-h-[200px] md:min-h-[250px]">
                                 <div class="view-content active absolute inset-0 w-full h-full rounded-xl overflow-hidden" id="view-studio">
                                     <img src="https://images.unsplash.com/photo-1598550476439-6847785fcea6?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700">
                                     <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
                                     <div class="absolute bottom-4 left-4 right-4">
                                         <div class="text-white font-bold text-sm md:text-lg mb-1"><i class="fa-solid fa-video text-yt mr-2"></i>МСК / СПБ / КРД</div>
-                                        <p class="text-[10px] md:text-xs text-gray-300">Наш продюсер, свет, суфлер и камеры 4K.</p>
+                                        <p class="text-[10px] md:text-xs text-gray-300">Полный контроль кадра. Кинокамеры и студийный свет.</p>
                                     </div>
                                 </div>
-
                                 <div class="view-content absolute inset-0 w-full h-full rounded-xl overflow-hidden" id="view-home">
                                     <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700">
                                     <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
                                     <div class="absolute bottom-4 left-4 right-4">
-                                        <div class="text-white font-bold text-sm md:text-lg mb-1"><i class="fa-solid fa-mobile-screen text-blue-500 mr-2"></i>Дистанционно</div>
-                                        <p class="text-[10px] md:text-xs text-gray-300">Настроим свет и звук по видеосвязи.</p>
+                                        <div class="text-white font-bold text-sm md:text-lg mb-1"><i class="fa-solid fa-globe text-blue-500 mr-2"></i>Global Remote</div>
+                                        <p class="text-[10px] md:text-xs text-gray-300">Дистанционный сетап оборудования по видеосвязи.</p>
                                     </div>
                                 </div>
                             </div>
@@ -1259,34 +1136,105 @@
                     </div>
                 </div>
 
-                <div class="mega-step relative flex flex-col md:flex-row-reverse justify-between items-center w-full cp-step mb-0">
-                    <div class="hidden md:flex absolute top-[-5px] left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#0a0a0a] border-[3px] border-[#333] rounded-full z-20 step-marker"><div class="marker-dot"></div></div>
-                    
+                <div class="cp-step relative flex flex-col md:flex-row-reverse justify-between items-center w-full" id="step-4">
+                    <div class="hidden md:flex step-marker"><div class="marker-dot"></div></div>
+                    <div class="w-full md:w-[45%] mb-8 md:mb-0 pl-0 md:pl-12 cp-text" data-dir="1">
+                        <div class="text-purple-500 font-display font-black text-5xl md:text-7xl mb-1 md:mb-2 opacity-20">ШАГ 04</div>
+                        <h3 class="font-display font-black text-2xl md:text-4xl text-white uppercase mb-4 md:mb-6">Нейромонтаж & Удержание</h3>
+                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-4">
+                            Сырой материал — это лишь глина. Наши режиссеры монтажа разрезают его на атомы. Смена планов каждые 5-7 секунд, динамические субтитры, визуализация смыслов (B-roll) и агрессивный саунд-дизайн.
+                        </p>
+                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-6">
+                            Главная метрика YouTube — <strong>Retention (Удержание)</strong>. Мы искусственно разгоняем удержание зрителя выше 50%. Только тогда алгоритмы признают ролик гениальным и начинают бесплатно рекомендовать его миллионам.
+                        </p>
+                    </div>
+                    <div class="w-full md:w-[45%] pr-0 md:pr-12 cp-visual">
+                        <div class="glass-card h-[300px] md:h-[450px] bg-[#080808] p-4 flex flex-col justify-between border-purple-500/20">
+                            <div class="flex justify-between items-center text-[10px] font-tech text-gray-500 mb-2 border-b border-white/5 pb-2">
+                                <span>DMH_Timeline_Final.drp</span>
+                                <span class="text-white bg-purple-500/20 px-2 py-1 rounded">Удержание: 64%</span>
+                            </div>
+                            <div class="editor-ui">
+                                <div class="e-playhead" id="tl-playhead"></div>
+                                <div class="text-[9px] text-gray-500 uppercase font-bold tracking-widest mt-2">V1 / Основной спикер</div>
+                                <div class="e-track tl-row-1">
+                                    <div class="e-clip red w-[25%]"></div>
+                                    <div class="e-clip red w-[30%]"></div>
+                                    <div class="e-clip red flex-grow"></div>
+                                </div>
+                                <div class="text-[9px] text-gray-500 uppercase font-bold tracking-widest mt-2">V2 / Перебивки B-Roll</div>
+                                <div class="e-track tl-row-2">
+                                    <div class="e-clip blue w-[15%] ml-[15%]"></div>
+                                    <div class="e-clip blue w-[20%] ml-[10%]"></div>
+                                    <div class="e-clip blue w-[10%] ml-[20%]"></div>
+                                </div>
+                                <div class="text-[9px] text-gray-500 uppercase font-bold tracking-widest mt-2">A1 / Sound Design (Свуши)</div>
+                                <div class="e-track tl-row-3">
+                                    <div class="e-clip purple w-[5%] ml-[10%] opacity-60"></div>
+                                    <div class="e-clip purple w-[8%] ml-[25%] opacity-60"></div>
+                                    <div class="e-clip purple w-[5%] ml-[15%] opacity-60"></div>
+                                    <div class="e-clip purple w-[12%] ml-[20%] opacity-60"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cp-step relative flex flex-col md:flex-row justify-between items-center w-full" id="step-5">
+                    <div class="hidden md:flex step-marker"><div class="marker-dot"></div></div>
+                    <div class="w-full md:w-[45%] mb-8 md:mb-0 text-left md:text-right pr-0 md:pr-12 cp-text" data-dir="-1">
+                        <div class="text-[#FFCC00] font-display font-black text-5xl md:text-7xl mb-1 md:mb-2 opacity-20">ШАГ 05</div>
+                        <h3 class="font-display font-black text-2xl md:text-4xl text-white uppercase mb-4 md:mb-6">Синдикат Трафика</h3>
+                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-4">
+                            Мы не ждем чуда. Созданный контент-актив моментально режется на десятки Shorts/Reels и конвертируется в текстовые статьи для Дзена. Начинается <strong>омниканальная дистрибуция</strong>.
+                        </p>
+                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-6">
+                            Для мгновенного результата в дело вступает отдел Media Buying. Мы скупаем нативную рекламу в профильных Telegram-каналах вашей ниши. Запускаем ретаргетинг в Яндекс.Директ. Мы выкупаем всё внимание на рынке, направляя его в воронку.
+                        </p>
+                    </div>
+                    <div class="w-full md:w-[45%] pl-0 md:pl-12 cp-visual">
+                        <div class="glass-card h-[300px] md:h-[450px] relative border-[#FFCC00]/20 bg-[#050505] overflow-hidden flex flex-col justify-center items-center">
+                            <div class="orbit-container">
+                                <div class="orbit-core"><i class="fa-brands fa-youtube"></i></div>
+                                <div class="orbit-ring or-1">
+                                    <div class="orbit-sat"><i class="fa-brands fa-telegram text-[#2AABEE]"></i></div>
+                                    <div class="orbit-sat" style="top: auto; bottom: -20px;"><i class="fa-solid fa-play text-green-500"></i></div>
+                                </div>
+                                <div class="orbit-ring or-2">
+                                    <div class="orbit-sat" style="top: 50%; left: -20px; transform: translateY(-50%);"><i class="fa-solid fa-star text-[#FFCC00]"></i></div>
+                                    <div class="orbit-sat" style="top: 50%; right: -20px; left: auto; transform: translateY(-50%);"><i class="fa-brands fa-vk text-[#0077FF]"></i></div>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-4 left-0 w-full text-center text-[9px] md:text-[11px] text-gray-500 uppercase tracking-[0.2em] font-bold">Экосистема 360°</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cp-step relative flex flex-col md:flex-row-reverse justify-between items-center w-full mb-0" id="step-6">
+                    <div class="hidden md:flex step-marker"><div class="marker-dot"></div></div>
                     <div class="w-full md:w-[45%] mb-8 md:mb-0 pl-0 md:pl-12 cp-text" data-dir="1">
                         <div class="text-green-500 font-display font-black text-5xl md:text-7xl mb-1 md:mb-2 opacity-20">ФИНАЛ</div>
-                        <h3 class="font-display font-black text-3xl md:text-5xl text-white uppercase mb-4 md:mb-6 glow-text text-shadow">Поток Лидов</h3>
+                        <h3 class="font-display font-black text-3xl md:text-5xl text-white uppercase mb-4 md:mb-6 glow-text text-shadow">Капитализация</h3>
                         <p class="text-gray-400 text-sm md:text-xl leading-relaxed mb-8">
-                            Воронка прогревает зрителей 24/7 без вашего участия. Вы просто собираете теплые заявки.
+                            Конвейер запущен. YouTube формирует органический авторитет, шортсы дают виральные охваты, платный трафик масштабирует результат. Вы получаете монополию в своей нише и системный поток лояльных лидов с высочайшим LTV.
                         </p>
-                        <a href="#contact" class="inline-block bg-yt text-white px-8 py-4 md:px-10 md:py-5 rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-white hover:text-yt transition-colors shadow-[0_0_30px_rgba(229,45,39,0.5)] w-full md:w-auto text-center">
-                            Начать работу
+                        <a href="#contact" class="inline-block bg-yt text-white px-8 py-4 md:px-10 md:py-5 rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-white hover:text-yt transition-all transform hover:scale-105 shadow-[0_0_30px_rgba(229,45,39,0.5)] w-full md:w-auto text-center open-modal-btn">
+                            Запустить Систему
                         </a>
                     </div>
-                    
                     <div class="w-full md:w-[45%] pr-0 md:pr-12 cp-visual">
-                        <div class="glass-card p-4 md:p-8 h-[250px] md:h-[400px] relative overflow-hidden flex flex-col justify-center items-center border border-green-500/20" id="leads-container">
-                            <div class="absolute inset-0 bg-green-500/5 z-0"></div>
-                            
+                        <div class="glass-card p-4 md:p-8 h-[250px] md:h-[450px] relative overflow-hidden flex flex-col justify-center items-center border border-green-500/30" id="leads-container">
+                            <div class="absolute inset-0 bg-green-500/10 z-0"></div>
                             <div class="text-center z-10 relative">
-                                <div class="text-gray-400 text-xs md:text-sm font-bold uppercase tracking-widest mb-2">Новых заявок</div>
-                                <div class="text-6xl md:text-8xl font-display font-black text-white glow-counter" id="lead-counter">0</div>
+                                <div class="text-gray-400 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-3">Генерация выручки</div>
+                                <div class="text-5xl md:text-7xl font-display font-black text-white glow-counter mb-4">$<span id="lead-counter">0</span>K</div>
+                                <div class="inline-block bg-green-500/20 border border-green-500/50 text-green-500 px-4 py-2 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest">ROMI > 300%</div>
                             </div>
-
                             <div class="lead-burst">
-                                <div class="lead-card-anim lc-1">Новая заявка: +7(999)...</div>
-                                <div class="lead-card-anim lc-2">Оплата: 45 000 ₽</div>
-                                <div class="lead-card-anim lc-3 hidden md:block">Запись на зум</div>
-                                <div class="lead-card-anim lc-4 hidden md:block">TG @user1</div>
+                                <div class="lead-card-anim lc-1"><i class="fa-solid fa-briefcase text-green-400 mr-2"></i> B2B: Оптовая заявка</div>
+                                <div class="lead-card-anim lc-2"><i class="fa-solid fa-credit-card text-green-400 mr-2"></i> Оплата: 450 000 ₽</div>
+                                <div class="lead-card-anim lc-3 hidden md:block"><i class="fa-solid fa-calendar-check text-green-400 mr-2"></i> Консультация: VIP</div>
+                                <div class="lead-card-anim lc-4 hidden md:block"><i class="fa-brands fa-telegram text-blue-400 mr-2"></i> Новый лид с бота</div>
                             </div>
                         </div>
                     </div>
@@ -1510,55 +1458,599 @@
         </div>
     </section>
 
-    <section id="team" class="py-20 md:py-32 relative z-10 border-t border-white/5 bg-dark">
-        <div class="max-w-[1400px] mx-auto px-4 md:px-12">
-            <div class="text-center mb-12 md:mb-20 gsap-fade-up">
-                <div class="inline-block bg-white/5 text-white px-3 md:px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6 border border-white/10">Более 20 уникальных сотрудников</div>
-                <h2 class="font-display text-4xl md:text-7xl font-black uppercase mb-4 md:mb-6">Команда</h2>
+    <section id="team" class="py-20 md:py-32 relative z-10 border-t border-white/5 bg-[#020202] overflow-hidden">
+        
+        <div class="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-yt/10 rounded-full blur-[150px] pointer-events-none"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-[150px] pointer-events-none"></div>
+
+        <div class="max-w-[1400px] mx-auto px-4 md:px-12 relative z-10">
+            <div class="text-center mb-16 md:mb-24 gsap-fade-up">
+                <div class="inline-block border border-yt/30 bg-yt/10 text-yt px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6">
+                    <i class="fa-solid fa-network-wired mr-2"></i>Архитекторы вашего масштаба
+                </div>
+                <h2 class="font-display text-4xl sm:text-6xl md:text-[6rem] font-black uppercase mb-4 md:mb-8 leading-none tracking-tighter text-white">
+                    Синдикат <br class="hidden sm:block"><span class="text-stroke">Экспертов</span>
+                </h2>
                 <p class="text-sm md:text-xl text-gray-400 max-w-3xl mx-auto font-light leading-relaxed">
-                    Опытные специалисты с глубоким отраслевым опытом, которые ежедневно решают сложные задачи клиентов.
+                    Мы не нанимаем фрилансеров. Это закрытая экосистема специалистов уровня Senior. Каждый из них — абсолютный монополист в своей дисциплине. Выберите агента, чтобы открыть досье.
                 </p>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-10">
-                <div class="text-center group hover-trigger gsap-fade-up">
-                    <div class="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 mx-auto rounded-full border border-white/10 group-hover:border-yt transition-colors p-1 mb-4 md:mb-6">
-                        <img src="https://ui-avatars.com/api/?name=К+А&background=111&color=fff&size=200" class="w-full h-full rounded-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" alt="Кирилл">
+            <div class="terminal-grid gsap-fade-up">
+                
+                <div class="agent-card ac-1" onclick="openDossier('dossier-kirill')">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop" class="agent-photo" alt="Кирилл">
+                    <div class="agent-info">
+                        <span class="agent-id">ID: 001 // STRATEGY & VISION</span>
+                        <h3 class="agent-name">Кирилл А.</h3>
+                        <span class="agent-role">Главный Маркетолог / СЕО</span>
                     </div>
-                    <h4 class="font-bold text-sm md:text-base lg:text-lg text-white mb-1">Кирилл<br>Александрович</h4>
-                    <p class="text-yt text-[9px] md:text-xs font-bold uppercase tracking-widest">Главный маркетолог</p>
                 </div>
-                <div class="text-center group hover-trigger gsap-fade-up" style="transition-delay: 0.1s;">
-                    <div class="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 mx-auto rounded-full border border-white/10 group-hover:border-yt transition-colors p-1 mb-4 md:mb-6">
-                        <img src="https://ui-avatars.com/api/?name=Д+Р&background=111&color=fff&size=200" class="w-full h-full rounded-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" alt="Даниил">
+
+                <div class="agent-card ac-2" onclick="openDossier('dossier-daniil')">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop" class="agent-photo" alt="Даниил">
+                    <div class="agent-info">
+                        <span class="agent-id">ID: 002 // FUNNEL ARCHITECT</span>
+                        <h3 class="agent-name">Даниил Р.</h3>
+                        <span class="agent-role">Performance Маркетолог</span>
                     </div>
-                    <h4 class="font-bold text-sm md:text-base lg:text-lg text-white mb-1">Даниил<br>Рустамович</h4>
-                    <p class="text-yt text-[9px] md:text-xs font-bold uppercase tracking-widest">Маркетолог</p>
                 </div>
-                <div class="text-center group hover-trigger gsap-fade-up" style="transition-delay: 0.2s;">
-                    <div class="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 mx-auto rounded-full border border-white/10 group-hover:border-yt transition-colors p-1 mb-4 md:mb-6">
-                        <img src="https://ui-avatars.com/api/?name=М&background=111&color=fff&size=200" class="w-full h-full rounded-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" alt="Максимилиан">
+
+                <div class="agent-card ac-3" onclick="openDossier('dossier-max')">
+                    <img src="https://images.unsplash.com/photo-1600804889194-e6fbf08ddb39?q=80&w=800&auto=format&fit=crop" class="agent-photo" alt="Максимилиан">
+                    <div class="agent-info">
+                        <span class="agent-id">ID: 003 // LOCAL DOMINANCE</span>
+                        <h3 class="agent-name">Максимилиан</h3>
+                        <span class="agent-role">Геомаркетолог (SEO Maps)</span>
                     </div>
-                    <h4 class="font-bold text-sm md:text-base lg:text-lg text-white mb-1 md:mt-6 mt-4">Максимилиан</h4>
-                    <p class="text-yt text-[9px] md:text-xs font-bold uppercase tracking-widest">Геомаркетолог</p>
                 </div>
-                <div class="text-center group hover-trigger gsap-fade-up hidden md:block" style="transition-delay: 0.3s;">
-                    <div class="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 mx-auto rounded-full border border-white/10 group-hover:border-yt transition-colors p-1 mb-4 md:mb-6">
-                        <img src="https://ui-avatars.com/api/?name=Р+Д&background=111&color=fff&size=200" class="w-full h-full rounded-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" alt="Роман">
+
+                <div class="agent-card ac-4" onclick="openDossier('dossier-roman')">
+                    <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=800&auto=format&fit=crop" class="agent-photo" alt="Роман">
+                    <div class="agent-info">
+                        <span class="agent-id">ID: 004 // MARKETPLACE LEAD</span>
+                        <h3 class="agent-name">Роман Д.</h3>
+                        <span class="agent-role">Архитектор Авито-воронок</span>
                     </div>
-                    <h4 class="font-bold text-sm md:text-base lg:text-lg text-white mb-1">Роман<br>Дарьин</h4>
-                    <p class="text-yt text-[9px] md:text-xs font-bold uppercase tracking-widest">Авитолог</p>
                 </div>
-                <div class="text-center group hover-trigger gsap-fade-up hidden lg:block" style="transition-delay: 0.4s;">
-                    <div class="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 mx-auto rounded-full border border-white/10 group-hover:border-yt transition-colors p-1 mb-4 md:mb-6">
-                        <img src="https://ui-avatars.com/api/?name=Д+Б&background=111&color=fff&size=200" class="w-full h-full rounded-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" alt="Дмитрий">
+
+                <div class="agent-card ac-5" onclick="openDossier('dossier-dmitry')">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" class="agent-photo" alt="Дмитрий">
+                    <div class="agent-info">
+                        <span class="agent-id">ID: 005 // TRAFFIC SNIPER</span>
+                        <h3 class="agent-name">Дмитрий Б.</h3>
+                        <span class="agent-role">Head of Контекст (Директ)</span>
                     </div>
-                    <h4 class="font-bold text-sm md:text-base lg:text-lg text-white mb-1">Дмитрий<br>Белов</h4>
-                    <p class="text-yt text-[9px] md:text-xs font-bold uppercase tracking-widest">Директолог</p>
                 </div>
+
             </div>
         </div>
     </section>
+
+    <div class="term-modal" id="dossier-kirill">
+        <div class="term-close" onclick="closeDossier('dossier-kirill')"><i class="fa-solid fa-xmark"></i></div>
+        <div class="term-container">
+            <div class="term-left">
+                <div class="term-scanline"></div>
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop" class="term-photo" alt="Кирилл">
+            </div>
+            <div class="term-right custom-scrollbar">
+                <div class="term-header">
+                    <div class="term-id">CLEARANCE LEVEL: OMEGA // СТРАТЕГ</div>
+                    <h2 class="term-name">КИРИЛЛ<br>АЛЕКСАНДРОВИЧ</h2>
+                    <div class="term-role">Главный Маркетолог / Визионер холдинга</div>
+                </div>
+
+                <div class="term-nav">
+                    <div class="term-tab-btn active" data-tab="kirill-bio">Биография</div>
+                    <div class="term-tab-btn" data-tab="kirill-skills">Арсенал</div>
+                    <div class="term-tab-btn" data-tab="kirill-metrics">Метрики</div>
+                </div>
+
+                <div class="term-tab-content active" id="kirill-bio">
+                    <div class="term-quote">
+                        <div class="term-quote-text">«Маркетинг без оцифровки — это галлюцинация. Мы не продаем лайки, мы строим архитектуру, которая неизбежно конвертирует пиксели на экране в деньги на вашем счету.»</div>
+                    </div>
+                    <p class="term-text">
+                        Кирилл — мозговой центр Digital Marketing Holding. Специалист с более чем 10-летним стажем в построении комплексных систем лидогенерации для крупного B2B и B2C сегментов. Его подход радикально отличается от классических маркетологов: он не мыслит отдельными инструментами, он мыслит <strong>экосистемами</strong>.
+                    </p>
+                    <p class="term-text">
+                        До основания холдинга Кирилл руководил отделами маркетинга в ведущих FinTech и EdTech компаниях, где научился управлять бюджетами свыше 50 млн рублей в месяц, сохраняя ROMI (Return on Marketing Investment) на уровне от 300%. В зоне его личной ответственности находится разработка глобальной стратегии (Global Strategy Framework) для каждого клиента, входящего в работу. Он лично проводит первые распаковочные сессии, чтобы найти "бутылочное горлышко" бизнеса и устранить его.
+                    </p>
+                </div>
+
+                <div class="term-tab-content" id="kirill-skills">
+                    <div class="arsenal-grid">
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-chess"></i></div>
+                            <h4 class="arsenal-title">Global Strategy</h4>
+                            <p class="arsenal-desc">Проектирование омниканальных воронок продаж. Связывание YouTube, Telegram, CRM и сквозной аналитики в единый, бесперебойный механизм.</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-brain"></i></div>
+                            <h4 class="arsenal-title">Бизнес-Распаковка</h4>
+                            <p class="arsenal-desc">Глубинные интервью с собственниками (до 4 часов), вытаскивание уникальных торговых предложений (УТП) и смыслов, которые конкуренты не смогут скопировать.</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-chart-line"></i></div>
+                            <h4 class="arsenal-title">Unit-Экономика</h4>
+                            <p class="arsenal-desc">Математическое моделирование окупаемости трафика. Если математика сходится на бумаге — она сойдется и в реальных продажах. Снижение CAC (стоимости клиента).</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-users-viewfinder"></i></div>
+                            <h4 class="arsenal-title">Кризис-Менеджмент</h4>
+                            <p class="arsenal-desc">Аудит сломанных воронок. Мгновенная локализация потери трафика на этапах CJM и экстренное внедрение конверсионных патчей.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-tab-content" id="kirill-metrics">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-val">10+</div>
+                            <div class="metric-lab">Лет в жестком performance-маркетинге</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">₽1.2B+</div>
+                            <div class="metric-lab">Сгенерировано выручки клиентам (2025-2026)</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">200+</div>
+                            <div class="metric-lab">Лично спроектированных стратегий</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">300%</div>
+                            <div class="metric-lab">Средний минимальный ROMI по проектам</div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="font-display text-2xl font-black text-white uppercase mb-6 border-b border-white/10 pb-4">Ключевые Операции</h3>
+                    <div class="project-list">
+                        <div class="project-item">
+                            <div class="project-info">
+                                <h4>Федеральная сеть СТО</h4>
+                                <p>Пересборка воронки, внедрение сквозной аналитики</p>
+                            </div>
+                            <div class="project-result">
+                                <span>+450%</span>
+                                <small>рост целевых заявок за 3 месяца</small>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-info">
+                                <h4>Завод металлоконструкций (B2B)</h4>
+                                <p>Оцифровка пути B2B клиента, YouTube маркетинг</p>
+                            </div>
+                            <div class="project-result">
+                                <span>$2.5M</span>
+                                <small>объем закрытых контрактов с YouTube</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="term-modal" id="dossier-daniil">
+        <div class="term-close" onclick="closeDossier('dossier-daniil')"><i class="fa-solid fa-xmark"></i></div>
+        <div class="term-container">
+            <div class="term-left">
+                <div class="term-scanline"></div>
+                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop" class="term-photo" alt="Даниил">
+            </div>
+            <div class="term-right custom-scrollbar">
+                <div class="term-header">
+                    <div class="term-id">CLEARANCE LEVEL: ALPHA // FUNNELS</div>
+                    <h2 class="term-name">ДАНИИЛ<br>РУСТАМОВИЧ</h2>
+                    <div class="term-role">Performance Маркетолог / Инженер Воронок</div>
+                </div>
+
+                <div class="term-nav">
+                    <div class="term-tab-btn active" data-tab="daniil-bio">Биография</div>
+                    <div class="term-tab-btn" data-tab="daniil-skills">Арсенал</div>
+                    <div class="term-tab-btn" data-tab="daniil-metrics">Метрики</div>
+                </div>
+
+                <div class="term-tab-content active" id="daniil-bio">
+                    <div class="term-quote">
+                        <div class="term-quote-text">«Люди не покупают случайно. Каждое нажатие кнопки — это результат точно выверенной психологической инженерии и правильного копирайтинга.»</div>
+                    </div>
+                    <p class="term-text">
+                        Даниил — главный архитектор конверсий. Если Кирилл задает направление, то Даниил строит рельсы, по которым клиенты едят прямо к кассе. Он отвечает за проектирование Customer Journey Map (CJM) и создание цепочек касаний, которые превращают холодного зрителя с YouTube в фаната бренда, готового платить высокие чеки.
+                    </p>
+                    <p class="term-text">
+                        Специализируется на сложных автоматизированных чат-ботах (Telegram/WhatsApp), создании продающих лид-магнитов, трипваеров и email-маркетинге. Даниил анализирует тепловые карты сайтов, читает метрики как открытую книгу и проводит A/B тестирование каждого заголовка. Под его руководством конверсия из "клика" в "лид" (CV1) стабильно превышает среднерыночные показатели в 2-3 раза.
+                    </p>
+                </div>
+
+                <div class="term-tab-content" id="daniil-skills">
+                    <div class="arsenal-grid">
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-filter"></i></div>
+                            <h4 class="arsenal-title">Funnel Engineering</h4>
+                            <p class="arsenal-desc">Сборка многоступенчатых автоворонок. Настройка вечнозеленых (Evergreen) запусков для инфобизнеса и консалтинга.</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-robot"></i></div>
+                            <h4 class="arsenal-title">Automation & Bots</h4>
+                            <p class="arsenal-desc">Разработка сложной логики для Telegram-ботов (SaleBot, SmartSender). Интеграция с платежными системами и API.</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-pen-nib"></i></div>
+                            <h4 class="arsenal-title">Direct Response Copywriting</h4>
+                            <p class="arsenal-desc">Написание текстов, которые заставляют действовать. Скрипты видео, тексты лендингов, прогревающие email-цепочки.</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-flask"></i></div>
+                            <h4 class="arsenal-title">A/B Testing</h4>
+                            <p class="arsenal-desc">Непрерывный сплит-тест офферов, креативов и экранов захвата. Повышение конверсии на микро-уровне, что дает макро-результат.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-tab-content" id="daniil-metrics">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-val">85+</div>
+                            <div class="metric-lab">Запущенных автоворонок с 2024 года</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">42%</div>
+                            <div class="metric-lab">Максимальная конверсия посадочной страницы (Лендинг)</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">2.5M</div>
+                            <div class="metric-lab">Аудитории прошло через его ботов</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">90%</div>
+                            <div class="metric-lab">Доходимость до вебинаров в его воронках</div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="font-display text-2xl font-black text-white uppercase mb-6 border-b border-white/10 pb-4">Ключевые Операции</h3>
+                    <div class="project-list">
+                        <div class="project-item">
+                            <div class="project-info">
+                                <h4>EdTech Проект (Крипта)</h4>
+                                <p>Разработка TG-воронки с геймификацией</p>
+                            </div>
+                            <div class="project-result">
+                                <span>₽18M</span>
+                                <small>Выручка с одного автовебинарного цикла</small>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-info">
+                                <h4>Premium Недвижимость (Дубай)</h4>
+                                <p>Квиз-воронка для квалификации инвесторов</p>
+                            </div>
+                            <div class="project-result">
+                                <span>$150 CPL</span>
+                                <small>Рекордно дешевый лид для чека от $1M</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="term-modal" id="dossier-max">
+        <div class="term-close" onclick="closeDossier('dossier-max')"><i class="fa-solid fa-xmark"></i></div>
+        <div class="term-container">
+            <div class="term-left">
+                <div class="term-scanline"></div>
+                <img src="https://images.unsplash.com/photo-1600804889194-e6fbf08ddb39?q=80&w=800&auto=format&fit=crop" class="term-photo" alt="Максимилиан">
+            </div>
+            <div class="term-right custom-scrollbar">
+                <div class="term-header">
+                    <div class="term-id">CLEARANCE LEVEL: BETA // LOCAL MAPS</div>
+                    <h2 class="term-name">МАКСИМИЛИАН</h2>
+                    <div class="term-role">Геомаркетолог / Властелин Яндекс.Карт и 2GIS</div>
+                </div>
+
+                <div class="term-nav">
+                    <div class="term-tab-btn active" data-tab="max-bio">Биография</div>
+                    <div class="term-tab-btn" data-tab="max-skills">Арсенал</div>
+                    <div class="term-tab-btn" data-tab="max-metrics">Метрики</div>
+                </div>
+
+                <div class="term-tab-content active" id="max-bio">
+                    <div class="term-quote">
+                        <div class="term-quote-text">«Оффлайн-бизнес живёт картами. Если вас нет в ТОП-3 выдачи Яндекса или 2GIS по вашему району — вас не существует для 80% горячих клиентов на улице.»</div>
+                    </div>
+                    <p class="term-text">
+                        Максимилиан — уникальный специалист узкого, но невероятно прибыльного профиля. Он отвечает за локальное SEO и доминирование на гео-сервисах. Для любого оффлайн-бизнеса (рестораны, клиники, автосервисы, салоны красоты) карты — это источник самого горячего трафика "здесь и сейчас".
+                    </p>
+                    <p class="term-text">
+                        Его методы включают глубокую SEO-оптимизацию карточек организаций, легальное вытеснение конкурентов, управление репутацией (SERM), стимулирование органических отзывов и настройку внутреннего приоритетного размещения. Максимилиан знает алгоритмы ранжирования Яндекса и Google Maps досконально, превращая обычные точки на карте в магниты для трафика.
+                    </p>
+                </div>
+
+                <div class="term-tab-content" id="max-skills">
+                    <div class="arsenal-grid">
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                            <h4 class="arsenal-title">Geo-SEO Optimization</h4>
+                            <p class="arsenal-desc">Насыщение карточек ключевыми словами, работа с семантикой прайс-листов, категорий и фотографий для алгоритмов Яндекса и Google.</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-star-half-stroke"></i></div>
+                            <h4 class="arsenal-title">SERM & Reputation</h4>
+                            <p class="arsenal-desc">Генерация систем лояльности, при которых клиенты сами оставляют оценки 5.0. Законное оспаривание и удаление фейковых негативных отзывов.</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-location-crosshairs"></i></div>
+                            <h4 class="arsenal-title">Local Monopoly</h4>
+                            <p class="arsenal-desc">Выстраивание сетки филиалов, виртуальные точки для перехвата трафика в соседних районах, работа с 2GIS на уровне премиум-партнерства.</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                            <h4 class="arsenal-title">Geo-Analytics</h4>
+                            <p class="arsenal-desc">Анализ пешеходного и автомобильного трафика, построение тепловых карт конкурентов для принятия решений об открытии новых точек.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-tab-content" id="max-metrics">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-val">500+</div>
+                            <div class="metric-lab">Выведенных в ТОП-3 карточек компаний</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">4.9+</div>
+                            <div class="metric-lab">Средний рейтинг клиентских компаний на картах</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">12M</div>
+                            <div class="metric-lab">Построенных маршрутов до бизнесов клиентов</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">15К+</div>
+                            <div class="metric-lab">Удаленного необоснованного негатива конкурентов</div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="font-display text-2xl font-black text-white uppercase mb-6 border-b border-white/10 pb-4">Ключевые Операции</h3>
+                    <div class="project-list">
+                        <div class="project-item">
+                            <div class="project-info">
+                                <h4>Сеть Стоматологий (Москва)</h4>
+                                <p>Оптимизация 12 филиалов в Я.Картах и 2GIS</p>
+                            </div>
+                            <div class="project-result">
+                                <span>+210%</span>
+                                <small>рост звонков "с карт" в первый месяц</small>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-info">
+                                <h4>Детейлинг Центр (СПБ)</h4>
+                                <p>Вывод из теневого бана, накрутка рейтинга белыми методами</p>
+                            </div>
+                            <div class="project-result">
+                                <span>ТОП-1</span>
+                                <small>в выдаче по Приморскому району</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="term-modal" id="dossier-roman">
+        <div class="term-close" onclick="closeDossier('dossier-roman')"><i class="fa-solid fa-xmark"></i></div>
+        <div class="term-container">
+            <div class="term-left">
+                <div class="term-scanline"></div>
+                <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=800&auto=format&fit=crop" class="term-photo" alt="Роман">
+            </div>
+            <div class="term-right custom-scrollbar">
+                <div class="term-header">
+                    <div class="term-id">CLEARANCE LEVEL: GAMMA // MARKETPLACE</div>
+                    <h2 class="term-name">РОМАН<br>ДАРЬИН</h2>
+                    <div class="term-role">Авитолог / Маг Маркетплейсов</div>
+                </div>
+
+                <div class="term-nav">
+                    <div class="term-tab-btn active" data-tab="roman-bio">Биография</div>
+                    <div class="term-tab-btn" data-tab="roman-skills">Арсенал</div>
+                    <div class="term-tab-btn" data-tab="roman-metrics">Метрики</div>
+                </div>
+
+                <div class="term-tab-content active" id="roman-bio">
+                    <div class="term-quote">
+                        <div class="term-quote-text">«Авито — это не барахолка. Это мощнейшая B2B и B2C поисковая система России. Тот, кто умеет обходить лимиты платформы, забирает весь рынок.»</div>
+                    </div>
+                    <p class="term-text">
+                        Роман — легенда масс-постинга и алгоритмической работы с досками объявлений. Когда бизнесу нужен гигантский объем дешевых лидов на услуги или товарку, в игру вступает Роман. Он знает алгоритмы Авито лучше, чем сами разработчики платформы.
+                    </p>
+                    <p class="term-text">
+                        В его арсенале: обход блокировок за дубли, автоматизация выкладки тысяч объявлений через XML-фиды, поведенческий фактор (накрутка ПФ) без риска бана, создание сетки аккаунтов-монополистов в нише. Роман превращает корпоративные аккаунты Авито в бесперебойные генераторы оптовых и розничных заявок, вытесняя конкурентов со всех первых страниц выдачи.
+                    </p>
+                </div>
+
+                <div class="term-tab-content" id="roman-skills">
+                    <div class="arsenal-grid">
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-clone"></i></div>
+                            <h4 class="arsenal-title">Mass-Posting & XML</h4>
+                            <p class="arsenal-desc">Генерация и загрузка десятков тысяч уникализированных объявлений в сутки. Работа с автозагрузкой Авито.</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-ghost"></i></div>
+                            <h4 class="arsenal-title">Анти-Бан Механики</h4>
+                            <p class="arsenal-desc">Глубокая уникализация фото (пиксельный сдвиг, EXIF), синонимизация текстов. Обход нейросетей Авито по поиску дублей.</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                            <h4 class="arsenal-title">Поведенческий Фактор (ПФ)</h4>
+                            <p class="arsenal-desc">Искусственная накрутка сохранений в избранное, удержания на объявлении и кликов по "Показать номер" для вывода в органический ТОП.</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                            <h4 class="arsenal-title">Снижение CPL</h4>
+                            <p class="arsenal-desc">Мастерская работа с платными услугами Авито (x10, x20, XL). Расчет оптимального времени применения для максимального ROI.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-tab-content" id="roman-metrics">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-val">1.5M+</div>
+                            <div class="metric-lab">Опубликованных объявлений за 2025 год</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">₽2.5M</div>
+                            <div class="metric-lab">Сэкономлено клиентам на платных услугах продвижения</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">99%</div>
+                            <div class="metric-lab">Выживаемость аккаунтов под жестким масс-постингом</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">150+</div>
+                            <div class="metric-lab">Захваченных ниш в регионах РФ</div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="font-display text-2xl font-black text-white uppercase mb-6 border-b border-white/10 pb-4">Ключевые Операции</h3>
+                    <div class="project-list">
+                        <div class="project-item">
+                            <div class="project-info">
+                                <h4>Производство Бытовок (B2B/B2C)</h4>
+                                <p>Монополизация выдачи по ЦФО, 5000+ объявлений</p>
+                            </div>
+                            <div class="project-result">
+                                <span>350 шт/мес</span>
+                                <small>стабильный поток горячих лидов с Авито</small>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-info">
+                                <h4>Оптовая продажа автозапчастей</h4>
+                                <p>XML-интеграция склада на 40,000 позиций</p>
+                            </div>
+                            <div class="project-result">
+                                <span>+600%</span>
+                                <small>рост оборота через канал Авито за 2 месяца</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="term-modal" id="dossier-dmitry">
+        <div class="term-close" onclick="closeDossier('dossier-dmitry')"><i class="fa-solid fa-xmark"></i></div>
+        <div class="term-container">
+            <div class="term-left">
+                <div class="term-scanline"></div>
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" class="term-photo" alt="Дмитрий">
+            </div>
+            <div class="term-right custom-scrollbar">
+                <div class="term-header">
+                    <div class="term-id">CLEARANCE LEVEL: DELTA // TRAFFIC</div>
+                    <h2 class="term-name">ДМИТРИЙ<br>БЕЛОВ</h2>
+                    <div class="term-role">Директолог / Снайпер Контекстного Трафика</div>
+                </div>
+
+                <div class="term-nav">
+                    <div class="term-tab-btn active" data-tab="dmitry-bio">Биография</div>
+                    <div class="term-tab-btn" data-tab="dmitry-skills">Арсенал</div>
+                    <div class="term-tab-btn" data-tab="dmitry-metrics">Метрики</div>
+                </div>
+
+                <div class="term-tab-content active" id="dmitry-bio">
+                    <div class="term-quote">
+                        <div class="term-quote-text">«Яндекс.Директ — это математика с элементами машинного обучения. Вы либо кормите нейросеть Яндекса своими деньгами, либо заставляете её искать вам клиентов за копейки.»</div>
+                    </div>
+                    <p class="term-text">
+                        Дмитрий управляет миллионными бюджетами в Яндекс.Директ и VK Рекламе. Он — человек цифр, пикселей и жесткой сквозной аналитики. В то время как обычные директологи "сливают" бюджеты на мусорный трафик, Дмитрий использует сложные скрипты для биддинга, чистит семантическое ядро от десятков тысяч минус-слов и обучает автостратегии (РСЯ/Товарная галерея) находить только тех, кто готов платить.
+                    </p>
+                    <p class="term-text">
+                        Его суперсила — <strong>Ретаргетинг 360°</strong>. Он настраивает пиксели так, что если клиент посмотрел видео клиента на YouTube, он будет видеть его баннеры на всех сайтах рунета (через РСЯ), дожимаясь до покупки. Дмитрий обеспечивает мгновенный залив трафика в воронки Даниила, формируя замкнутый, контролируемый цикл лидогенерации.
+                    </p>
+                </div>
+
+                <div class="term-tab-content" id="dmitry-skills">
+                    <div class="arsenal-grid">
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-bullseye"></i></div>
+                            <h4 class="arsenal-title">Yandex.Direct Мастерство</h4>
+                            <p class="arsenal-desc">Поиск (Hot-трафик), РСЯ (Охват и дожим), Товарные кампании, Мастер кампаний, Динамический ретаргетинг. Обучение автостратегий за CPA (оплата за лид).</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-code"></i></div>
+                            <h4 class="arsenal-title">Web-Analytics & Pixels</h4>
+                            <p class="arsenal-desc">Интеграция Яндекс.Метрики, настройка сложных многосоставных целей, e-commerce аналитика, установка GTM и пикселей VK.</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-spider"></i></div>
+                            <h4 class="arsenal-title">Сквозная Аналитика</h4>
+                            <p class="arsenal-desc">Связка Roistat / Calltouch / Яндекс.Метрика + CRM. Отслеживание пути клиента от клика по баннеру до денег в кассе.</p>
+                        </div>
+                        <div class="arsenal-item">
+                            <div class="arsenal-icon"><i class="fa-solid fa-bolt"></i></div>
+                            <h4 class="arsenal-title">Управление ставками</h4>
+                            <p class="arsenal-desc">Написание скриптов для API Яндекса для ежеминутного контроля ставок и удержания 1-го спецразмещения по ключевым запросам.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-tab-content" id="dmitry-metrics">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-val">₽150M+</div>
+                            <div class="metric-lab">Успешно открученного бюджета за карьеру</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">15К+</div>
+                            <div class="metric-lab">Минус-слов в стандартном шаблоне фильтрации мусора</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">x4</div>
+                            <div class="metric-lab">Снижение CPL на крупном e-com проекте за месяц</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val">24/7</div>
+                            <div class="metric-lab">Машинный контроль ставок в рекламном кабинете</div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="font-display text-2xl font-black text-white uppercase mb-6 border-b border-white/10 pb-4">Ключевые Операции</h3>
+                    <div class="project-list">
+                        <div class="project-item">
+                            <div class="project-info">
+                                <h4>Интернет-магазин электроники</h4>
+                                <p>Оптимизация смарт-баннеров и товарной кампании Яндекса</p>
+                            </div>
+                            <div class="project-result">
+                                <span>320% ROMI</span>
+                                <small>при бюджете 2.5 млн руб. в месяц</small>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-info">
+                                <h4>Строительство загородных домов</h4>
+                                <p>Узкий поиск + квиз-воронка</p>
+                            </div>
+                            <div class="project-result">
+                                <span>₽1800</span>
+                                <small>цена квалифицированного лида на постройку дома (чек от 10M)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section id="pricing" class="py-20 md:py-32 relative z-10 bg-surface border-y border-white/5 px-4 md:px-12 overflow-hidden">
         <div class="max-w-[1400px] mx-auto">
@@ -1912,44 +2404,23 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const preloaderEl = document.getElementById("preloader");
-            const finishPreloader = () => {
-                if (preloaderEl) {
-                    preloaderEl.style.display = "none";
-                    preloaderEl.style.pointerEvents = "none";
-                }
-                document.body.style.overflow = "";
-            };
-
-            if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
-                finishPreloader();
-                return;
-            }
+            // Проверка на загрузку GSAP
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+            
+            // 1. Плавный скролл Lenis
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smooth: true,
+                smoothTouch: false // Отключаем на телефонах для нативной физики
+            });
+            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
 
             gsap.registerPlugin(ScrollTrigger);
-
-            // 1. Плавный скролл Lenis (без него сайт всё равно открывается)
-            let lenis = null;
-            if (typeof Lenis !== "undefined") {
-                try {
-                    lenis = new Lenis({
-                        duration: 1.2,
-                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                        smooth: true,
-                        smoothTouch: false
-                    });
-                    lenis.on("scroll", ScrollTrigger.update);
-                    gsap.ticker.add((time) => {
-                        lenis.raf(time * 1000);
-                    });
-                    gsap.ticker.lagSmoothing(0);
-                } catch (err) {
-                    console.warn("Lenis не инициализирован:", err);
-                    lenis = null;
-                }
-            }
-
-            try {
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+            gsap.ticker.lagSmoothing(0);
 
             // 2. ЭПИЧНЫЙ ПРЕЛОАДЕР СОЦСЕТЕЙ (GSAP TIMELINE)
             // Блокируем скролл на время загрузки
@@ -1979,7 +2450,8 @@
             .to("#preloader", {
                 opacity: 0, duration: 0.6, ease: "power2.inOut",
                 onComplete: () => {
-                    finishPreloader();
+                    document.getElementById("preloader").style.display = "none";
+                    document.body.style.overflow = ''; // Возвращаем скролл
                     ScrollTrigger.refresh();
                     
                     // Запускаем анимацию главного экрана сразу после исчезновения заставки
@@ -2012,14 +2484,13 @@
             // 4. Эффект навигации
             const nav = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
-                if (!nav || !nav.children[0]) return;
-                const navInner = nav.children[0];
+                if(!nav) return;
                 if (window.scrollY > 50) {
                     nav.classList.add('bg-dark/90', 'backdrop-blur-xl', 'border-b', 'border-white/5');
-                    navInner.classList.remove('glass');
+                    nav.children[0].classList.remove('glass');
                 } else {
                     nav.classList.remove('bg-dark/90', 'backdrop-blur-xl', 'border-b', 'border-white/5');
-                    navInner.classList.add('glass');
+                    nav.children[0].classList.add('glass');
                 }
             });
 
@@ -2030,7 +2501,7 @@
             document.querySelectorAll('.open-modal-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault(); 
-                    if (modal && modalContent) {
+                    if(modal) {
                         modal.classList.remove('hidden');
                         setTimeout(() => { 
                             modal.classList.remove('opacity-0'); 
@@ -2043,7 +2514,7 @@
 
             document.querySelectorAll('.close-modal, .modal-bg').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    if (modal && modalContent) {
+                    if(modal) {
                         modal.classList.add('opacity-0'); 
                         modalContent.classList.remove('scale-100'); 
                         modalContent.classList.add('scale-95');
@@ -2103,10 +2574,12 @@
                 gsap.to("#pb-video-card", { y: -10, rotationX: 0, rotationY: 0, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut" });
             }
 
-            // 9. Путь Клиента (Как мы работаем)
+            // 9. Путь Клиента (Архитектура Захвата - 6 шагов)
             if(document.getElementById("client-journey")) {
+                // Прогресс-бар по истории
                 gsap.to("#jp-bar", { height: "100%", ease: "none", scrollTrigger: { trigger: "#client-journey", start: "top center", end: "bottom center", scrub: 0.5 } });
 
+                // Общая анимация всех шагов (слайд текста/визуала)
                 document.querySelectorAll('.cp-step').forEach(step => {
                     const text = step.querySelector('.cp-text');
                     const visual = step.querySelector('.cp-visual');
@@ -2117,27 +2590,29 @@
 
                     if(marker && dot) {
                         gsap.to(marker, { scrollTrigger: { trigger: step, start: "top center", toggleClass: "border-yt" } });
-                        gsap.to(dot, { opacity: 1, scrollTrigger: { trigger: step, start: "top center" } });
+                        gsap.to(dot, { opacity: 1, scale: 1.2, scrollTrigger: { trigger: step, start: "top center" } });
                     }
-                    if(text) gsap.from(text, { scrollTrigger: { trigger: step, start: "top 85%" }, x: isMobile ? 0 : 30 * dir, y: isMobile ? 30 : 0, opacity: 0, duration: 1, ease: "power3.out" });
-                    if(visual) gsap.from(visual, { scrollTrigger: { trigger: step, start: "top 85%" }, y: 30, scale: 0.95, opacity: 0, duration: 1, delay: 0.2, ease: "power3.out" });
+                    if(text) gsap.from(text, { scrollTrigger: { trigger: step, start: "top 85%" }, x: isMobile ? 0 : 40 * dir, y: isMobile ? 40 : 0, opacity: 0, duration: 1.2, ease: "power3.out" });
+                    if(visual) gsap.from(visual, { scrollTrigger: { trigger: step, start: "top 85%" }, y: 50, scale: 0.9, opacity: 0, duration: 1.2, delay: 0.3, ease: "power3.out" });
                 });
 
-                // ЭТАП 1: War Room
-                const warRoomTl = gsap.timeline({ scrollTrigger: { trigger: "#war-room-container", start: "top 75%" } });
-                warRoomTl.from(".expert-card", { scale: 0, opacity: 0, duration: 0.6, stagger: 0.15, ease: "back.out(2)" })
-                         .to(".strategy-core", { opacity: 1, scale: 1, duration: 0.4 }, "-=0.2")
-                         .to(".laser-line", { strokeDashoffset: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power2.inOut" }, "-=0.2");
+                // === ШАГ 1: Глубинная Распаковка (War Room Grid + Expert Cards) ===
+                const step1Tl = gsap.timeline({ scrollTrigger: { trigger: "#step-1", start: "top 70%" } });
+                step1Tl.from(".ec-1, .ec-2, .ec-3, .ec-4", { scale: 0, opacity: 0, duration: 0.5, stagger: 0.15, ease: "back.out(2)" })
+                        .to(".strategy-core", { scale: 1, opacity: 1, duration: 0.6, ease: "elasticOut" }, "-=0.2");
 
-                // ЭТАП 2: Конвейер Контента
-                const engineTl = gsap.timeline({ scrollTrigger: { trigger: "#content-engine-container", start: "top 75%" } });
-                engineTl.to(".content-node", { x: 0, opacity: 1, duration: 0.6, stagger: 0.2, ease: "power3.out" })
-                        .to(".nbh-1, .nbh-2, .nbh-3", { width: "20%", duration: 0.4, ease: "power1.inOut" }, "+=0.2")
-                        .to(".nbv-1, .nbv-2, .nbv-3", { width: "60%", duration: 0.6, ease: "power1.inOut" }, "-=0.1")
-                        .to(".nbs-1, .nbs-2, .nbs-3", { width: "20%", duration: 0.4, ease: "power1.inOut" }, "-=0.1")
-                        .to(".fa-check-circle", { color: "#27C93F", stagger: 0.2, duration: 0.3 });
+                // === ШАГ 2: Инженерия Воронок (Funnel Flow - Sequential Nodes) ===
+                const step2Tl = gsap.timeline({ scrollTrigger: { trigger: "#step-2", start: "top 70%" } });
+                step2Tl.from(".f-n1", { x: -50, opacity: 0, duration: 0.5, ease: "power3.out" })
+                        .from(".f-l1", { scaleY: 0, opacity: 0, duration: 0.4, ease: "power2.inOut" }, "-=0.1")
+                        .from(".f-n2", { x: -50, opacity: 0, duration: 0.5, ease: "power3.out" }, "-=0.2")
+                        .from(".f-l2", { scaleY: 0, opacity: 0, duration: 0.4, ease: "power2.inOut" }, "-=0.1")
+                        .from(".f-split", { y: 20, opacity: 0, duration: 0.4 }, "-=0.1")
+                        .from(".f-n3, .f-n4", { scale: 0, opacity: 0, duration: 0.5, stagger: 0.15, ease: "back.out(1.5)" }, "-=0.2")
+                        .from(".f-l3", { scaleY: 0, opacity: 0, duration: 0.4, ease: "power2.inOut" }, "-=0.25")
+                        .from(".f-n5", { scale: 0, opacity: 0, y: 20, duration: 0.5, ease: "back.out(2)" }, "-=0.2");
 
-                // ЭТАП 3: Toggle Студия/Дом
+                // === ШАГ 3: Премиальный Продакшн (Studio/Home Toggle) ===
                 const toggleBtns = document.querySelectorAll('.toggle-btn');
                 const toggleBg = document.getElementById('toggle-bg');
                 const views = document.querySelectorAll('.view-content');
@@ -2152,24 +2627,40 @@
                         views.forEach(view => {
                             if(view.id === targetId) {
                                 view.classList.add('active');
-                                setTimeout(() => view.style.opacity = '1', 50);
+                                gsap.to(view, { opacity: 1, duration: 0.4, ease: "power2.inOut" });
                             } else {
                                 view.classList.remove('active');
-                                view.style.opacity = '0';
+                                gsap.to(view, { opacity: 0, duration: 0.3, ease: "power2.inOut" });
                             }
                         });
                     });
                 });
 
-                // ЭТАП 4: Дашборд Лидов
+                // === ШАГ 4: Нейромонтаж & Удержание (Editor Timeline) ===
+                const step4Tl = gsap.timeline({ scrollTrigger: { trigger: "#step-4", start: "top 70%" } });
+                step4Tl.from(".e-track", { opacity: 0, y: 20, duration: 0.4, stagger: 0.15, ease: "power3.out" })
+                        .from(".e-clip", { scaleX: 0, opacity: 0, duration: 0.5, stagger: 0.08, ease: "back.out(1.5)" }, "-=0.2")
+                        .to(".e-playhead", { left: "80%", duration: 1.5, ease: "sine.inOut" }, "-=0.3");
+
+                // === ШАГ 5: Синдикат Трафика (Orbit System) ===
+                const step5Tl = gsap.timeline({ scrollTrigger: { trigger: "#step-5", start: "top 70%" } });
+                step5Tl.from(".orbit-core", { scale: 0, opacity: 0, duration: 0.6, ease: "back.out(2)" })
+                        .from(".or-1", { scale: 0, opacity: 0, duration: 0.5, ease: "back.out(2)" }, "-=0.2")
+                        .from(".or-2", { scale: 0, opacity: 0, duration: 0.5, ease: "back.out(2)" }, "-=0.3")
+                        .from(".orbit-sat", { scale: 0, opacity: 0, duration: 0.4, stagger: { amount: 0.4, from: "edges" }, ease: "back.out(1.8)" }, "-=0.2");
+
+                // === ШАГ 6: Капитализация (Lead Counter + Burst) ===
                 ScrollTrigger.create({
-                    trigger: "#leads-container", start: "top 75%", once: true,
+                    trigger: "#step-6", start: "top 70%", once: true,
                     onEnter: () => {
-                        gsap.to("#lead-counter", { innerHTML: 485, duration: 2.5, snap: { innerHTML: 1 }, ease: "power3.out" });
-                        gsap.to(".lc-1", { y: -10, opacity: 1, duration: 0.6, delay: 0.4, ease: "back.out(1.5)" });
-                        gsap.to(".lc-2", { y: 10, opacity: 1, duration: 0.6, delay: 0.8, ease: "back.out(1.5)" });
-                        gsap.to(".lc-3", { y: -10, opacity: 1, duration: 0.6, delay: 1.2, ease: "back.out(1.5)" });
-                        gsap.to(".lc-4", { y: 10, opacity: 1, duration: 0.6, delay: 1.6, ease: "back.out(1.5)" });
+                        // Счетчик лидов (0 → 850)
+                        gsap.to("#lead-counter", { innerHTML: 850, duration: 2.8, snap: { innerHTML: 1 }, ease: "power3.out" });
+                        
+                        // Взрывная анимация карточек лидов
+                        gsap.to(".lc-1", { y: -20, x: -30, opacity: 1, scale: 1, duration: 0.7, delay: 0.3, ease: "back.out(1.5)" });
+                        gsap.to(".lc-2", { y: 20, x: 30, opacity: 1, scale: 1, duration: 0.7, delay: 0.6, ease: "back.out(1.5)" });
+                        gsap.to(".lc-3", { y: -25, x: 35, opacity: 1, scale: 1, duration: 0.7, delay: 0.9, ease: "back.out(1.5)" });
+                        gsap.to(".lc-4", { y: 30, x: -35, opacity: 1, scale: 1, duration: 0.7, delay: 1.2, ease: "back.out(1.5)" });
                     }
                 });
             }
@@ -2283,110 +2774,194 @@
             }
 
             // ========================================================
-            // 12. ОХИРЕТАЛЬНАЯ АНИМАЦИЯ МАТРИЦЫ УСЛУГ (FULLSCREEN EPIC)
+            // 12. СУПЕР АНИМАЦИЯ МАТРИЦЫ УСЛУГ (GSAP EXPAND)
             // ========================================================
             const matrixCards = document.querySelectorAll('.matrix-card');
-            const matrixSectionHeader = document.querySelector('.section-header');
             
             matrixCards.forEach(card => {
-                const moreBtn = card.querySelector('.anim-trigger');
+                const moreBtn = card.querySelector('.mc-more-btn');
                 const closeBtn = card.querySelector('.mc-close-btn');
                 const details = card.querySelector('.mc-details');
                 const shortState = card.querySelector('.mc-short-state');
-                const epicItems = card.querySelectorAll('.epic-anim-item');
 
                 if(moreBtn && closeBtn && details) {
-                    
-                    const openEpicCard = (e) => {
-                        e.preventDefault();
-                        if (card.classList.contains('is-expanded')) return;
-
-                        // 1. Убиваем скролл основного сайта (теперь скроллится только внутри карточки)
-                        document.body.style.overflow = 'hidden';
-                        if (lenis && typeof lenis.stop === 'function') lenis.stop();
-
-                        // 2. Убираем заголовок "Матрица услуг"
-                        if(matrixSectionHeader) gsap.to(matrixSectionHeader, { opacity: 0, y: -50, duration: 0.5, ease: "power3.inOut" });
-
-                        // 3. Эпичный разлет остальных карточек (блюр, уменьшение, уход в темноту)
+                    moreBtn.addEventListener('click', () => {
+                        // Скрываем все остальные карточки
                         matrixCards.forEach(otherCard => {
                             if(otherCard !== card) {
                                 gsap.to(otherCard, { 
-                                    scale: 0.8, y: 150, opacity: 0, filter: "blur(25px)",
-                                    duration: 0.7, ease: "power3.inOut",
+                                    scale: 0.8, 
+                                    opacity: 0, 
+                                    duration: 0.5, 
+                                    ease: "power3.inOut",
                                     onComplete: () => otherCard.classList.add('is-hidden') 
                                 });
                             }
                         });
 
-                        // 4. Текущая карточка становится полноэкранной
+                        // Раскрываем текущую карточку
                         card.classList.add('is-expanded');
                         details.classList.add('active');
-                        card.scrollTop = 0; // Сброс скролла наверх
-
+                        
                         const tl = gsap.timeline();
-                        if (shortState) {
-                            tl.to(shortState, { opacity: 0, height: 0, margin: 0, padding: 0, display: 'none', duration: 0.3 });
-                        }
-                        tl.fromTo(closeBtn, { autoAlpha: 0, scale: 0, rotation: -270 }, { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.6, ease: "back.out(1.5)" }, shortState ? "+=0.2" : 0)
-                          .fromTo(details, { opacity: 0 }, { opacity: 1, duration: 0.4 }, "-=0.2")
-                          .fromTo(epicItems, 
-                              { y: 80, opacity: 0, scale: 0.98 }, 
-                              { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.1, ease: "expo.out" }, 
-                              "-=0.2"
-                          );
-                    };
+                        // Плавно убираем короткое описание
+                        tl.to(shortState, { height: 0, opacity: 0, margin: 0, padding: 0, display: 'none', duration: 0.3 })
+                          // Масштабно растягиваем саму карточку
+                          .to(card, { minHeight: window.innerWidth > 768 ? "600px" : "800px", duration: 0.6, ease: "expo.inOut" }, "-=0.2")
+                          // Эффектное появление крестика
+                          .fromTo(closeBtn, { autoAlpha: 0, scale: 0, rotation: -180 }, { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.5, ease: "back.out(1.5)" }, "-=0.3")
+                          // Выкатываем блок деталей
+                          .fromTo(details, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, "-=0.3")
+                          // Каскадное появление всех внутренних блоков, иконок и текстов
+                          .fromTo(details.querySelectorAll('.mc-details-header, .mc-feature-block, .mc-expanded-tag'), 
+                                { y: 30, opacity: 0, scale: 0.95 }, 
+                                { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.08, ease: "back.out(1.2)" }, 
+                                "-=0.4");
+                    });
 
-                    moreBtn.addEventListener('click', openEpicCard);
-
-                    closeBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-
-                        // Перед закрытием плавно отматываем лонгрид наверх
-                        gsap.to(card, { scrollTop: 0, duration: 0.5, ease: "power3.inOut" });
-
+                    closeBtn.addEventListener('click', () => {
                         const tl = gsap.timeline({
                             onComplete: () => {
                                 card.classList.remove('is-expanded');
                                 details.classList.remove('active');
-                                
-                                // Возвращаем скролл сайту
-                                document.body.style.overflow = '';
-                                if (lenis && typeof lenis.start === 'function') lenis.start();
-
-                                // Возвращаем заголовок
-                                if(matrixSectionHeader) gsap.to(matrixSectionHeader, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
-
-                                // ВОЗВРАЩАЕМ КАРТОЧКИ ИЗ БЛЮРА
+                                // Возвращаем остальные карточки эффектно
                                 matrixCards.forEach(otherCard => {
                                     if(otherCard !== card) {
                                         otherCard.classList.remove('is-hidden');
                                         gsap.fromTo(otherCard, 
-                                            { scale: 0.8, y: 150, opacity: 0, filter: "blur(25px)" }, 
-                                            { scale: 1, y: 0, opacity: 1, filter: "blur(0px)", duration: 0.8, stagger: 0.1, ease: "back.out(1.2)" }
+                                            { scale: 0.8, opacity: 0 }, 
+                                            { scale: 1, opacity: 1, duration: 0.6, delay: 0.1, ease: "back.out(1.2)" }
                                         );
                                     }
                                 });
+                                // Освежаем скролл триггер из-за смены высоты блоков
                                 ScrollTrigger.refresh();
                             }
                         });
 
-                        // Анимация скрытия лонгрида
-                        tl.to(epicItems, { y: 50, opacity: 0, duration: 0.3, stagger: -0.05, ease: "power2.in" })
-                          .to(details, { opacity: 0, duration: 0.3 }, "-=0.1")
-                          .to(closeBtn, { autoAlpha: 0, scale: 0, rotation: 180, duration: 0.3 }, "-=0.2");
-                        if (shortState) {
-                            tl.set(shortState, { display: 'flex' })
-                              .to(shortState, { opacity: 1, height: "auto", duration: 0.4, ease: "power2.out" });
-                        }
+                        // Собираем всё обратно
+                        tl.to(details.querySelectorAll('.mc-details-header, .mc-feature-block, .mc-expanded-tag'), { y: 20, opacity: 0, scale: 0.95, duration: 0.2, stagger: -0.05 })
+                          .to(details, { opacity: 0, y: 30, duration: 0.3 }, "-=0.1")
+                          .to(closeBtn, { autoAlpha: 0, scale: 0, rotation: 180, duration: 0.3 }, "-=0.3")
+                          .to(card, { minHeight: window.innerWidth > 768 ? "320px" : "280px", duration: 0.6, ease: "expo.inOut" })
+                          .to(shortState, { height: "auto", opacity: 1, display: 'flex', duration: 0.4 }, "-=0.3");
                     });
                 }
             });
 
-            } catch (err) {
-                console.error("Ошибка инициализации страницы:", err);
-                finishPreloader();
-            }
+            // ========================================================
+            // 13. TERMINAL SYNDICATE: GSAP ЛОГИКА ДОСЬЕ КОМАНДЫ
+            // ========================================================
+            
+            // Функция открытия досье
+            window.openDossier = function(modalId) {
+                const modal = document.getElementById(modalId);
+                if (!modal) return;
+                
+                // Блокируем главный скролл страницы
+                if (typeof lenis !== 'undefined') lenis.stop();
+                document.body.style.overflow = 'hidden';
+                
+                // Показываем модалку
+                modal.style.display = "block";
+                modal.style.pointerEvents = "auto";
+                
+                const tl = gsap.timeline();
+                
+                // Анимация появления самого терминала (стекло)
+                tl.to(modal, { opacity: 1, duration: 0.4, ease: "power2.out" })
+                  
+                  // Анимация фотографии (слева) - выплывает и зуммируется
+                  .fromTo(modal.querySelector('.term-left'), 
+                        { x: -100, opacity: 0 }, 
+                        { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, "-=0.2")
+                  .fromTo(modal.querySelector('.term-photo'), 
+                        { scale: 1.2, filter: "brightness(0) contrast(2)" }, 
+                        { scale: 1, filter: "brightness(0.9) contrast(1.1)", duration: 1.5, ease: "power2.out" }, "-=0.6")
+                  
+                  // Анимация текста (справа) - каскадное появление
+                  .fromTo(modal.querySelectorAll('.term-id, .term-name, .term-role'), 
+                        { x: 50, opacity: 0 }, 
+                        { x: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "back.out(1.2)" }, "-=1")
+                  
+                  // Появление табов навигации
+                  .fromTo(modal.querySelectorAll('.term-tab-btn'), 
+                        { y: 20, opacity: 0 }, 
+                        { y: 0, opacity: 1, duration: 0.4, stagger: 0.05, ease: "power2.out" }, "-=0.6")
+                  
+                  // Появление активного контента таба
+                  .fromTo(modal.querySelector('.term-tab-content.active'), 
+                        { y: 30, opacity: 0 }, 
+                        { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, "-=0.4")
+                        
+                  // Выезд кнопки закрытия
+                  .fromTo(modal.querySelector('.term-close'), 
+                        { scale: 0, rotation: -180 }, 
+                        { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)" }, "-=0.5");
+            };
+
+            // Функция закрытия досье
+            window.closeDossier = function(modalId) {
+                const modal = document.getElementById(modalId);
+                if (!modal) return;
+                
+                // Закрываем с анимацией угасания
+                gsap.to(modal, { 
+                    opacity: 0, 
+                    duration: 0.4, 
+                    ease: "power2.in", 
+                    onComplete: () => {
+                        modal.style.display = "none";
+                        modal.style.pointerEvents = "none";
+                        // Возвращаем скролл
+                        document.body.style.overflow = '';
+                        if (typeof lenis !== 'undefined') lenis.start();
+                    } 
+                });
+            };
+
+            // Логика переключения табов внутри терминала
+            document.querySelectorAll('.term-nav').forEach(nav => {
+                const buttons = nav.querySelectorAll('.term-tab-btn');
+                const modal = nav.closest('.term-modal');
+                const contents = modal.querySelectorAll('.term-tab-content');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        // Если уже активен - ничего не делаем
+                        if (btn.classList.contains('active')) return;
+
+                        // Сбрасываем активные классы кнопок
+                        buttons.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+
+                        const targetId = btn.getAttribute('data-tab');
+                        let currentActive = null;
+                        let targetContent = null;
+
+                        contents.forEach(content => {
+                            if (content.classList.contains('active')) currentActive = content;
+                            if (content.id === targetId) targetContent = content;
+                        });
+
+                        // Анимируем переключение
+                        if (currentActive && targetContent) {
+                            const tl = gsap.timeline();
+                            // Убираем старый контент
+                            tl.to(currentActive, { 
+                                y: -20, opacity: 0, duration: 0.3, ease: "power2.in",
+                                onComplete: () => currentActive.classList.remove('active')
+                            })
+                            // Показываем новый контент
+                            .call(() => targetContent.classList.add('active'))
+                            .fromTo(targetContent, 
+                                { y: 20, opacity: 0 }, 
+                                { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }
+                            );
+                        }
+                    });
+                });
+            });
 
         });
     </script>
