@@ -741,8 +741,8 @@
         @keyframes scanline { 0% { top: -10%; } 100% { top: 110%; } }
         
         /* Терминал: Правая колонка (Контент) */
-        .term-right { width: 100%; padding: 3rem 1.5rem 6rem 1.5rem; position: relative; z-index: 20; display: flex; flex-direction: column; pointer-events: auto; }
-        @media (min-width: 1024px) { .term-right { width: 55%; padding: 10vh 6rem 10vh 4rem; } }
+        .term-right { width: 100%; padding: 3rem 1.5rem 6rem 1.5rem; position: relative; z-index: 20; display: flex; flex-direction: column; pointer-events: auto; overflow-y: auto; max-height: 100vh; }
+        @media (min-width: 1024px) { .term-right { width: 55%; padding: 10vh 6rem 10vh 4rem; max-height: 100vh; } }
 
         .term-header { margin-bottom: 3rem; }
         .term-id { display: inline-block; padding: 6px 16px; background: rgba(229,45,39,0.1); border: 1px solid rgba(229,45,39,0.3); border-radius: 50px; color: #E52D27; font-family: 'Syncopate', sans-serif; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.5rem; }
@@ -810,8 +810,8 @@
 
         /* Фиксы для модального окна на мобильных */
         @media (max-width: 1023px) {
-            .term-modal { padding-top: 60px; padding-bottom: 40px; overflow-y: scroll; } /* Место для крестика и скролла */
-            .term-close { top: 1rem; right: 1rem; width: 45px; height: 45px; font-size: 1.1rem; background: rgba(0,0,0,0.7); border-color: rgba(229,45,39,0.5); }
+            .term-modal { padding-top: 60px; padding-bottom: 40px; } /* Место для крестика и скролла */
+            .term-close { position: fixed; top: 1rem; right: 1rem; width: 45px; height: 45px; font-size: 1.1rem; background: rgba(0,0,0,0.7); border-color: rgba(229,45,39,0.5); z-index: 100001; }
             .term-close:active { background: #E52D27; }
             .term-header { margin-bottom: 1.5rem; padding-right: 50px; }
             .term-name { font-size: 2rem; line-height: 1.1; letter-spacing: -1px; margin-bottom: 0.5rem; }
@@ -835,7 +835,7 @@
             .project-info p { font-size: 0.7rem; }
             .project-result span { font-size: 1.2rem; }
             .project-result small { font-size: 0.6rem; }
-            .term-right { padding: 2rem 1.25rem 4rem 1.25rem; }
+            .term-right { padding: 2rem 1.25rem 4rem 1.25rem; max-height: calc(100vh - 120px); overflow-y: auto; }
         }
         
         /* Супер-мобильные (< 360px) */
@@ -2551,9 +2551,7 @@
                     document.getElementById("preloader").style.display = "none";
                     document.body.style.overflow = ''; // Возвращаем скролл
                     ScrollTrigger.refresh();
-                    
-                    // Запускаем анимацию главного экрана сразу после исчезновения заставки
-                    gsap.from(".gsap-hero", { y: 40, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out" });
+                    // Примечание: gsap-hero анимация будет запущена автоматически когда элемент появится на странице
                 }
             }, 3.1);
 
@@ -2932,8 +2930,8 @@
                                         );
                                     }
                                 });
-                                // Освежаем скролл триггер из-за смены высоты блоков
-                                ScrollTrigger.refresh();
+                                // Оптимизированное обновление скролл триггеров (с задержкой чтобы не лагать)
+                                setTimeout(() => { ScrollTrigger.refresh(); }, 100);
                             }
                         });
 
