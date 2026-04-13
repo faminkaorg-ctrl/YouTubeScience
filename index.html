@@ -721,17 +721,16 @@
         @media (min-width: 1024px) { .ac-1 { grid-column: span 7; } .ac-2 { grid-column: span 5; } .ac-3 { grid-column: span 4; } .ac-4 { grid-column: span 4; } .ac-5 { grid-column: span 4; } }
 
         /* ================================================================== */
-        /* TERMINAL MODAL: ВНУТРЯНКА ДОСЬЕ                                    */
+        /* TERMINAL MODAL: ВНУТРЯНКА ДОСЬЕ (ИСПРАВЛЕННЫЙ СКРОЛЛ)              */
         /* ================================================================== */
-        .term-modal { position: fixed; inset: 0; background: rgba(2,2,2,0.98); backdrop-filter: blur(20px); z-index: 100000; display: none; opacity: 0; overflow: hidden; pointer-events: auto; }
+        .term-modal { position: fixed; inset: 0; background: rgba(2,2,2,0.98); backdrop-filter: blur(20px); z-index: 100000; display: none; opacity: 0; overflow-y: auto; overflow-x: hidden; pointer-events: auto; -webkit-overflow-scrolling: touch; }
         .term-close { position: fixed; top: 2rem; right: 2rem; width: 60px; height: 60px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); display: flex; justify-content: center; align-items: center; color: #fff; font-size: 1.5rem; cursor: pointer; transition: all 0.3s; z-index: 100001; pointer-events: auto; }
-        .term-close:hover { background: #E52D27; border-color: #E52D27; transform: rotate(90deg); box-shadow: 0 0 30px rgba(229,45,39,0.5); }
         
         .term-container { min-height: 100vh; display: flex; flex-direction: column; padding: 0; pointer-events: auto; }
         @media (min-width: 1024px) { .term-container { flex-direction: row; } }
         
         /* Терминал: Левая колонка (Фото) */
-        .term-left { width: 100%; height: 50vh; position: relative; background: #000; overflow: hidden; pointer-events: auto; }
+        .term-left { width: 100%; height: 50vh; position: relative; background: #000; overflow: hidden; pointer-events: auto; flex-shrink: 0; }
         @media (min-width: 1024px) { .term-left { width: 45%; height: 100vh; position: sticky; top: 0; } }
         .term-left::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent, #020202); pointer-events: none; }
         @media (max-width: 1023px) { .term-left::after { background: linear-gradient(to bottom, transparent, #020202); } }
@@ -741,8 +740,8 @@
         @keyframes scanline { 0% { top: -10%; } 100% { top: 110%; } }
         
         /* Терминал: Правая колонка (Контент) */
-        .term-right { width: 100%; padding: 3rem 1.5rem 6rem 1.5rem; position: relative; z-index: 20; display: flex; flex-direction: column; pointer-events: auto; flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; touch-action: pan-y; }
-        @media (min-width: 1024px) { .term-right { width: 55%; padding: 10vh 6rem 10vh 4rem; height: auto; max-height: 100vh; overflow-y: auto; } }
+        .term-right { width: 100%; padding: 3rem 1.5rem 6rem 1.5rem; position: relative; z-index: 20; display: flex; flex-direction: column; pointer-events: auto; flex-grow: 1; }
+        @media (min-width: 1024px) { .term-right { width: 55%; padding: 10vh 6rem 10vh 4rem; min-height: 100vh; } }
 
         .term-header { margin-bottom: 3rem; }
         .term-id { display: inline-block; padding: 6px 16px; background: rgba(229,45,39,0.1); border: 1px solid rgba(229,45,39,0.3); border-radius: 50px; color: #E52D27; font-family: 'Syncopate', sans-serif; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.5rem; }
