@@ -1094,6 +1094,69 @@
             .term-id { font-size: 0.5rem; padding: 3px 10px; }
             .term-text { font-size: 0.85rem; }
         }
+
+        /* ================================================================== */
+        /* TARIFF DEEP-DIVE MODALS                                            */
+        /* ================================================================== */
+        .tariff-modal-overlay {
+            position: fixed; inset: 0; z-index: 100000; display: none; opacity: 0;
+            background: rgba(2, 2, 2, 0.95); backdrop-filter: blur(25px);
+            overflow-y: auto; -webkit-overflow-scrolling: touch; pointer-events: auto;
+        }
+        .tariff-modal-close {
+            position: fixed; top: 1.5rem; right: 1.5rem; width: 50px; height: 50px;
+            border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.5rem; cursor: pointer; transition: all 0.3s ease; z-index: 100002;
+        }
+        .tariff-modal-close:hover { background: #E52D27; border-color: #E52D27; transform: rotate(90deg) scale(1.1); box-shadow: 0 0 25px rgba(229, 45, 39, 0.5); }
+        .tariff-content-wrapper {
+            max-width: 7xl; margin: 0 auto; padding: 5rem 1.5rem 5rem 1.5rem;
+            min-height: 100vh; display: flex; flex-direction: column; transform: translateY(40px); opacity: 0;
+        }
+        @media (min-width: 768px) { .tariff-content-wrapper { padding: 6rem 3rem; } }
+        
+        .t-header-block { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 2rem; margin-bottom: 3rem; position: relative; }
+        .t-badge { display: inline-block; padding: 6px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; font-family: 'Syncopate', sans-serif; font-size: 0.65rem; color: #aaa; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; }
+        .t-title { font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; color: #fff; text-transform: uppercase; line-height: 1; letter-spacing: -1px; margin-bottom: 1rem; }
+        .t-price-block { display: flex; align-items: baseline; gap: 10px; }
+        .t-price { font-family: 'Unbounded', sans-serif; font-size: 2.5rem; font-weight: 900; color: #E52D27; }
+        .t-price-sub { color: #666; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        
+        .t-description { font-size: 1.1rem; color: #a3a3a3; line-height: 1.8; max-width: 800px; margin-bottom: 3rem; font-weight: 300; }
+        .t-description strong { color: #fff; font-weight: 600; }
+
+        .t-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 4rem; }
+        @media (min-width: 1024px) { .t-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; } }
+        
+        .t-feature-card { background: rgba(15,15,15,0.6); border: 1px solid rgba(255,255,255,0.05); border-radius: 1.5rem; padding: 2.5rem; position: relative; overflow: hidden; transition: all 0.4s; }
+        .t-feature-card:hover { border-color: rgba(229,45,39,0.3); background: rgba(20,20,20,0.8); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .t-feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(to bottom, #E52D27, transparent); opacity: 0; transition: opacity 0.4s; }
+        .t-feature-card:hover::before { opacity: 1; }
+        
+        .t-icon-wrap { width: 60px; height: 60px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #fff; margin-bottom: 1.5rem; transition: all 0.4s; }
+        .t-feature-card:hover .t-icon-wrap { background: rgba(229,45,39,0.1); border-color: rgba(229,45,39,0.3); color: #E52D27; transform: scale(1.1); }
+        
+        .t-card-title { font-family: 'Unbounded', sans-serif; font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 1rem; text-transform: uppercase; }
+        .t-card-text { color: #888; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
+        
+        .t-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+        .t-list li { display: flex; align-items: flex-start; gap: 12px; color: #ccc; font-size: 0.9rem; line-height: 1.4; }
+        .t-list li i { color: #E52D27; font-size: 1rem; margin-top: 2px; }
+
+        .t-team-box { background: linear-gradient(145deg, rgba(20,20,20,0.8) 0%, rgba(5,5,5,0.95) 100%); border: 1px solid rgba(255,255,255,0.05); border-radius: 2rem; padding: 3rem; margin-bottom: 4rem; text-align: center; }
+        .t-team-title { font-family: 'Syne', sans-serif; font-size: 2rem; color: #fff; text-transform: uppercase; font-weight: 800; margin-bottom: 2rem; }
+        .t-team-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .t-team-tag { padding: 10px 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 100px; font-size: 0.8rem; font-weight: bold; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
+        .t-team-tag.highlight { border-color: rgba(229,45,39,0.3); color: #fff; background: rgba(229,45,39,0.1); }
+
+        .t-cta-wrapper { display: flex; justify-content: center; margin-top: 2rem; }
+        
+        /* Цветовые акценты для разных тарифов */
+        .theme-t1 .t-icon-wrap.active-theme { color: #a855f7; border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.1); }
+        .theme-t2 .t-icon-wrap.active-theme { color: #3b82f6; border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.1); }
+        .theme-t3 .t-icon-wrap.active-theme { color: #E52D27; border-color: rgba(229,45,39,0.3); background: rgba(229,45,39,0.1); }
+        .theme-t4 .t-icon-wrap.active-theme { color: #eab308; border-color: rgba(234,179,8,0.3); background: rgba(234,179,8,0.1); }
     </style>
 
     <section id="services-matrix" class="py-20 md:py-32 relative z-10 bg-[#050505] overflow-hidden border-t border-white/5">
@@ -2414,22 +2477,26 @@
                     <thead>
                         <tr>
                             <th class="p-6 md:p-8 w-1/4 border-b border-r border-white/5 bg-[#0a0a0a]"></th>
-                            <th class="p-6 md:p-8 text-center border-b border-r border-white/5">
+                            <th class="p-6 md:p-8 text-center border-b border-r border-white/5 relative flex-col justify-between">
                                 <div class="font-display font-black text-lg md:text-2xl text-white mb-2 md:mb-3">Marketing <br> SMM</div>
-                                <div class="text-yt font-black text-xl md:text-3xl">65.000 ₽ <span class="text-[10px] md:text-sm font-normal text-gray-500">/мес</span></div>
+                                <div class="text-yt font-black text-xl md:text-3xl mb-4">65.000 ₽ <span class="text-[10px] md:text-sm font-normal text-gray-500">/мес</span></div>
+                                <button class="open-tariff-btn w-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 text-white text-[10px] md:text-xs font-bold uppercase tracking-widest py-3 rounded-xl transition-all" data-tariff="tariff-1">Подробнее <i class="fa-solid fa-arrow-right ml-2"></i></button>
                             </th>
-                            <th class="p-6 md:p-8 text-center border-b border-r border-white/5">
+                            <th class="p-6 md:p-8 text-center border-b border-r border-white/5 relative flex-col justify-between">
                                 <div class="font-display font-black text-lg md:text-2xl text-white mb-2 md:mb-3">SMM + <br> Partnership</div>
-                                <div class="text-yt font-black text-xl md:text-3xl">120.000 ₽ <span class="text-[10px] md:text-sm font-normal text-gray-500">/мес</span></div>
+                                <div class="text-yt font-black text-xl md:text-3xl mb-4">120.000 ₽ <span class="text-[10px] md:text-sm font-normal text-gray-500">/мес</span></div>
+                                <button class="open-tariff-btn w-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 text-white text-[10px] md:text-xs font-bold uppercase tracking-widest py-3 rounded-xl transition-all" data-tariff="tariff-2">Подробнее <i class="fa-solid fa-arrow-right ml-2"></i></button>
                             </th>
-                            <th class="p-6 md:p-8 text-center border-b border-r border-yt/30 bg-[#140000] relative shadow-[0_0_50px_rgba(229,45,39,0.1)]">
+                            <th class="p-6 md:p-8 text-center border-b border-r border-yt/30 bg-[#140000] relative shadow-[0_0_50px_rgba(229,45,39,0.1)] flex-col justify-between">
                                 <div class="absolute top-0 right-0 bg-yt text-white text-[8px] md:text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-widest">Хит продаж</div>
                                 <div class="font-display font-black text-lg md:text-2xl text-white mb-2 md:mb-3 mt-2">Full Digital <br> + SMM</div>
-                                <div class="text-yt font-black text-xl md:text-3xl">150.000 ₽ <span class="text-[10px] md:text-sm font-normal text-gray-500">/мес</span></div>
+                                <div class="text-yt font-black text-xl md:text-3xl mb-4">150.000 ₽ <span class="text-[10px] md:text-sm font-normal text-gray-500">/мес</span></div>
+                                <button class="open-tariff-btn w-full bg-yt hover:bg-red-600 text-white text-[10px] md:text-xs font-bold uppercase tracking-widest py-3 rounded-xl transition-all shadow-[0_0_20px_rgba(229,45,39,0.4)]" data-tariff="tariff-3">Что внутри <i class="fa-solid fa-bolt ml-2"></i></button>
                             </th>
-                            <th class="p-6 md:p-8 text-center border-b border-white/5 bg-gradient-to-b from-yt/20 to-transparent">
+                            <th class="p-6 md:p-8 text-center border-b border-white/5 bg-gradient-to-b from-yt/20 to-transparent relative flex-col justify-between">
                                 <div class="font-display font-black text-lg md:text-2xl text-white mb-2 md:mb-3">Marketing <br> MAX</div>
-                                <div class="text-white font-black text-xl md:text-3xl">170.000 ₽ <span class="text-[10px] md:text-sm font-normal text-gray-500">/мес</span></div>
+                                <div class="text-white font-black text-xl md:text-3xl mb-4">170.000 ₽ <span class="text-[10px] md:text-sm font-normal text-gray-500">/мес</span></div>
+                                <button class="open-tariff-btn w-full bg-white text-dark hover:bg-gray-200 text-[10px] md:text-xs font-bold uppercase tracking-widest py-3 rounded-xl transition-all" data-tariff="tariff-4">Раскрыть <i class="fa-solid fa-arrow-right ml-2"></i></button>
                             </th>
                         </tr>
                     </thead>
@@ -2710,6 +2777,345 @@
 
         </div>
     </section>
+
+    <div class="tariff-modal-overlay theme-t1" id="modal-tariff-1">
+        <div class="tariff-modal-close" onclick="closeTariffModal('modal-tariff-1')"><i class="fa-solid fa-xmark"></i></div>
+        <div class="tariff-content-wrapper max-w-[1200px] mx-auto w-full">
+            
+            <div class="t-header-block">
+                <div class="t-badge">Entry Level / Базовое Присутствие</div>
+                <h2 class="t-title">Marketing SMM</h2>
+                <div class="t-price-block">
+                    <div class="t-price">65.000 ₽</div>
+                    <div class="t-price-sub">/ месяц</div>
+                </div>
+            </div>
+
+            <p class="t-description">
+                Тариф <strong>Marketing SMM</strong> — это идеальная точка входа для бизнесов и экспертов, которым необходимо систематизировать выпуск контента, запустить базовые алгоритмы социальных сетей и перестать делать маркетинг "на коленке". В этом тарифе мы забираем на себя всю рутину по генерации и дистрибуции контента, обеспечивая вашему бренду стабильное присутствие в инфополе. Главная цель тарифа — создать массивный цифровой след, который начнет индексироваться алгоритмами YouTube, Shorts и поисковиками.
+            </p>
+
+            <div class="t-grid">
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-video"></i></div>
+                    <h3 class="t-card-title">Объем Продакшена</h3>
+                    <p class="t-card-text">Мы формируем жесткий контент-план, который гарантирует регулярность выхода материалов — главного фактора любви алгоритмов в 2026 году.</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>6 горизонтальных видео (до 20 мин):</strong> Глубокие экспертные ролики, закрывающие основные боли вашей аудитории и формирующие доверие.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>30 Shorts / Reels / TikToks:</strong> Вертикальный контент выходит каждый день. Это ваш главный инструмент получения бесплатного, вирального органического трафика.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>45 текстовых постов:</strong> Ведение вашего Telegram-канала и сообществ VK. Адаптация сценариев видео в удобный текстовый формат.</li>
+                    </ul>
+                </div>
+
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-pen-nib"></i></div>
+                    <h3 class="t-card-title">Сценарный Отдел & SEO</h3>
+                    <p class="t-card-text">Никаких съемок без понимания "Зачем?". Каждое слово в ролике имеет цель — удержать зрителя и перевести его на следующий этап воронки.</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Глубокий ресерч ниши:</strong> Анализ 10 главных конкурентов. Поиск незанятых семантических кластеров.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Разработка ТЗ:</strong> Вы получаете готовые пошаговые сценарии с прописанными хуками (крючками внимания) для первых 5 секунд ролика.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>SEO-Оптимизация:</strong> Подбор тегов, написание SEO-описаний и таймкодов для вывода видео в поиск YouTube и Яндекса.</li>
+                    </ul>
+                </div>
+
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-scissors"></i></div>
+                    <h3 class="t-card-title">Монтаж & Дизайн</h3>
+                    <p class="t-card-text">Сырой материал зритель смотреть не будет. Мы применяем техники нейромонтажа для удержания (Retention).</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Динамичный монтаж:</strong> Смена планов каждые 5-7 секунд, удаление пауз, "эканий", добавление B-roll перебивок.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Графика и Субтитры:</strong> Анимация ключевых смыслов на экране. Вертикальные видео идут с крупными, динамичными субтитрами.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Арт-Дизайн (Превью):</strong> Разработка сочных, кликабельных обложек для видео, обеспечивающих CTR от 5 до 8%.</li>
+                    </ul>
+                </div>
+
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-chart-pie"></i></div>
+                    <h3 class="t-card-title">Базовая Аналитика & SMM</h3>
+                    <p class="t-card-text">Мы не просто публикуем, мы следим за реакцией аудитории и корректируем курс.</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Постинг под ключ:</strong> Мы сами заливаем видео на YouTube, Дзен, VK и настраиваем отложенный постинг.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Ежемесячная отчетность:</strong> Сводка по охватам, приросту аудитории, CTR обложек и удержанию (Retention rate).</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Корректировка стратегии:</strong> Отбрасывание форматов, которые не работают, и масштабирование успешных связок.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="t-team-box">
+                <h3 class="t-team-title">Команда на проекте (6 специалистов)</h3>
+                <div class="t-team-grid">
+                    <span class="t-team-tag highlight">Project Менеджер</span>
+                    <span class="t-team-tag">Сценарист / Копирайтер</span>
+                    <span class="t-team-tag">Режиссер Монтажа (Горизонталь)</span>
+                    <span class="t-team-tag">Reels-Мейкер</span>
+                    <span class="t-team-tag">YouTube / SEO Специалист</span>
+                    <span class="t-team-tag">Графический Дизайнер</span>
+                </div>
+                <p class="text-gray-400 text-sm mt-6">В тарифе "Marketing SMM" клиент самостоятельно обеспечивает процесс видеосъемки по нашим ТЗ. Мы забираем всю пост-обработку и ведение.</p>
+            </div>
+
+            <div class="t-cta-wrapper">
+                <a href="https://t.me/agentyoutube" target="_blank" class="bg-white text-dark px-12 py-5 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-yt hover:text-white transition-all transform hover:scale-105 shadow-[0_0_30px_rgba(255,255,255,0.2)]">Запросить аудит для этого тарифа</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="tariff-modal-overlay theme-t2" id="modal-tariff-2">
+        <div class="tariff-modal-close" onclick="closeTariffModal('modal-tariff-2')"><i class="fa-solid fa-xmark"></i></div>
+        <div class="tariff-content-wrapper max-w-[1200px] mx-auto w-full">
+            
+            <div class="t-header-block">
+                <div class="t-badge">Advanced Level / Студийный Продакшн</div>
+                <h2 class="t-title">SMM + Partnership</h2>
+                <div class="t-price-block">
+                    <div class="t-price">120.000 ₽</div>
+                    <div class="t-price-sub">/ месяц</div>
+                </div>
+            </div>
+
+            <p class="t-description">
+                Тариф <strong>SMM + Partnership</strong> — это полноценный переход на профессиональный уровень вещания. В отличие от базового тарифа, здесь в игру вступает наш оффлайн-продакшн. Мы полностью снимаем с вас головную боль по поводу света, звука, локации и качества съемки. Этот тариф включает физическое участие нашего продюсера и аренду студии. Идеально для экспертов и CEO, у которых нет времени разбираться в технике, и чье время стоит дороже, чем самостоятельная организация съемочного процесса.
+            </p>
+
+            <div class="t-grid">
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-video"></i></div>
+                    <h3 class="t-card-title">Увеличенный Объем (Scale)</h3>
+                    <p class="t-card-text">Больше контента — быстрее рост. Мы увеличиваем плотность публикаций для доминирования в алгоритмах.</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>8 горизонтальных видео (до 25 мин):</strong> Выход 2 раза в неделю. Формирует устойчивую привычку потребления у зрителя.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>45 Shorts / Reels / TikToks:</strong> По 1-2 вертикальных видео ежедневно. Агрессивный захват ленты рекомендаций.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>45 текстовых постов:</strong> Полноценная поддержка в Telegram и VK с глубоким копирайтингом.</li>
+                    </ul>
+                </div>
+
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-camera-retro"></i></div>
+                    <h3 class="t-card-title">Студийный Продакшн & Продюсер</h3>
+                    <p class="t-card-text">Мы берем на себя всю физическую организацию съемок. Вы приезжаете "на всё готовое".</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>8 часов в студии:</strong> В стоимость включена аренда профессиональных видеостудий в Москве, Санкт-Петербурге или Краснодаре (или удаленный сетап).</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Работа Продюсера:</strong> Наш человек на площадке следит за вашей дикцией, эмоциями, поправляет позу и контролирует, чтобы спикер отработал сценарий на 100%.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Телесуфлер:</strong> Вам не нужно учить тексты. Вы читаете готовые сценарии, глядя прямо в объектив камеры.</li>
+                    </ul>
+                </div>
+
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-handshake"></i></div>
+                    <h3 class="t-card-title">Partnership & Коллаборации</h3>
+                    <p class="t-card-text">Органика — это хорошо, но обмен аудиторией ускоряет рост в разы.</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Подбор гостей:</strong> Мы ищем и договариваемся о съемках совместных подкастов с экспертами смежных ниш.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Взаимопиар:</strong> Организация бартерных интеграций в Telegram-каналах для бесплатного обмена трафиком.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Кросс-постинг:</strong> Совместные Reels в Instagram, которые показываются на аудиторию обоих участников, удваивая охват.</li>
+                    </ul>
+                </div>
+
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <h3 class="t-card-title">Глубокий Кино-Монтаж</h3>
+                    <p class="t-card-text">Качество картинки и звука соответствует премиум-стандартам ТВ и кино.</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Цветокоррекция (Color Grading):</strong> Кинематографическая обработка (как в DaVinci Resolve) для придания дорогого вида.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Саунд-дизайн уровня Pro:</strong> Нормализация голоса (чистка от шумов, эквализация), наложение атмосферных звуков (свуши, райзеры).</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Сложная типографика:</strong> Внедрение плашек, инфографики и 2D-анимации поверх видео для объяснения сложных концепций.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="t-team-box">
+                <h3 class="t-team-title">Команда на проекте (8 специалистов)</h3>
+                <div class="t-team-grid">
+                    <span class="t-team-tag highlight">Project Менеджер</span>
+                    <span class="t-team-tag highlight">Продюсер Съемки</span>
+                    <span class="t-team-tag">Оператор-постановщик</span>
+                    <span class="t-team-tag">Сценарист</span>
+                    <span class="t-team-tag">Senior Режиссер Монтажа</span>
+                    <span class="t-team-tag">Reels-Мейкер</span>
+                    <span class="t-team-tag">YouTube / SEO Специалист</span>
+                    <span class="t-team-tag">Графический Дизайнер</span>
+                </div>
+            </div>
+
+            <div class="t-cta-wrapper">
+                <a href="https://t.me/agentyoutube" target="_blank" class="bg-[#3b82f6] text-white px-12 py-5 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-blue-600 transition-all transform hover:scale-105 shadow-[0_0_30px_rgba(59,130,246,0.3)]">Запустить студийный продакшн</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="tariff-modal-overlay theme-t3" id="modal-tariff-3">
+        <div class="tariff-modal-close" onclick="closeTariffModal('modal-tariff-3')"><i class="fa-solid fa-xmark"></i></div>
+        <div class="tariff-content-wrapper max-w-[1200px] mx-auto w-full">
+            
+            <div class="t-header-block">
+                <div class="t-badge bg-yt/20 text-yt border-yt/50">Core System / Хит Продаж / Все включено</div>
+                <h2 class="t-title">Full Digital + SMM</h2>
+                <div class="t-price-block">
+                    <div class="t-price">150.000 ₽</div>
+                    <div class="t-price-sub">/ месяц</div>
+                </div>
+            </div>
+
+            <p class="t-description">
+                Тариф <strong>Full Digital + SMM</strong> — это архитектура монополии. Самый сбалансированный и востребованный тариф нашего холдинга. Здесь мы не просто создаем контент, мы берем под жесткий контроль <strong>весь трафик</strong> вокруг вашего бизнеса. Вы получаете не только производство видео, но и подключение мощнейшего отдела Media Buying (Таргет, Посевы), а также разработку автоматизированных воронок продаж. Контент здесь работает не ради лайков, а ради оцифрованной выручки (ROMI). Мы выстраиваем замкнутую систему: захват внимания ➔ прогрев ➔ автоматическая квалификация ➔ продажа.
+            </p>
+
+            <div class="t-grid">
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-filter"></i></div>
+                    <h3 class="t-card-title">Инженерия Воронок</h3>
+                    <p class="t-card-text">Связываем просмотры с кассой. Без воронки видео — это просто благотворительность.</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Лид-магниты:</strong> Разработка гайдов, чек-листов и закрытых PDF, ради которых зрители будут отдавать контакты.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Умные Чат-боты (TG/WA):</strong> Проектирование логики бота, который 24/7 общается с клиентом, задает вопросы и выдает материалы.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Интеграция с CRM:</strong> Каждый зритель, нажавший кнопку в боте, моментально падает в вашу AmoCRM или Bitrix24 с UTM-меткой источника.</li>
+                    </ul>
+                </div>
+
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3 class="t-card-title">Рекламный отдел & Трафик</h3>
+                    <p class="t-card-text">Мы не ждем органики годами. Мы агрессивно заливаем внешний целевой трафик в систему.</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Telegram Посевы (Seeding):</strong> Анализ рынка через Telemetr, закупка рекламы в крупных профильных каналах для перелива аудитории к вам.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Яндекс.Директ & VK Реклама:</strong> Настройка контекста на посадочные страницы. Точечный ретаргетинг на тех, кто смотрел ваши видео, но не купил.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Масштабный контент (90 Shorts):</strong> Производство 3 вертикальных роликов в день. Захват абсолютно всей выдачи в вашей нише.</li>
+                    </ul>
+                </div>
+
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-camera-retro"></i></div>
+                    <h3 class="t-card-title">Продакшн & Продюсирование</h3>
+                    <p class="t-card-text">Создание контента под ключ с полной организацией съемочного процесса.</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>8 горизонтальных видео:</strong> Глубокая проработка смыслов по воронке H-V-C.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>8 часов аренды премиум студий:</strong> Освещение, кинокамеры, несколько планов.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>80 текстовых публикаций:</strong> Массивный прогрев в социальных сетях, сторителлинг, отработка возражений B2B и B2C аудитории.</li>
+                    </ul>
+                </div>
+
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-spider"></i></div>
+                    <h3 class="t-card-title">Сквозная Аналитика (ROMI)</h3>
+                    <p class="t-card-text">Жесткий контроль окупаемости каждого вложенного в маркетинг рубля.</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Оцифровка пути:</strong> Внедрение систем трекинга (Roistat, Яндекс.Метрика).</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Когортный анализ:</strong> Понимание, как быстро окупается подписчик с YouTube или Telegram.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>A/B тестирование обложек:</strong> Постоянная замена превью на старых роликах для поддержания "вечнозеленого" трафика.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="t-team-box">
+                <h3 class="t-team-title">Команда на проекте (12 специалистов)</h3>
+                <div class="t-team-grid">
+                    <span class="t-team-tag highlight">Главный Стратег</span>
+                    <span class="t-team-tag highlight">Performance Маркетолог (Таргет)</span>
+                    <span class="t-team-tag highlight">Архитектор Воронок</span>
+                    <span class="t-team-tag">Project Менеджер</span>
+                    <span class="t-team-tag">Продюсер Съемки</span>
+                    <span class="t-team-tag">Оператор</span>
+                    <span class="t-team-tag">Копирайтер-смысловик</span>
+                    <span class="t-team-tag">Режиссер Монтажа (Горизонталь)</span>
+                    <span class="t-team-tag">2x Reels-Мейкера (Команда)</span>
+                    <span class="t-team-tag">YouTube / SEO Аналитик</span>
+                    <span class="t-team-tag">Арт-Директор (Превью)</span>
+                </div>
+                <p class="text-white font-bold text-lg mt-6 bg-yt/20 p-4 rounded-xl border border-yt/30">Внедрение целого in-house отдела маркетинга по цене одного штатного директора по маркетингу.</p>
+            </div>
+
+            <div class="t-cta-wrapper">
+                <a href="https://t.me/agentyoutube" target="_blank" class="bg-yt text-white px-12 py-5 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-red-600 transition-all transform hover:scale-105 shadow-[0_0_40px_rgba(229,45,39,0.5)]">Внедрить Систему Full Digital</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="tariff-modal-overlay theme-t4" id="modal-tariff-4">
+        <div class="tariff-modal-close" onclick="closeTariffModal('modal-tariff-4')"><i class="fa-solid fa-xmark"></i></div>
+        <div class="tariff-content-wrapper max-w-[1200px] mx-auto w-full">
+            
+            <div class="t-header-block">
+                <div class="t-badge bg-yellow-500/20 text-yellow-500 border-yellow-500/50">VIP Level / Абсолютное Доминирование</div>
+                <h2 class="t-title">Marketing MAX</h2>
+                <div class="t-price-block">
+                    <div class="t-price">170.000 ₽</div>
+                    <div class="t-price-sub">/ месяц</div>
+                </div>
+            </div>
+
+            <p class="t-description">
+                Тариф <strong>Marketing MAX</strong> — это бескомпромиссное решение для крупного бизнеса, инфо-корпораций и топ-экспертов. Это квинтэссенция нашего опыта. Максимальный приоритет внутри холдинга, обслуживание вне очереди, выделенный арт-директор и Senior-маркетологи. Мы применяем весь арсенал инструментов (включая работу с Авито, геосервисами, сложными воронками и гигантскими бюджетами на трафик). Увеличенный до максимума объем контента (10 роликов в месяц) и 12 часов студийного времени обеспечивают индустриальный масштаб производства.
+            </p>
+
+            <div class="t-grid">
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-crown"></i></div>
+                    <h3 class="t-card-title">VIP Приоритет & SLA</h3>
+                    <p class="t-card-text">Высший класс обслуживания. Ваши задачи решаются "день в день".</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Ускоренный Production:</strong> Выдача первых смонтированных роликов уже через 48 часов после съемок (стандарт — 7-10 дней).</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Senior Команда:</strong> Проектом управляют лично руководители направлений (Стратеги уровня Head of Marketing).</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Личный чат с СЕО:</strong> Прямая линия с основателями холдинга для оперативного решения стратегических задач.</li>
+                    </ul>
+                </div>
+
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-video"></i></div>
+                    <h3 class="t-card-title">Максимальный Объем Производства</h3>
+                    <p class="t-card-text">Заваливаем алгоритмы высококачественным контентом.</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>10 горизонтальных видео:</strong> Покрытие абсолютно всех микро-тем и болей в нише. Частота публикаций, недосягаемая для конкурентов.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>90 вертикальных видео + 80 постов:</strong> Ежедневный многоуровневый контакт с аудиторией.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>12 часов Студии (Выездные сессии):</strong> Возможность снимать не только в студии, но и организовать премиум-съемку на вашем производстве, в офисе или на объекте (B-roll сессии).</li>
+                    </ul>
+                </div>
+
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-layer-group"></i></div>
+                    <h3 class="t-card-title">Омниканальность + Карты & Авито</h3>
+                    <p class="t-card-text">Задействуем 100% площадок. Трафик льется отовсюду.</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>Подключение Авитологов:</strong> (Если релевантно бизнесу) Масс-постинг, вывод компании в ТОП выдачи Авито.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Подключение Local SEO:</strong> Вывод карточек компании в ТОП-3 на Яндекс Картах и 2GIS. Управление репутацией (SERM).</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Управление Бюджетами от 1М+:</strong> Оптимизация контекстной рекламы на гигантских объемах с гарантией сохранения стоимости лида (CPL).</li>
+                    </ul>
+                </div>
+
+                <div class="t-feature-card">
+                    <div class="t-icon-wrap active-theme"><i class="fa-solid fa-paintbrush"></i></div>
+                    <h3 class="t-card-title">Premium Graphic & 3D</h3>
+                    <p class="t-card-text">Визуальная упаковка бренда, которая продает за вас.</p>
+                    <ul class="t-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>3D-Анимация в роликах:</strong> Отрисовка сложной инфографики (например, разрезы двигателей, архитектурные проекты, графики роста токенов).</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Брендинг каналов:</strong> Разработка уникального визуального языка (Айдентики) для YouTube, TG, VK.</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>Редизайн Воронок:</strong> Создание высококонверсионных лендингов (Taplink/Tilda) для приема трафика из соцсетей.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="t-team-box" style="border-color: rgba(234,179,8,0.3);">
+                <h3 class="t-team-title text-yellow-500">Эксклюзивная Команда (15+ специалистов)</h3>
+                <div class="t-team-grid">
+                    <span class="t-team-tag highlight" style="border-color:#eab308; background:rgba(234,179,8,0.1); color:#fff;">CEO Холдинга (Стратег)</span>
+                    <span class="t-team-tag highlight" style="border-color:#eab308; background:rgba(234,179,8,0.1); color:#fff;">Head of Performance Marketing</span>
+                    <span class="t-team-tag highlight" style="border-color:#eab308; background:rgba(234,179,8,0.1); color:#fff;">Senior Архитектор Воронок</span>
+                    <span class="t-team-tag highlight" style="border-color:#eab308; background:rgba(234,179,8,0.1); color:#fff;">Арт-Директор</span>
+                    <span class="t-team-tag">VIP Project Менеджер</span>
+                    <span class="t-team-tag">Продюсер + Режиссер-постановщик</span>
+                    <span class="t-team-tag">DOP (Оператор-постановщик)</span>
+                    <span class="t-team-tag">Главный Сценарист</span>
+                    <span class="t-team-tag">Senior Режиссер Кино-монтажа</span>
+                    <span class="t-team-tag">3D Motion Дизайнер</span>
+                    <span class="t-team-tag">Команда Reels (3 чел)</span>
+                    <span class="t-team-tag">Специалисты по Авито/Картам</span>
+                </div>
+            </div>
+
+            <div class="t-cta-wrapper">
+                <a href="https://t.me/agentyoutube" target="_blank" class="bg-yellow-500 text-black px-12 py-5 rounded-full font-black uppercase tracking-widest text-sm hover:bg-yellow-400 transition-all transform hover:scale-105 shadow-[0_0_50px_rgba(234,179,8,0.4)]">Запросить VIP Обслуживание</a>
+            </div>
+        </div>
+    </div>
 
     <footer id="contact" class="relative min-h-[80vh] flex flex-col justify-center items-center overflow-hidden border-t border-white/5 bg-[#000]">
         
@@ -3298,6 +3704,79 @@
                             );
                         }
                     });
+                });
+            });
+
+            // ========================================================
+            // TARIFF MODALS LOGIC (GSAP)
+            // ========================================================
+            const tariffBtns = document.querySelectorAll('.open-tariff-btn');
+            
+            // Функция открытия модального окна тарифа
+            window.openTariffModal = function(modalId) {
+                const modal = document.getElementById(modalId);
+                if (!modal) return;
+                
+                // Блокируем главный скролл страницы
+                modal.setAttribute('data-lenis-prevent', 'true');
+                if (typeof lenis !== 'undefined') lenis.stop();
+                document.body.style.overflow = 'hidden';
+                
+                modal.style.display = "block";
+                
+                const tl = gsap.timeline();
+                
+                tl.to(modal, { opacity: 1, duration: 0.4, ease: "power2.out" })
+                  .fromTo(modal.querySelector('.tariff-content-wrapper'), 
+                        { y: 50, opacity: 0 }, 
+                        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, "-=0.2")
+                  .fromTo(modal.querySelectorAll('.t-badge, .t-title, .t-price-block, .t-description'), 
+                        { y: 30, opacity: 0 }, 
+                        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "back.out(1.2)" }, "-=0.4")
+                  .fromTo(modal.querySelectorAll('.t-feature-card'), 
+                        { y: 40, opacity: 0, scale: 0.95 }, 
+                        { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" }, "-=0.2")
+                  .fromTo(modal.querySelectorAll('.t-team-box, .t-cta-wrapper'), 
+                        { y: 30, opacity: 0 }, 
+                        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out" }, "-=0.2")
+                  .fromTo(modal.querySelector('.tariff-modal-close'), 
+                        { scale: 0, rotation: -180 }, 
+                        { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2)" }, "-=0.5");
+            };
+
+            // Функция закрытия модального окна тарифа
+            window.closeTariffModal = function(modalId) {
+                const modal = document.getElementById(modalId);
+                if (!modal) return;
+                
+                gsap.to(modal, { 
+                    opacity: 0, 
+                    duration: 0.4, 
+                    ease: "power2.in", 
+                    onComplete: () => {
+                        modal.style.display = "none";
+                        modal.removeAttribute('data-lenis-prevent');
+                        document.body.style.overflow = '';
+                        if (typeof lenis !== 'undefined') lenis.start();
+                    } 
+                });
+            };
+
+            // Привязываем клики к кнопкам в таблице
+            tariffBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetTariff = btn.getAttribute('data-tariff');
+                    openTariffModal('modal-' + targetTariff);
+                });
+            });
+            
+            // Закрытие по клику вне контента (на темный фон)
+            document.querySelectorAll('.tariff-modal-overlay').forEach(overlay => {
+                overlay.addEventListener('click', (e) => {
+                    if(e.target === overlay || e.target.classList.contains('tariff-content-wrapper')) {
+                        closeTariffModal(overlay.id);
+                    }
                 });
             });
 
