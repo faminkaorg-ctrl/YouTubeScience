@@ -1265,6 +1265,78 @@
 
         .sp-result { background: linear-gradient(to right, rgba(229, 45, 39, 0.1), transparent); border-left: 4px solid #E52D27; padding: 15px 20px; border-radius: 0 10px 10px 0; font-size: 0.9rem; color: #fff; }
         @media (min-width: 768px) { .sp-result { font-size: 1rem; padding: 20px 25px; } }
+
+        /* --- АНИМАЦИИ ДЛЯ ШАГА 6 --- */
+        
+        /* Универсальный контейнер для плавающих элементов z-индекс ниже текста */
+        .floating-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1; /* Между фоном блока и z-10 контентом */
+        }
+
+        /* Telegram: Самолетики */
+        .tg-plane {
+            position: absolute;
+            color: rgba(42, 171, 238, 0.1); /* Полупрозрачный голубой */
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: tg-fly linear infinite;
+        }
+        @keyframes tg-fly {
+            0% { transform: translate(-100px, 100px) rotate(15deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(500px, -100px) rotate(15deg); opacity: 0; }
+        }
+
+        /* YouTube: Кнопки Play и Лайки */
+        .yt-float {
+            position: absolute;
+            color: rgba(255, 0, 0, 0.06); /* Очень слабый красный */
+            opacity: 0;
+            animation: yt-float-up ease-in-out infinite;
+        }
+        @keyframes yt-float-up {
+            0% { transform: translateY(50px) scale(0.8); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-150px) scale(1.1); opacity: 0; }
+        }
+
+        /* Instagram: Сердца */
+        .ig-heart {
+            position: absolute;
+            color: rgba(225, 48, 108, 0.1); /* Полупрозрачный розовый */
+            opacity: 0;
+            animation: ig-heart-rise ease-in-out infinite;
+        }
+        @keyframes ig-heart-rise {
+            0% { transform: translateY(30px) scale(0.5); opacity: 0; }
+            15% { opacity: 1; }
+            50% { transform: translateY(-30px) scale(1); }
+            85% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+        }
+
+        /* TikTok / VK: Музыкальные Ноты */
+        .tt-note {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.05); /* Белый, еле заметный */
+            opacity: 0;
+            animation: tt-note-float linear infinite;
+        }
+        @keyframes tt-note-float {
+            0% { transform: translateY(80px) rotate(0deg); opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { transform: translateY(-180px) rotate(20deg); opacity: 0; }
+        }
     </style>
 
     <section id="services-matrix" class="py-20 md:py-32 relative z-10 bg-[#050505] overflow-hidden border-t border-white/5">
@@ -1802,150 +1874,181 @@
     </div>
     <div class="sp-body">
         <div class="sp-body-inner">
-            <div class="sp-main-desc mb-12">
+            <div class="sp-main-desc mb-12 relative z-10">
                 <p class="text-2xl font-black text-white uppercase tracking-wider mb-6 border-l-4 border-yt pl-6">Мы не маркетинговое агентство. Мы строим заводы по производству денег из внимания.</p>
                 <p class="text-gray-300 text-lg leading-relaxed">То, что мы построили на предыдущих пяти шагах — сработало. Алгоритмы раскачались. Органика пошла. Люди видят вас в рекомендациях. Идут миллионы просмотров холодной аудитории из Reels/Shorts/TikTok. Идут целевые клики из поиска YouTube. <strong>Что происходит дальше? Начинается процесс конвертации. На каждой площадке — своя уникальная, математически выверенная воронка.</strong></p>
             </div>
 
-            <div class="relative bg-[#050505] rounded-3xl p-8 mb-8 border border-[#2AABEE]/20 overflow-hidden group">
-                <div class="absolute -right-20 -bottom-20 text-[200px] text-[#2AABEE]/5 group-hover:scale-110 transition-transform duration-700 pointer-events-none"><i class="fa-brands fa-telegram"></i></div>
-                <div class="relative z-10">
-                    <div class="flex items-center gap-5 mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#2AABEE] to-[#0088cc] rounded-2xl flex items-center justify-center text-3xl text-white shadow-[0_0_30px_rgba(42,171,238,0.5)]">
-                            <i class="fa-brands fa-telegram"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-3xl font-display font-black text-white uppercase tracking-tight">Telegram</h4>
-                            <p class="text-[#2AABEE] font-bold tracking-widest text-sm uppercase">Ядро Продаж и Прогрева</p>
-                        </div>
+            <div class="flex flex-col gap-8 relative z-10">
+                
+                <div class="relative bg-[#050505] rounded-3xl p-8 border border-[#2AABEE]/20 overflow-hidden group hover:border-[#2AABEE]/50 transition-colors">
+                    <div class="floating-bg-container">
+                        <span class="tg-plane" style="top: 10%; left: -5%; animation-duration: 12s; animation-delay: 0s;"><i class="fa-solid fa-paper-plane"></i></span>
+                        <span class="tg-plane" style="top: 40%; left: -10%; animation-duration: 15s; animation-delay: 4s;"><i class="fa-solid fa-paper-plane"></i></span>
+                        <span class="tg-plane" style="top: 70%; left: -5%; animation-duration: 18s; animation-delay: 8s;"><i class="fa-solid fa-paper-plane"></i></span>
+                        <span class="tg-plane" style="top: 25%; left: 0%; animation-duration: 14s; animation-delay: 2s; font-size: 1rem;"><i class="fa-solid fa-paper-plane"></i></span>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <p class="text-gray-300 mb-4 text-sm leading-relaxed">
-                                Телеграм — это ваш цифровой офис. Сюда люди перетекают из всех остальных соцсетей за "углубленным" контентом, закрытыми файлами и вашей личностью. Здесь нет случайных людей — здесь только те, кто уже готов слушать.
-                            </p>
-                            <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                                <strong>Как это работает:</strong> Мы написали для канала серию жестких смысловых постов (кейсы, отзывы, разбор болей ЦА). В закрепленном сообщении находится линк на Чат-бота.
-                            </p>
+                    
+                    <div class="absolute -right-20 -bottom-20 text-[200px] text-[#2AABEE]/5 group-hover:scale-110 transition-transform duration-700 pointer-events-none"><i class="fa-brands fa-telegram"></i></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#2AABEE] to-[#0088cc] rounded-2xl flex items-center justify-center text-3xl text-white shadow-[0_0_30px_rgba(42,171,238,0.5)]">
+                                <i class="fa-brands fa-telegram"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-3xl font-display font-black text-white uppercase tracking-tight">Telegram</h4>
+                                <p class="text-[#2AABEE] font-bold tracking-widest text-sm uppercase">Ядро Продаж и Прогрева</p>
+                            </div>
                         </div>
-                        <div class="bg-[#121212] p-6 rounded-xl border border-white/5">
-                            <h5 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-robot text-[#2AABEE]"></i> Автоматизация (Бот)</h5>
-                            <ul class="text-sm text-gray-400 space-y-2">
-                                <li>1. Пользователь жмет /start, чтобы получить бонус.</li>
-                                <li>2. Бот выдает бонус и сразу задает квалифицирующие вопросы: "Какой у вас бизнес?", "Какой оборот?".</li>
-                                <li>3. Бот сегментирует клиента. Если это целевой лид (высокий чек) — бот запрашивает номер телефона и мгновенно перекидывает заявку в вашу CRM для отдела продаж.</li>
-                                <li>4. Если клиент сомневается — бот запускает серию из 5 дожимных писем.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="relative bg-[#050505] rounded-3xl p-8 mb-8 border border-yt/20 overflow-hidden group">
-                <div class="absolute -right-20 -bottom-20 text-[200px] text-yt/5 group-hover:scale-110 transition-transform duration-700 pointer-events-none"><i class="fa-brands fa-youtube"></i></div>
-                <div class="relative z-10">
-                    <div class="flex items-center gap-5 mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#FF0000] to-[#990000] rounded-2xl flex items-center justify-center text-3xl text-white shadow-[0_0_30px_rgba(255,0,0,0.5)]">
-                            <i class="fa-brands fa-youtube"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-3xl font-display font-black text-white uppercase tracking-tight">YouTube</h4>
-                            <p class="text-yt font-bold tracking-widest text-sm uppercase">Генератор Длинных Денег</p>
-                        </div>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <p class="text-gray-300 mb-4 text-sm leading-relaxed">
-                                YouTube — это поисковик номер два в мире. Если вы сняли ролик о том "Как инвестировать в 2026 году", этот ролик будет приносить вам горячих клиентов и через 3 года. Это вечнозеленый актив.
-                            </p>
-                            <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                                <strong>Как это работает:</strong> Мы выкладываем 20-минутное видео. Оно SEO-оптимизировано (теги, таймкоды). Человек ищет решение своей проблемы -> находит вас -> смотрит видео. За 20 минут формируется колоссальный уровень доверия (парасоциальные связи).
-                            </p>
-                        </div>
-                        <div class="bg-[#121212] p-6 rounded-xl border border-white/5">
-                            <h5 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-magnet text-yt"></i> Воронка внутри видео</h5>
-                            <ul class="text-sm text-gray-400 space-y-2">
-                                <li>1. На 1-й минуте (Hook) мы обещаем дать решение.</li>
-                                <li>2. На 10-й минуте нативная интеграция: "Кстати, полную таблицу я выложил в свой Telegram. Ссылка в описании".</li>
-                                <li>3. Конечные заставки переводят зрителя на другие ваши ролики, зацикливая его в вашем контенте.</li>
-                                <li>4. В закрепленном комментарии и описании — мультиссылки на покупку услуг/запись на созвон.</li>
-                            </ul>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <p class="text-gray-300 mb-4 text-sm leading-relaxed">
+                                    Телеграм — это ваш цифровой офис. Сюда люди перетекают из всех остальных соцсетей за "углубленным" контентом, закрытыми файлами и вашей личностью. Здесь нет случайных людей — здесь только те, кто уже готов слушать.
+                                </p>
+                                <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                                    <strong>Как это работает:</strong> Мы написали для канала серию жестких смысловых постов (кейсы, отзывы, разбор болей ЦА). В закрепленном сообщении находится линк на Чат-бота.
+                                </p>
+                            </div>
+                            <div class="bg-[#121212] p-6 rounded-xl border border-white/5 relative z-10">
+                                <h5 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-robot text-[#2AABEE]"></i> Автоматизация (Бот)</h5>
+                                <ul class="text-sm text-gray-400 space-y-2">
+                                    <li>1. Пользователь жмет /start, чтобы получить бонус.</li>
+                                    <li>2. Бот выдает бонус и сразу задает квалифицирующие вопросы: "Какой у вас бизнес?", "Какой оборот?".</li>
+                                    <li>3. Бот сегментирует клиента. Если это целевой лид (высокий чек) — бот запрашивает номер телефона и мгновенно перекидывает заявку в вашу CRM для отдела продаж.</li>
+                                    <li>4. Если клиент сомневается — бот запускает серию из 5 дожимных писем.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="relative bg-[#050505] rounded-3xl p-8 mb-8 border border-[#E1306C]/20 overflow-hidden group">
-                <div class="absolute -right-20 -bottom-20 text-[200px] text-[#E1306C]/5 group-hover:scale-110 transition-transform duration-700 pointer-events-none"><i class="fa-brands fa-instagram"></i></div>
-                <div class="relative z-10">
-                    <div class="flex items-center gap-5 mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-2xl flex items-center justify-center text-3xl text-white shadow-[0_0_30px_rgba(225,48,108,0.5)]">
-                            <i class="fa-brands fa-instagram"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-3xl font-display font-black text-white uppercase tracking-tight">Instagram / Reels</h4>
-                            <p class="text-[#E1306C] font-bold tracking-widest text-sm uppercase">Агрессивный Охват и Лидген</p>
-                        </div>
+                <div class="relative bg-[#050505] rounded-3xl p-8 border border-yt/20 overflow-hidden group hover:border-yt/50 transition-colors">
+                    <div class="floating-bg-container">
+                        <span class="yt-float" style="bottom: -20%; left: 10%; animation-duration: 9s; animation-delay: 0s; font-size: 3rem;"><i class="fa-solid fa-play"></i></span>
+                        <span class="yt-float" style="bottom: -20%; right: 15%; animation-duration: 7s; animation-delay: 3s; font-size: 2rem;"><i class="fa-solid fa-play"></i></span>
+                        <span class="yt-float" style="bottom: -20%; left: 30%; animation-duration: 10s; animation-delay: 5s; font-size: 1.5rem;"><i class="fa-solid fa-thumbs-up"></i></span>
+                        <span class="yt-float" style="bottom: -20%; right: 40%; animation-duration: 8s; animation-delay: 1s; font-size: 1.2rem;"><i class="fa-solid fa-thumbs-up"></i></span>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <p class="text-gray-300 mb-4 text-sm leading-relaxed">
-                                Reels дают сумасшедший виральный охват. Люди просто листают ленту и натыкаются на ваши ролики. Это супер-холодная аудитория, которую нужно мгновенно цеплять и забирать их контакты, пока они не свайпнули дальше.
-                            </p>
-                            <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                                <strong>Как это работает:</strong> Мы используем механику кодовых слов. В конце каждого динамичного 30-секундного Reels вы говорите: "Напиши слово СИСТЕМА мне в Директ, и я пришлю тебе пошаговый план".
-                            </p>
+                    
+                    <div class="absolute -right-20 -bottom-20 text-[200px] text-yt/5 group-hover:scale-110 transition-transform duration-700 pointer-events-none"><i class="fa-brands fa-youtube"></i></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#FF0000] to-[#990000] rounded-2xl flex items-center justify-center text-3xl text-white shadow-[0_0_30px_rgba(255,0,0,0.5)]">
+                                <i class="fa-brands fa-youtube"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-3xl font-display font-black text-white uppercase tracking-tight">YouTube</h4>
+                                <p class="text-yt font-bold tracking-widest text-sm uppercase">Генератор Длинных Денег</p>
+                            </div>
                         </div>
-                        <div class="bg-[#121212] p-6 rounded-xl border border-white/5">
-                            <h5 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-bolt text-[#E1306C]"></i> Магия ManyChat</h5>
-                            <ul class="text-sm text-gray-400 space-y-2">
-                                <li>1. Зритель пишет "СИСТЕМА" в комментарии или Директ.</li>
-                                <li>2. Срабатывает нейросеть-автоответчик (ManyChat). Она мгновенно отправляет ему в Директ сообщение с файлом.</li>
-                                <li>3. Человек открывает файл (Taplink/Воронку), где ему продают дешевый продукт (Tripwire) или закрывают на бесплатную консультацию с вашим менеджером. Заявки сыплются на автомате.</li>
-                            </ul>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <p class="text-gray-300 mb-4 text-sm leading-relaxed">
+                                    YouTube — это поисковик номер два в мире. Если вы сняли ролик о том "Как инвестировать в 2026 году", этот ролик будет приносить вам горячих клиентов и через 3 года. Это вечнозеленый актив.
+                                </p>
+                                <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                                    <strong>Как это работает:</strong> Мы выкладываем 20-минутное видео. Оно SEO-оптимизировано (теги, таймкоды). Человек ищет решение своей проблемы -> находит вас -> смотрит видео. За 20 минут формируется колоссальный уровень доверия (парасоциальные связи).
+                                </p>
+                            </div>
+                            <div class="bg-[#121212] p-6 rounded-xl border border-white/5 relative z-10">
+                                <h5 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-magnet text-yt"></i> Воронка внутри видео</h5>
+                                <ul class="text-sm text-gray-400 space-y-2">
+                                    <li>1. На 1-й минуте (Hook) мы обещаем дать решение.</li>
+                                    <li>2. На 10-й минуте нативная интеграция: "Кстати, полную таблицу я выложил в свой Telegram. Ссылка в описании".</li>
+                                    <li>3. Конечные заставки переводят зрителя на другие ваши ролики, зацикливая его в вашем контенте.</li>
+                                    <li>4. В закрепленном комментарии и описании — мультиссылки на покупку услуг/запись на созвон.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="relative bg-[#050505] rounded-3xl p-8 border border-white/20 overflow-hidden group">
-                <div class="absolute -right-20 -bottom-20 text-[200px] text-white/5 group-hover:scale-110 transition-transform duration-700 pointer-events-none"><i class="fa-brands fa-tiktok"></i></div>
-                <div class="relative z-10">
-                    <div class="flex items-center gap-5 mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#25F4EE] to-[#FE2C55] rounded-2xl flex items-center justify-center text-3xl text-white shadow-[0_0_30px_rgba(255,255,255,0.3)]">
-                            <i class="fa-brands fa-tiktok"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-3xl font-display font-black text-white uppercase tracking-tight">TikTok / VK Клипы</h4>
-                            <p class="text-white font-bold tracking-widest text-sm uppercase">Массовый Трафик</p>
-                        </div>
+                <div class="relative bg-[#050505] rounded-3xl p-8 border border-[#E1306C]/20 overflow-hidden group hover:border-[#E1306C]/50 transition-colors">
+                    <div class="floating-bg-container">
+                        <span class="ig-heart" style="bottom: -10%; left: 15%; animation-duration: 5s; animation-delay: 0s; font-size: 1.5rem;"><i class="fa-solid fa-heart"></i></span>
+                        <span class="ig-heart" style="bottom: -10%; left: 40%; animation-duration: 6s; animation-delay: 2s; font-size: 2.5rem;"><i class="fa-solid fa-heart"></i></span>
+                        <span class="ig-heart" style="bottom: -10%; right: 25%; animation-duration: 4s; animation-delay: 1s; font-size: 1rem;"><i class="fa-solid fa-heart"></i></span>
+                        <span class="ig-heart" style="bottom: -10%; right: 10%; animation-duration: 7s; animation-delay: 3s; font-size: 2rem;"><i class="fa-solid fa-heart"></i></span>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <p class="text-gray-300 mb-4 text-sm leading-relaxed">
-                                Эти платформы нужны для "ковровой бомбардировки". Алгоритмы TikTok и VK могут за ночь насыпать миллион просмотров на абсолютно новый аккаунт, если ролик имеет высокую глубину просмотра (которую мы обеспечили на этапе монтажа).
-                            </p>
-                            <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                                <strong>Как это работает:</strong> Мы массово заливаем контент. Весь трафик аккумулируется в шапке профиля (Bio).
-                            </p>
+                    
+                    <div class="absolute -right-20 -bottom-20 text-[200px] text-[#E1306C]/5 group-hover:scale-110 transition-transform duration-700 pointer-events-none"><i class="fa-brands fa-instagram"></i></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-2xl flex items-center justify-center text-3xl text-white shadow-[0_0_30px_rgba(225,48,108,0.5)]">
+                                <i class="fa-brands fa-instagram"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-3xl font-display font-black text-white uppercase tracking-tight">Instagram / Reels</h4>
+                                <p class="text-[#E1306C] font-bold tracking-widest text-sm uppercase">Агрессивный Охват и Лидген</p>
+                            </div>
                         </div>
-                        <div class="bg-[#121212] p-6 rounded-xl border border-white/5">
-                            <h5 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-link text-white"></i> Мультиссылка и Перелив</h5>
-                            <ul class="text-sm text-gray-400 space-y-2">
-                                <li>1. Трафик из TikTok переливается напрямую в ваш Telegram-канал (где его ждет бот-продавец) или на YouTube (для длинного прогрева).</li>
-                                <li>2. В VK работает связка "Клипы -> Подписка на рассылку Senler -> Цепочка писем -> Покупка".</li>
-                            </ul>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <p class="text-gray-300 mb-4 text-sm leading-relaxed">
+                                    Reels дают сумасшедший виральный охват. Люди просто листают ленту и натыкаются на ваши ролики. Это супер-холодная аудитория, которую нужно мгновенно цеплять и забирать их контакты, пока они не свайпнули дальше.
+                                </p>
+                                <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                                    <strong>Как это работает:</strong> Мы используем механику кодовых слов. В конце каждого динамичного 30-секундного Reels вы говорите: "Напиши слово СИСТЕМА мне в Директ, и я пришлю тебе пошаговый план".
+                                </p>
+                            </div>
+                            <div class="bg-[#121212] p-6 rounded-xl border border-white/5 relative z-10">
+                                <h5 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-bolt text-[#E1306C]"></i> Магия ManyChat</h5>
+                                <ul class="text-sm text-gray-400 space-y-2">
+                                    <li>1. Зритель пишет "СИСТЕМА" в комментарии или Директ.</li>
+                                    <li>2. Срабатывает нейросеть-автоответчик (ManyChat). Она мгновенно отправляет ему в Директ сообщение с файлом.</li>
+                                    <li>3. Человек открывает файл (Taplink/Воронку), где ему продают дешевый продукт (Tripwire) или закрывают на бесплатную консультацию с вашим менеджером. Заявки сыплются на автомате.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="mt-16 bg-gradient-to-r from-yt to-[#990000] rounded-3xl p-10 text-center shadow-[0_0_50px_rgba(229,45,39,0.3)] transform hover:scale-[1.02] transition-transform duration-500">
-                <i class="fa-solid fa-check-double text-5xl text-white mb-6"></i>
-                <h3 class="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-6 font-display">СИСТЕМА ЗАМКНУЛАСЬ</h3>
-                <p class="text-white/90 text-xl font-bold max-w-4xl mx-auto leading-relaxed">
-                    Вы получаете не лайки, не просмотры и не "охваты ради охватов". Вы получаете выстроенную цифровую империю, монополию на рынке. Вы один раз в месяц тратите 4 часа на съемки, а система 24/7 генерирует вам квалифицированные лиды, лояльность аудитории и деньги на расчетном счету. 
-                </p>
+                <div class="relative bg-[#050505] rounded-3xl p-8 border border-white/20 overflow-hidden group hover:border-white/50 transition-colors">
+                    <div class="floating-bg-container">
+                        <span class="tt-note" style="bottom: -15%; left: 20%; animation-duration: 8s; animation-delay: 0s; font-size: 2rem;"><i class="fa-solid fa-music"></i></span>
+                        <span class="tt-note" style="bottom: -15%; left: 45%; animation-duration: 10s; animation-delay: 3s; font-size: 1.2rem;"><i class="fa-solid fa-music"></i></span>
+                        <span class="tt-note" style="bottom: -15%; right: 30%; animation-duration: 7s; animation-delay: 1s; font-size: 1.8rem;"><i class="fa-solid fa-music"></i></span>
+                        <span class="tt-note" style="bottom: -15%; right: 10%; animation-duration: 9s; animation-delay: 5s; font-size: 1rem;"><i class="fa-solid fa-music"></i></span>
+                    </div>
+                    
+                    <div class="absolute -right-20 -bottom-20 text-[200px] text-white/5 group-hover:scale-110 transition-transform duration-700 pointer-events-none"><i class="fa-brands fa-tiktok"></i></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-[#25F4EE] to-[#FE2C55] rounded-2xl flex items-center justify-center text-3xl text-white shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+                                <i class="fa-brands fa-tiktok"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-3xl font-display font-black text-white uppercase tracking-tight">TikTok / VK Клипы</h4>
+                                <p class="text-white font-bold tracking-widest text-sm uppercase">Массовый Трафик</p>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <p class="text-gray-300 mb-4 text-sm leading-relaxed">
+                                    Эти платформы нужны для "ковровой бомбардировки". Алгоритмы TikTok и VK могут за ночь насыпать миллион просмотров на абсолютно новый аккаунт, если ролик имеет высокую глубину просмотра (которую мы обеспечили на этапе монтажа).
+                                </p>
+                                <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                                    <strong>Как это работает:</strong> Мы массово заливаем контент. Весь трафик аккумулируется в шапке профиля (Bio).
+                                </p>
+                            </div>
+                            <div class="bg-[#121212] p-6 rounded-xl border border-white/5 relative z-10">
+                                <h5 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-link text-white"></i> Мультиссылка и Перелив</h5>
+                                <ul class="text-sm text-gray-400 space-y-2">
+                                    <li>1. Трафик из TikTok переливается напрямую в ваш Telegram-канал (где его ждет бот-продавец) или на YouTube (для длинного прогрева).</li>
+                                    <li>2. В VK работает связка "Клипы -> Подписка на рассылку Senler -> Цепочка писем -> Покупка".</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 bg-gradient-to-r from-yt to-[#990000] rounded-3xl p-10 text-center shadow-[0_0_50px_rgba(229,45,39,0.3)] transform hover:scale-[1.02] transition-transform duration-500 relative z-10">
+                    <i class="fa-solid fa-check-double text-5xl text-white mb-6"></i>
+                    <h3 class="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-6 font-display">СИСТЕМА ЗАМКНУЛАСЬ</h3>
+                    <p class="text-white/90 text-xl font-bold max-w-4xl mx-auto leading-relaxed">
+                        Вы получаете не лайки, не просмотры и не "охваты ради охватов". Вы получаете выстроенную цифровую империю, монополию на рынке. Вы один раз в месяц тратите 4 часа на съемки, а система 24/7 генерирует вам квалифицированные лиды, лояльность аудитории и деньги на расчетном счету.
+                    </p>
+                </div>
             </div>
             
         </div>
