@@ -1157,6 +1157,114 @@
         .theme-t2 .t-icon-wrap.active-theme { color: #3b82f6; border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.1); }
         .theme-t3 .t-icon-wrap.active-theme { color: #E52D27; border-color: rgba(229,45,39,0.3); background: rgba(229,45,39,0.1); }
         .theme-t4 .t-icon-wrap.active-theme { color: #eab308; border-color: rgba(234,179,8,0.3); background: rgba(234,179,8,0.1); }
+
+        /* ================================================================== */
+        /* TARIFF SOCIAL NETWORKS BLOCK                                       */
+        /* ================================================================== */
+        .t-social-box { margin-bottom: 4rem; text-align: center; }
+        .t-social-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: #fff; text-transform: uppercase; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1rem; display: inline-block; }
+        .t-social-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        @media (min-width: 768px) { .t-social-grid { gap: 20px; } }
+        
+        .t-social-item {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            width: 90px; height: 90px; background: rgba(15,15,15,0.6);
+            border: 1px solid rgba(255,255,255,0.05); border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @media (min-width: 768px) { .t-social-item { width: 110px; height: 110px; } }
+        
+        .t-social-item i { font-size: 2rem; margin-bottom: 8px; color: #666; transition: all 0.4s; }
+        @media (min-width: 768px) { .t-social-item i { font-size: 2.5rem; } }
+        
+        .t-social-item span { font-size: 0.55rem; font-family: 'Syncopate', sans-serif; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1px; transition: color 0.4s; }
+        @media (min-width: 768px) { .t-social-item span { font-size: 0.65rem; } }
+        
+        /* Неоновые Hover-Эффекты для каждого бренда */
+        .t-social-item:hover { transform: translateY(-10px) scale(1.05); background: rgba(20,20,20,0.9); }
+        .t-social-item:hover span { color: #fff; }
+        
+        /* YouTube */
+        .t-social-item.s-yt:hover i { color: #E52D27; text-shadow: 0 0 20px rgba(229,45,39,0.6); }
+        .t-social-item.s-yt:hover { border-color: #E52D27; box-shadow: 0 10px 30px rgba(229,45,39,0.2); }
+        /* Telegram */
+        .t-social-item.s-tg:hover i { color: #2AABEE; text-shadow: 0 0 20px rgba(42,171,238,0.6); }
+        .t-social-item.s-tg:hover { border-color: #2AABEE; box-shadow: 0 10px 30px rgba(42,171,238,0.2); }
+        /* VKontakte */
+        .t-social-item.s-vk:hover i { color: #0077FF; text-shadow: 0 0 20px rgba(0,119,255,0.6); }
+        .t-social-item.s-vk:hover { border-color: #0077FF; box-shadow: 0 10px 30px rgba(0,119,255,0.2); }
+        /* Instagram */
+        .t-social-item.s-ig:hover i { color: #E1306C; text-shadow: 0 0 20px rgba(225,48,108,0.6); }
+        .t-social-item.s-ig:hover { border-color: #E1306C; box-shadow: 0 10px 30px rgba(225,48,108,0.2); }
+        /* Dzen */
+        .t-social-item.s-dz:hover i { color: #FFCC00; text-shadow: 0 0 20px rgba(255,204,0,0.6); }
+        .t-social-item.s-dz:hover { border-color: #FFCC00; box-shadow: 0 10px 30px rgba(255,204,0,0.2); }
+        /* TikTok */
+        .t-social-item.s-tt:hover i { color: #00f2fe; text-shadow: 0 0 20px rgba(0,242,254,0.6); }
+        .t-social-item.s-tt:hover { border-color: #00f2fe; box-shadow: 0 10px 30px rgba(0,242,254,0.2); }
+        /* Avito */
+        .t-social-item.s-av:hover i { color: #00AAFF; text-shadow: 0 0 20px rgba(0,170,255,0.6); }
+        .t-social-item.s-av:hover { border-color: #00AAFF; box-shadow: 0 10px 30px rgba(0,170,255,0.2); }
+        /* Geo/Maps */
+        .t-social-item.s-geo:hover i { color: #A855F7; text-shadow: 0 0 20px rgba(168,85,247,0.6); }
+        .t-social-item.s-geo:hover { border-color: #A855F7; box-shadow: 0 10px 30px rgba(168,85,247,0.2); }
+        /* Мессенджер Макс */
+        .t-social-item.s-max-msg:hover i { color: #00C2FF; text-shadow: 0 0 20px rgba(0,194,255,0.6); }
+        .t-social-item.s-max-msg:hover { border-color: #00C2FF; box-shadow: 0 10px 30px rgba(0,194,255,0.2); }
+        .t-social-item span { text-align: center; line-height: 1.2; } /* Выравнивание длинных названий */
+        /* Pinterest */
+        .t-social-item.s-pt:hover i { color: #E60023; text-shadow: 0 0 20px rgba(230,0,35,0.6); }
+        .t-social-item.s-pt:hover { border-color: #E60023; box-shadow: 0 10px 30px rgba(230,0,35,0.2); }
+
+        /* ================================================================== */
+        /* SIMPLE PROCESS ACCORDION (6 STEPS)                                 */
+        /* ================================================================== */
+        .sp-accordion-wrapper { display: flex; flex-direction: column; gap: 15px; }
+        
+        .sp-item { background: rgba(15, 15, 15, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1.5rem; overflow: hidden; transition: all 0.3s ease; }
+        .sp-item:hover { border-color: rgba(229, 45, 39, 0.3); background: rgba(20, 20, 20, 0.8); }
+        .sp-item.active { border-color: #E52D27; background: rgba(10, 10, 10, 0.9); box-shadow: 0 10px 40px rgba(229, 45, 39, 0.1); }
+        
+        .sp-header { display: flex; align-items: center; padding: 20px 25px; cursor: pointer; gap: 20px; position: relative; user-select: none; }
+        @media (min-width: 768px) { .sp-header { padding: 30px 40px; gap: 30px; } }
+        
+        .sp-number { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; color: rgba(255,255,255,0.1); line-height: 1; transition: color 0.3s; flex-shrink: 0; }
+        @media (min-width: 768px) { .sp-number { font-size: 3.5rem; } }
+        .sp-item.active .sp-number { color: #E52D27; }
+        
+        .sp-header-content { flex-grow: 1; padding-right: 30px; }
+        .sp-title { font-family: 'Unbounded', sans-serif; font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 5px; text-transform: uppercase; transition: color 0.3s; }
+        @media (min-width: 768px) { .sp-title { font-size: 1.5rem; margin-bottom: 8px; } }
+        .sp-item.active .sp-title { color: #E52D27; }
+        
+        .sp-brief { font-size: 0.85rem; color: #888; line-height: 1.4; font-weight: 400; }
+        @media (min-width: 768px) { .sp-brief { font-size: 1rem; } }
+        
+        .sp-icon-toggle { position: absolute; right: 25px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: #fff; transition: all 0.4s ease; flex-shrink: 0; font-size: 1.2rem; }
+        @media (min-width: 768px) { .sp-icon-toggle { right: 40px; width: 50px; height: 50px; font-size: 1.5rem; } }
+        .sp-item:hover .sp-icon-toggle { background: rgba(229, 45, 39, 0.1); color: #E52D27; }
+        .sp-item.active .sp-icon-toggle { background: #E52D27; color: #fff; transform: rotate(180deg); }
+
+        .sp-body { height: 0; overflow: hidden; }
+        .sp-body-inner { padding: 0 25px 30px 25px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 10px; padding-top: 25px; }
+        @media (min-width: 768px) { .sp-body-inner { padding: 0 40px 40px 40px; margin-top: 15px; padding-top: 30px; margin-left: 85px; } } /* Отступ слева под текстом на ПК */
+
+        .sp-text { font-size: 0.95rem; color: #a3a3a3; line-height: 1.7; margin-bottom: 1.5rem; }
+        @media (min-width: 768px) { .sp-text { font-size: 1.1rem; line-height: 1.8; } }
+
+        .sp-split-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 2rem; margin-bottom: 2rem; }
+        @media (min-width: 768px) { .sp-split-grid { grid-template-columns: 1fr 1fr; gap: 20px; } }
+        
+        .sp-split-card { background: rgba(0,0,0,0.5); border: 1px dashed rgba(255,255,255,0.1); border-radius: 1rem; padding: 20px; }
+        .sp-split-card h4 { font-size: 1rem; text-transform: uppercase; font-family: 'Unbounded', sans-serif; letter-spacing: 0.5px; }
+        
+        .sp-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+        .sp-list li { position: relative; padding-left: 20px; color: #ccc; font-size: 0.85rem; line-height: 1.5; }
+        .sp-list li::before { content: '—'; position: absolute; left: 0; color: #666; }
+        @media (min-width: 768px) { .sp-list li { font-size: 0.95rem; } }
+
+        .sp-result { background: linear-gradient(to right, rgba(229, 45, 39, 0.1), transparent); border-left: 4px solid #E52D27; padding: 15px 20px; border-radius: 0 10px 10px 0; font-size: 0.9rem; color: #fff; }
+        @media (min-width: 768px) { .sp-result { font-size: 1rem; padding: 20px 25px; } }
     </style>
 
     <section id="services-matrix" class="py-20 md:py-32 relative z-10 bg-[#050505] overflow-hidden border-t border-white/5">
@@ -1419,231 +1527,245 @@
         </div>
     </section>
 
-    <section id="process" class="py-20 md:py-32 relative z-10 bg-[#020202] overflow-hidden">
-        <div class="absolute top-[5%] left-[0%] w-[400px] h-[400px] bg-yt/10 rounded-full blur-[150px] pointer-events-none"></div>
-        <div class="absolute top-[40%] right-[0%] w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[150px] pointer-events-none"></div>
-        <div class="absolute bottom-[5%] left-[10%] w-[600px] h-[600px] bg-green-900/10 rounded-full blur-[200px] pointer-events-none"></div>
+    <section id="process" class="py-20 md:py-32 relative z-10 bg-[#020202] border-t border-white/5">
+        <div class="absolute top-[10%] left-[-10%] w-[400px] h-[400px] bg-yt/10 rounded-full blur-[150px] pointer-events-none"></div>
+        <div class="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-[150px] pointer-events-none"></div>
 
-        <div class="max-w-[1200px] mx-auto px-4 md:px-6 relative z-10">
+        <div class="max-w-[1000px] mx-auto px-4 md:px-6 relative z-10">
             
-            <div class="text-center mb-16 md:mb-32 cp-reveal">
-                <div class="inline-block border border-yt/30 bg-yt/10 text-yt px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6">Архитектура вашего масштаба</div>
-                <h2 class="font-display text-4xl sm:text-5xl md:text-7xl font-black uppercase mb-4 md:mb-8 leading-none tracking-tighter text-white">
-                    Архитектура <span class="red-gradient-text">Захвата</span>
+            <div class="text-center mb-12 md:mb-20 gsap-fade-up">
+                <div class="inline-block border border-yt/30 bg-yt/10 text-yt px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6">Как мы работаем</div>
+                <h2 class="font-display text-4xl sm:text-5xl md:text-6xl font-black uppercase mb-4 md:mb-6 leading-none tracking-tighter text-white">
+                    6 шагов к <span class="text-yt">продажам</span>
                 </h2>
-                <p class="text-sm sm:text-base md:text-xl text-gray-400 max-w-4xl mx-auto font-light leading-relaxed">
-                    Мы не работаем в формате «вы нам платите, мы снимаем видео». Мы внедряемся в ваш бизнес как внешний <strong>in-house отдел медиа-маркетинга</strong>. 6 жестко регламентированных этапов, которые превращают пиксели на экране в чистую прибыль.
+                <p class="text-base md:text-xl text-gray-400 max-w-2xl mx-auto font-light leading-relaxed">
+                    Простая и прозрачная система. Вы тратите всего 4 часа в месяц, остальное делает наша команда. Нажмите на любой шаг, чтобы узнать подробности.
                 </p>
             </div>
 
-            <div class="relative w-full pb-10 md:pb-20" id="client-journey">
-                <div class="journey-line hidden md:block"><div class="journey-progress h-0" id="jp-bar"></div></div>
+            <div class="sp-accordion-wrapper" id="simple-process-accordion">
 
-                <div class="cp-step relative flex flex-col md:flex-row justify-between items-center w-full" id="step-1">
-                    <div class="hidden md:flex step-marker"><div class="marker-dot"></div></div>
-                    <div class="w-full md:w-[45%] mb-8 md:mb-0 text-left md:text-right pr-0 md:pr-12 cp-text" data-dir="-1">
-                        <div class="text-yt font-display font-black text-5xl md:text-7xl mb-1 md:mb-2 opacity-20">ШАГ 01</div>
-                        <h3 class="font-display font-black text-2xl md:text-4xl text-white uppercase mb-4 md:mb-6">Глубинная Распаковка</h3>
-                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-4">
-                            Любой контент без стратегии — это слив бюджета. Мы начинаем с многочасового аудита (CustDev). Команда из 5 экспертов погружается в ваш бизнес, чтобы вытащить уникальные смыслы, которые конкуренты не смогут скопировать.
-                        </p>
-                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-6">
-                            <strong>Для B2B:</strong> Ищем оптовиков, бьем в боли логистики, маржинальности и окупаемости.<br>
-                            <strong>Для Инфобизнеса:</strong> Строим премиальный личный бренд, формирующий фанатичную лояльность и продающий наставничество за миллионы.
-                        </p>
+                <div class="sp-item gsap-fade-up">
+                    <div class="sp-header">
+                        <div class="sp-number">01</div>
+                        <div class="sp-header-content">
+                            <h3 class="sp-title">Знакомство и План</h3>
+                            <p class="sp-brief">Погружаемся в ваш бизнес, находим сильные стороны и пишем темы для видео, которые будут смотреть ваши клиенты.</p>
+                        </div>
+                        <div class="sp-icon-toggle"><i class="fa-solid fa-chevron-down"></i></div>
                     </div>
-                    <div class="w-full md:w-[45%] pl-0 md:pl-12 cp-visual">
-                        <div class="glass-card h-[300px] md:h-[450px] relative border-yt/20 flex items-center justify-center overflow-hidden w-room-anim">
-                            <div class="war-room-grid"></div>
-                            <div class="expert-card ec-1"><i class="fa-solid fa-chess expert-icon"></i><div class="expert-info"><span class="expert-role">Стратег</span><span class="expert-name">Аудит</span></div></div>
-                            <div class="expert-card ec-2"><i class="fa-solid fa-magnifying-glass-chart expert-icon"></i><div class="expert-info"><span class="expert-role">Аналитик</span><span class="expert-name">Аудитория</span></div></div>
-                            <div class="expert-card ec-3"><i class="fa-solid fa-filter expert-icon"></i><div class="expert-info"><span class="expert-role">Маркетолог</span><span class="expert-name">Воронка</span></div></div>
-                            <div class="expert-card ec-4"><i class="fa-solid fa-pen-nib expert-icon"></i><div class="expert-info"><span class="expert-role">Сценарист</span><span class="expert-name">Смыслы</span></div></div>
-                            <div class="strategy-core">
-                                <span class="absolute text-[8px] md:text-[10px] text-white font-bold tracking-widest mt-20 md:mt-24 uppercase">План Захвата</span>
+                    <div class="sp-body">
+                        <div class="sp-body-inner">
+                            <p class="sp-text">Всё начинается с простого разговора. Мы созваниваемся с вами и задаем много вопросов о вашем бизнесе. Нам нужно понять: кто ваши клиенты, почему они покупают именно у вас, какие у них страхи и сомнения. Мы не придумываем темы для видео из головы. Мы берем то, что реально волнует людей, и превращаем это в сценарии.</p>
+                            <p class="sp-text">Вам не нужно быть маркетологом. Наша команда анализирует конкурентов, смотрит, что сейчас популярно на YouTube в вашей нише, и составляет пошаговый план на месяцы вперед. Мы делаем так, чтобы каждое видео работало на вашу репутацию и продажи.</p>
+                            
+                            <div class="sp-split-grid">
+                                <div class="sp-split-card">
+                                    <h4 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-user text-gray-500"></i> Ваша задача:</h4>
+                                    <ul class="sp-list">
+                                        <li>Выделить 1-2 часа на онлайн-созвон с нами.</li>
+                                        <li>Честно рассказать о своем бизнесе и клиентах.</li>
+                                    </ul>
+                                </div>
+                                <div class="sp-split-card">
+                                    <h4 class="text-yt font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-people-group text-yt"></i> Наша задача:</h4>
+                                    <ul class="sp-list">
+                                        <li>Изучить ваших конкурентов от и до.</li>
+                                        <li>Найти "горячие" запросы, которые ищут люди.</li>
+                                        <li>Написать готовые сценарии для роликов.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sp-result mt-6">
+                                <strong>Результат этапа:</strong> У вас на руках понятный контент-план и готовые сценарии. Вы точно знаете, о чем будете говорить в кадре и зачем это нужно.
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="cp-step relative flex flex-col md:flex-row-reverse justify-between items-center w-full" id="step-2">
-                    <div class="hidden md:flex step-marker"><div class="marker-dot"></div></div>
-                    <div class="w-full md:w-[45%] mb-8 md:mb-0 pl-0 md:pl-12 cp-text" data-dir="1">
-                        <div class="text-blue-500 font-display font-black text-5xl md:text-7xl mb-1 md:mb-2 opacity-20">ШАГ 02</div>
-                        <h3 class="font-display font-black text-2xl md:text-4xl text-white uppercase mb-4 md:mb-6">Инженерия Воронок</h3>
-                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-4">
-                            Просмотры не платят зарплату сотрудникам. Перед тем как включить камеру, мы проектируем невидимый лабиринт (CJM), который доведет зрителя до кассы.
-                        </p>
-                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-6">
-                            Создаем <strong>кликбейтные лид-магниты</strong> (PDF-таблицы, закрытые гайды). Программируем умных Telegram-ботов, которые квалифицируют клиента (узнают его бюджет и запрос) 24/7. Вся база бесшовно интегрируется с вашей AmoCRM или Bitrix24.
-                        </p>
+                <div class="sp-item gsap-fade-up">
+                    <div class="sp-header">
+                        <div class="sp-number">02</div>
+                        <div class="sp-header-content">
+                            <h3 class="sp-title">Настройка Воронки (Путь клиента)</h3>
+                            <p class="sp-brief">Делаем так, чтобы зритель не просто посмотрел видео и ушел, а оставил заявку и стал вашим покупателем.</p>
+                        </div>
+                        <div class="sp-icon-toggle"><i class="fa-solid fa-chevron-down"></i></div>
                     </div>
-                    <div class="w-full md:w-[45%] pr-0 md:pr-12 cp-visual">
-                        <div class="glass-card min-h-[350px] md:min-h-[450px] bg-gradient-to-b from-[#0a0a0a] to-[#050505] border border-[#222]">
-                            <div class="funnel-flow">
-                                <div class="f-node f-n1 w-[80%]"><i class="fa-brands fa-youtube text-yt mr-2"></i> Холодный Трафик</div>
-                                <div class="f-line f-l1"></div>
-                                <div class="f-node f-n2 w-[70%]"><i class="fa-solid fa-magnet text-blue-500 mr-2"></i> Скачивание Лид-Магнита</div>
-                                <div class="f-line f-l2"></div>
-                                <div class="f-split">
-                                    <div class="flex flex-col items-center">
-                                        <div class="f-node f-n3 w-[130px] text-xs"><i class="fa-brands fa-telegram text-[#2AABEE] mb-1"></i><br>Прогрев в TG</div>
-                                    </div>
-                                    <div class="flex flex-col items-center">
-                                        <div class="f-node f-n4 w-[130px] text-xs"><i class="fa-solid fa-robot text-purple-500 mb-1"></i><br>Квалификация</div>
-                                    </div>
+                    <div class="sp-body">
+                        <div class="sp-body-inner">
+                            <p class="sp-text">Просто просмотры на YouTube не приносят денег. Деньги приносят контакты потенциальных клиентов. Поэтому перед началом съемок мы создаем систему, которая будет "ловить" зрителей.</p>
+                            <p class="sp-text">Как это выглядит? В каждом видео мы будем предлагать зрителям забрать что-то полезное бесплатно: расчет стоимости, полезный чек-лист или секретный гайд. Чтобы это получить, человек переходит по ссылке в удобный Telegram-бот. Бот автоматически выдает материал, задает пару вопросов (например, "Какой у вас бюджет?") и отправляет готовый номер телефона прямо вашему менеджеру по продажам.</p>
+                            
+                            <div class="sp-split-grid">
+                                <div class="sp-split-card">
+                                    <h4 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-user text-gray-500"></i> Ваша задача:</h4>
+                                    <ul class="sp-list">
+                                        <li>Сказать нам, какой бесплатный бонус мы можем дать вашим клиентам (или мы придумаем его вместе).</li>
+                                    </ul>
                                 </div>
-                                <div class="f-line f-l3 mt-2"></div>
-                                <div class="f-node f-n5 w-[60%] highlight text-base"><i class="fa-solid fa-sack-dollar text-white mr-2"></i> Горячий Лид в CRM</div>
+                                <div class="sp-split-card">
+                                    <h4 class="text-yt font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-people-group text-yt"></i> Наша задача:</h4>
+                                    <ul class="sp-list">
+                                        <li>Красиво оформить полезный материал (гайд/чек-лист).</li>
+                                        <li>Настроить Telegram-бота, который работает 24/7.</li>
+                                        <li>Связать бота с вашей базой клиентов (CRM), чтобы вы не потеряли ни одной заявки.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sp-result mt-6">
+                                <strong>Результат этапа:</strong> У вас есть полностью автоматизированный помощник, который собирает номера телефонов зрителей, пока вы спите.
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="cp-step relative flex flex-col md:flex-row justify-between items-center w-full" id="step-3">
-                    <div class="hidden md:flex step-marker"><div class="marker-dot"></div></div>
-                    <div class="w-full md:w-[45%] mb-8 md:mb-0 text-left md:text-right pr-0 md:pr-12 cp-text" data-dir="-1">
-                        <div class="text-yt font-display font-black text-5xl md:text-7xl mb-1 md:mb-2 opacity-20">ШАГ 03</div>
-                        <h3 class="font-display font-black text-2xl md:text-4xl text-white uppercase mb-4 md:mb-6">Премиальный Продакшн</h3>
-                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-4">
-                            Сценаристы уровня ТВ пишут тексты по формуле H-V-C (Hook-Value-CTA), чтобы удерживать внимание с первых секунд. Вы не учите текст, вы читаете его с суфлера.
-                        </p>
-                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-6">
-                            <strong>Оффлайн:</strong> Съемка в наших студиях (МСК, СПБ, КРД). Кинокамеры (Sony Cinema Line), объемный 3D-свет. Продюсер на площадке вытягивает из вас харизму.<br>
-                            <strong>Дистанционно:</strong> Наш тех. специалист по видеосвязи настраивает идеальный кадр, свет и звук в вашем офисе в любой точке мира.
-                        </p>
+                <div class="sp-item gsap-fade-up">
+                    <div class="sp-header">
+                        <div class="sp-number">03</div>
+                        <div class="sp-header-content">
+                            <h3 class="sp-title">Съемки без стресса</h3>
+                            <p class="sp-brief">Вы приезжаете в студию на 4 часа в месяц. Не нужно учить текст — просто читаете с экрана, как телеведущий.</p>
+                        </div>
+                        <div class="sp-icon-toggle"><i class="fa-solid fa-chevron-down"></i></div>
                     </div>
-                    <div class="w-full md:w-[45%] pl-0 md:pl-12 cp-visual">
-                        <div class="glass-card p-3 md:p-4 min-h-[300px] md:min-h-[450px] flex flex-col relative border border-white/10">
-                            <div class="absolute top-6 right-6 z-30 bg-black/80 px-3 py-1 rounded-full text-white text-[10px] font-bold tracking-widest flex items-center border border-white/10">
-                                <span class="rec-dot"></span> REC 4K
-                            </div>
-                            <div class="toggle-wrapper" id="shoot-toggle">
-                                <div class="toggle-indicator" id="toggle-bg"></div>
-                                <div class="toggle-btn active" data-target="view-studio">Студия</div>
-                                <div class="toggle-btn" data-target="view-home">Ваш Офис</div>
-                            </div>
-                            <div class="relative w-full flex-grow min-h-[200px] md:min-h-[250px]">
-                                <div class="view-content active absolute inset-0 w-full h-full rounded-xl overflow-hidden" id="view-studio">
-                                    <img src="https://images.unsplash.com/photo-1598550476439-6847785fcea6?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
-                                    <div class="absolute bottom-4 left-4 right-4">
-                                        <div class="text-white font-bold text-sm md:text-lg mb-1"><i class="fa-solid fa-video text-yt mr-2"></i>МСК / СПБ / КРД</div>
-                                        <p class="text-[10px] md:text-xs text-gray-300">Полный контроль кадра. Кинокамеры и студийный свет.</p>
-                                    </div>
+                    <div class="sp-body">
+                        <div class="sp-body-inner">
+                            <p class="sp-text">Самый частый страх клиентов: "Я боюсь камеры, я забуду слова, я буду плохо выглядеть". Забудьте об этом. Съемки с нами — это комфортный и спокойный процесс. Мы арендуем красивую профессиональную студию. Наш продюсер на площадке выставит правильный свет, который скроет недостатки и сделает картинку "дорогой".</p>
+                            <p class="sp-text">Вам абсолютно не нужно заучивать текст наизусть! Мы используем профессиональный телесуфлер (экран прямо перед объективом камеры, по которому бежит текст). Вы просто сидите, пьете кофе и выразительно читаете заранее написанные нами сценарии. Ошиблись? Ничего страшного, мы просто перепишем дубль, а на монтаже всё склеим идеально. Если вы находитесь в другом городе или стране — наш технический специалист поможет вам выставить идеальный кадр дома или в офисе по видеосвязи.</p>
+                            
+                            <div class="sp-split-grid">
+                                <div class="sp-split-card">
+                                    <h4 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-user text-gray-500"></i> Ваша задача:</h4>
+                                    <ul class="sp-list">
+                                        <li>Приехать в студию 1 раз в месяц (в Москве, СПб или Краснодаре) на 4 часа.</li>
+                                        <li>Читать текст с суфлера.</li>
+                                    </ul>
                                 </div>
-                                <div class="view-content absolute inset-0 w-full h-full rounded-xl overflow-hidden" id="view-home">
-                                    <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
-                                    <div class="absolute bottom-4 left-4 right-4">
-                                        <div class="text-white font-bold text-sm md:text-lg mb-1"><i class="fa-solid fa-globe text-blue-500 mr-2"></i>Global Remote</div>
-                                        <p class="text-[10px] md:text-xs text-gray-300">Дистанционный сетап оборудования по видеосвязи.</p>
-                                    </div>
+                                <div class="sp-split-card">
+                                    <h4 class="text-yt font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-people-group text-yt"></i> Наша задача:</h4>
+                                    <ul class="sp-list">
+                                        <li>Арендовать студию и привезти кино-камеры.</li>
+                                        <li>Настроить идеальный свет и чистый звук.</li>
+                                        <li>Помочь вам расслабиться в кадре и выглядеть уверенно.</li>
+                                    </ul>
                                 </div>
+                            </div>
+                            <div class="sp-result mt-6">
+                                <strong>Результат этапа:</strong> Отснятый материал в идеальном качестве за минимум вашего личного времени.
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="cp-step relative flex flex-col md:flex-row-reverse justify-between items-center w-full" id="step-4">
-                    <div class="hidden md:flex step-marker"><div class="marker-dot"></div></div>
-                    <div class="w-full md:w-[45%] mb-8 md:mb-0 pl-0 md:pl-12 cp-text" data-dir="1">
-                        <div class="text-purple-500 font-display font-black text-5xl md:text-7xl mb-1 md:mb-2 opacity-20">ШАГ 04</div>
-                        <h3 class="font-display font-black text-2xl md:text-4xl text-white uppercase mb-4 md:mb-6">Нейромонтаж & Удержание</h3>
-                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-4">
-                            Сырой материал — это лишь глина. Наши режиссеры монтажа разрезают его на атомы. Смена планов каждые 5-7 секунд, динамические субтитры, визуализация смыслов (B-roll) и агрессивный саунд-дизайн.
-                        </p>
-                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-6">
-                            Главная метрика YouTube — <strong>Retention (Удержание)</strong>. Мы искусственно разгоняем удержание зрителя выше 50%. Только тогда алгоритмы признают ролик гениальным и начинают бесплатно рекомендовать его миллионам.
-                        </p>
+                <div class="sp-item gsap-fade-up">
+                    <div class="sp-header">
+                        <div class="sp-number">04</div>
+                        <div class="sp-header-content">
+                            <h3 class="sp-title">Магия монтажа и упаковки</h3>
+                            <p class="sp-brief">Убираем все запинки, добавляем динамику, музыку и картинки, чтобы видео смотрелось на одном дыхании.</p>
+                        </div>
+                        <div class="sp-icon-toggle"><i class="fa-solid fa-chevron-down"></i></div>
                     </div>
-                    <div class="w-full md:w-[45%] pr-0 md:pr-12 cp-visual">
-                        <div class="glass-card h-[300px] md:h-[450px] bg-[#080808] p-4 flex flex-col justify-between border-purple-500/20">
-                            <div class="flex justify-between items-center text-[10px] font-tech text-gray-500 mb-2 border-b border-white/5 pb-2">
-                                <span>DMH_Timeline_Final.drp</span>
-                                <span class="text-white bg-purple-500/20 px-2 py-1 rounded">Удержание: 64%</span>
+                    <div class="sp-body">
+                        <div class="sp-body-inner">
+                            <p class="sp-text">Даже если на съемках вы запинались через каждое слово — на видео вы будете выглядеть как гениальный оратор. Наши режиссеры монтажа убирают все лишние вздохи, паузы и "экания". Чтобы зритель не заскучал, мы постоянно меняем масштаб кадра, делаем приближения и отдаления.</p>
+                            <p class="sp-text">Когда вы говорите о важных вещах, мы показываем на экране соответствующие картинки (графики, видео-вставки, примеры работ), чтобы слова подкреплялись визуально. Обязательно добавляем красивые субтитры — больше половины людей смотрят видео без звука в транспорте или на работе. А наши дизайнеры рисуют яркие, цепляющие обложки (превью) для видео, мимо которых невозможно пройти на YouTube.</p>
+                            
+                            <div class="sp-split-grid">
+                                <div class="sp-split-card">
+                                    <h4 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-user text-gray-500"></i> Ваша задача:</h4>
+                                    <ul class="sp-list">
+                                        <li>Просто отдыхать и заниматься своим бизнесом.</li>
+                                        <li>Посмотреть готовое видео и сказать "Круто!".</li>
+                                    </ul>
+                                </div>
+                                <div class="sp-split-card">
+                                    <h4 class="text-yt font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-people-group text-yt"></i> Наша задача:</h4>
+                                    <ul class="sp-list">
+                                        <li>Вырезать все ошибки и сделать речь идеальной.</li>
+                                        <li>Наложить музыку, звуки и красивые субтитры.</li>
+                                        <li>Нарисовать сочные обложки для привлечения кликов.</li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="editor-ui">
-                                <div class="e-playhead" id="tl-playhead"></div>
-                                <div class="text-[9px] text-gray-500 uppercase font-bold tracking-widest mt-2">V1 / Основной спикер</div>
-                                <div class="e-track tl-row-1">
-                                    <div class="e-clip red w-[25%]"></div>
-                                    <div class="e-clip red w-[30%]"></div>
-                                    <div class="e-clip red flex-grow"></div>
-                                </div>
-                                <div class="text-[9px] text-gray-500 uppercase font-bold tracking-widest mt-2">V2 / Перебивки B-Roll</div>
-                                <div class="e-track tl-row-2">
-                                    <div class="e-clip blue w-[15%] ml-[15%]"></div>
-                                    <div class="e-clip blue w-[20%] ml-[10%]"></div>
-                                    <div class="e-clip blue w-[10%] ml-[20%]"></div>
-                                </div>
-                                <div class="text-[9px] text-gray-500 uppercase font-bold tracking-widest mt-2">A1 / Sound Design (Свуши)</div>
-                                <div class="e-track tl-row-3">
-                                    <div class="e-clip purple w-[5%] ml-[10%] opacity-60"></div>
-                                    <div class="e-clip purple w-[8%] ml-[25%] opacity-60"></div>
-                                    <div class="e-clip purple w-[5%] ml-[15%] opacity-60"></div>
-                                    <div class="e-clip purple w-[12%] ml-[20%] opacity-60"></div>
-                                </div>
+                            <div class="sp-result mt-6">
+                                <strong>Результат этапа:</strong> Готовые видеоролики телевизионного качества, которые формируют мощное доверие к вам как к эксперту.
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="cp-step relative flex flex-col md:flex-row justify-between items-center w-full" id="step-5">
-                    <div class="hidden md:flex step-marker"><div class="marker-dot"></div></div>
-                    <div class="w-full md:w-[45%] mb-8 md:mb-0 text-left md:text-right pr-0 md:pr-12 cp-text" data-dir="-1">
-                        <div class="text-[#FFCC00] font-display font-black text-5xl md:text-7xl mb-1 md:mb-2 opacity-20">ШАГ 05</div>
-                        <h3 class="font-display font-black text-2xl md:text-4xl text-white uppercase mb-4 md:mb-6">Синдикат Трафика</h3>
-                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-4">
-                            Мы не ждем чуда. Созданный контент-актив моментально режется на десятки Shorts/Reels и конвертируется в текстовые статьи для Дзена. Начинается <strong>омниканальная дистрибуция</strong>.
-                        </p>
-                        <p class="text-gray-400 text-sm md:text-lg leading-relaxed mb-6">
-                            Для мгновенного результата в дело вступает отдел Media Buying. Мы скупаем нативную рекламу в профильных Telegram-каналах вашей ниши. Запускаем ретаргетинг в Яндекс.Директ. Мы выкупаем всё внимание на рынке, направляя его в воронку.
-                        </p>
+                <div class="sp-item gsap-fade-up">
+                    <div class="sp-header">
+                        <div class="sp-number">05</div>
+                        <div class="sp-header-content">
+                            <h3 class="sp-title">Запуск и Реклама (Вездесущность)</h3>
+                            <p class="sp-brief">Публикуем видео во все соцсети и закупаем рекламу, чтобы о вас узнал весь ваш рынок.</p>
+                        </div>
+                        <div class="sp-icon-toggle"><i class="fa-solid fa-chevron-down"></i></div>
                     </div>
-                    <div class="w-full md:w-[45%] pl-0 md:pl-12 cp-visual">
-                        <div class="glass-card h-[300px] md:h-[450px] relative border-[#FFCC00]/20 bg-[#050505] overflow-hidden flex flex-col justify-center items-center">
-                            <div class="orbit-container">
-                                <div class="orbit-core"><i class="fa-brands fa-youtube"></i></div>
-                                <div class="orbit-ring or-1">
-                                    <div class="orbit-sat"><i class="fa-brands fa-telegram text-[#2AABEE]"></i></div>
-                                    <div class="orbit-sat" style="top: auto; bottom: -20px;"><i class="fa-solid fa-play text-green-500"></i></div>
+                    <div class="sp-body">
+                        <div class="sp-body-inner">
+                            <p class="sp-text">Создать классное видео — это только 20% успеха. 80% — это сделать так, чтобы его увидели нужные люди. Мы берем одно длинное видео и "нарезаем" из него десятки коротких, вертикальных роликов (Shorts, Reels, TikTok). Затем мы публикуем этот контент вообще везде: на YouTube, в Telegram, ВКонтакте, Дзен. Мы создаем эффект, что вы буквально повсюду.</p>
+                            <p class="sp-text">Но мы не ждем чуда от бесплатных алгоритмов. Чтобы получить результат быстро, наш отдел рекламы закупает платные размещения. Мы покупаем рекламу в крупных Telegram-каналах, где сидят ваши потенциальные клиенты. Мы настраиваем рекламу в Яндексе, чтобы люди, которые уже искали ваши услуги, видели ваши ролики. Мы выкупаем внимание.</p>
+                            
+                            <div class="sp-split-grid">
+                                <div class="sp-split-card">
+                                    <h4 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-user text-gray-500"></i> Ваша задача:</h4>
+                                    <ul class="sp-list">
+                                        <li>Одобрить рекламный бюджет (он обсуждается заранее).</li>
+                                    </ul>
                                 </div>
-                                <div class="orbit-ring or-2">
-                                    <div class="orbit-sat" style="top: 50%; left: -20px; transform: translateY(-50%);"><i class="fa-solid fa-star text-[#FFCC00]"></i></div>
-                                    <div class="orbit-sat" style="top: 50%; right: -20px; left: auto; transform: translateY(-50%);"><i class="fa-brands fa-vk text-[#0077FF]"></i></div>
+                                <div class="sp-split-card">
+                                    <h4 class="text-yt font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-people-group text-yt"></i> Наша задача:</h4>
+                                    <ul class="sp-list">
+                                        <li>Сделать десятки коротких роликов из одного длинного.</li>
+                                        <li>Опубликовать контент по правилам каждой соцсети.</li>
+                                        <li>Найти лучшие Telegram-каналы и купить там рекламу.</li>
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="absolute bottom-4 left-0 w-full text-center text-[9px] md:text-[11px] text-gray-500 uppercase tracking-[0.2em] font-bold">Экосистема 360°</div>
+                            <div class="sp-result mt-6">
+                                <strong>Результат этапа:</strong> Лавинообразный рост просмотров. О вас узнают тысячи новых, целевых людей.
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="cp-step relative flex flex-col md:flex-row-reverse justify-between items-center w-full mb-0" id="step-6">
-                    <div class="hidden md:flex step-marker"><div class="marker-dot"></div></div>
-                    <div class="w-full md:w-[45%] mb-8 md:mb-0 pl-0 md:pl-12 cp-text" data-dir="1">
-                        <div class="text-green-500 font-display font-black text-5xl md:text-7xl mb-1 md:mb-2 opacity-20">ФИНАЛ</div>
-                        <h3 class="font-display font-black text-3xl md:text-5xl text-white uppercase mb-4 md:mb-6 glow-text text-shadow">Капитализация</h3>
-                        <p class="text-gray-400 text-sm md:text-xl leading-relaxed mb-8">
-                            Конвейер запущен. YouTube формирует органический авторитет, шортсы дают виральные охваты, платный трафик масштабирует результат. Вы получаете монополию в своей нише и системный поток лояльных лидов с высочайшим LTV.
-                        </p>
-                        <a href="#contact" class="inline-block bg-yt text-white px-8 py-4 md:px-10 md:py-5 rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-white hover:text-yt transition-all transform hover:scale-105 shadow-[0_0_30px_rgba(229,45,39,0.5)] w-full md:w-auto text-center open-modal-btn">
-                            Запустить Систему
-                        </a>
+                <div class="sp-item gsap-fade-up">
+                    <div class="sp-header">
+                        <div class="sp-number">06</div>
+                        <div class="sp-header-content">
+                            <h3 class="sp-title">Продажи и Масштабирование</h3>
+                            <p class="sp-brief">Зрители становятся лояльными покупателями, стоимость привлечения клиента падает, а ваш доход растет.</p>
+                        </div>
+                        <div class="sp-icon-toggle"><i class="fa-solid fa-chevron-down"></i></div>
                     </div>
-                    <div class="w-full md:w-[45%] pr-0 md:pr-12 cp-visual">
-                        <div class="glass-card p-4 md:p-8 h-[250px] md:h-[450px] relative overflow-hidden flex flex-col justify-center items-center border border-green-500/30" id="leads-container">
-                            <div class="absolute inset-0 bg-green-500/10 z-0"></div>
-                            <div class="text-center z-10 relative">
-                                <div class="text-gray-400 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-3">Генерация выручки</div>
-                                <div class="text-5xl md:text-7xl font-display font-black text-white glow-counter mb-4">$<span id="lead-counter">0</span>K</div>
-                                <div class="inline-block bg-green-500/20 border border-green-500/50 text-green-500 px-4 py-2 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest">ROMI > 300%</div>
+                    <div class="sp-body">
+                        <div class="sp-body-inner">
+                            <p class="sp-text">Весь этот механизм начинает работать как единый конвейер. Человек видит ваш короткий ролик (Shorts) ➔ переходит на основное видео ➔ проникается доверием к вам как к эксперту ➔ переходит по ссылке в Telegram-бота ➔ оставляет номер телефона ➔ ваш отдел продаж закрывает сделку. Причем клиент приходит уже "теплый", он не задает глупых вопросов, он уже видел вас и доверяет вам.</p>
+                            <p class="sp-text">Самое главное в этой системе: видео, которые мы сняли сегодня, будут приносить вам бесплатных клиентов из поиска YouTube и через год, и через два. Это не разовая реклама, которая сгорает после отключения бюджета. Это ваши цифровые активы, которые со временем только накапливаются, делая вас лидером рынка и монополистом в своей нише.</p>
+                            
+                            <div class="sp-split-grid">
+                                <div class="sp-split-card">
+                                    <h4 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-user text-gray-500"></i> Ваша задача:</h4>
+                                    <ul class="sp-list">
+                                        <li>Оперативно звонить лидам, которые приходят из воронки.</li>
+                                        <li>Качественно оказывать свои услуги и продавать.</li>
+                                    </ul>
+                                </div>
+                                <div class="sp-split-card">
+                                    <h4 class="text-yt font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-people-group text-yt"></i> Наша задача:</h4>
+                                    <ul class="sp-list">
+                                        <li>Отслеживать, какие видео приносят больше денег.</li>
+                                        <li>Оптимизировать рекламу, чтобы заявки становились дешевле.</li>
+                                        <li>Масштабировать систему на новые площадки.</li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="lead-burst">
-                                <div class="lead-card-anim lc-1"><i class="fa-solid fa-briefcase text-green-400 mr-2"></i> B2B: Оптовая заявка</div>
-                                <div class="lead-card-anim lc-2"><i class="fa-solid fa-credit-card text-green-400 mr-2"></i> Оплата: 450 000 ₽</div>
-                                <div class="lead-card-anim lc-3 hidden md:block"><i class="fa-solid fa-calendar-check text-green-400 mr-2"></i> Консультация: VIP</div>
-                                <div class="lead-card-anim lc-4 hidden md:block"><i class="fa-brands fa-telegram text-blue-400 mr-2"></i> Новый лид с бота</div>
+                            <div class="sp-result mt-6 text-xl text-yt font-bold">
+                                <strong>Итог работы:</strong> Стабильный, прогнозируемый поток клиентов и статус №1 в вашей сфере.
                             </div>
                         </div>
                     </div>
@@ -1888,7 +2010,7 @@
             <div class="terminal-grid gsap-fade-up">
                 
                 <div class="agent-card ac-1" onclick="openDossier('dossier-kirill')">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop" class="agent-photo" alt="Кирилл">
+                    <img src="Screenshot_18.jpg" class="agent-photo" alt="Кирилл">
                     <div class="agent-info">
                         <span class="agent-id">ID: 001 // STRATEGY & VISION</span>
                         <h3 class="agent-name">Кирилл А.</h3>
@@ -1941,7 +2063,7 @@
         <div class="term-container">
             <div class="term-left">
                 <div class="term-scanline"></div>
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop" class="term-photo" alt="Кирилл">
+                <img src="Screenshot_18.jpg" class="term-photo" alt="Кирилл">
             </div>
             <div class="term-right custom-scrollbar">
                 <div class="term-header">
@@ -2841,6 +2963,18 @@
                 </div>
             </div>
 
+            <div class="t-social-box">
+                <h3 class="t-social-title">Платформы вещания</h3>
+                <div class="t-social-grid">
+                    <div class="t-social-item s-yt"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
+                    <div class="t-social-item s-tg"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
+                    <div class="t-social-item s-vk"><i class="fa-brands fa-vk"></i><span>VKontakte</span></div>
+                    <div class="t-social-item s-ig"><i class="fa-brands fa-instagram"></i><span>НельзяГрам</span></div>
+                    <div class="t-social-item s-tt"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
+                    <div class="t-social-item s-max-msg"><i class="fa-solid fa-bolt"></i><span>Мессенджер<br>Макс</span></div>
+                </div>
+            </div>
+
             <div class="t-team-box">
                 <h3 class="t-team-title">Команда на проекте (6 специалистов)</h3>
                 <div class="t-team-grid">
@@ -2920,6 +3054,18 @@
                         <li><i class="fa-solid fa-check"></i> <strong>Саунд-дизайн уровня Pro:</strong> Нормализация голоса (чистка от шумов, эквализация), наложение атмосферных звуков (свуши, райзеры).</li>
                         <li><i class="fa-solid fa-check"></i> <strong>Сложная типографика:</strong> Внедрение плашек, инфографики и 2D-анимации поверх видео для объяснения сложных концепций.</li>
                     </ul>
+                </div>
+            </div>
+
+            <div class="t-social-box">
+                <h3 class="t-social-title">Омниканальность базового уровня</h3>
+                <div class="t-social-grid">
+                    <div class="t-social-item s-yt"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
+                    <div class="t-social-item s-tg"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
+                    <div class="t-social-item s-vk"><i class="fa-brands fa-vk"></i><span>VKontakte</span></div>
+                    <div class="t-social-item s-ig"><i class="fa-brands fa-instagram"></i><span>НельзяГрам</span></div>
+                    <div class="t-social-item s-tt"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
+                    <div class="t-social-item s-max-msg"><i class="fa-solid fa-bolt"></i><span>Мессенджер<br>Макс</span></div>
                 </div>
             </div>
 
@@ -3003,6 +3149,19 @@
                         <li><i class="fa-solid fa-check"></i> <strong>Когортный анализ:</strong> Понимание, как быстро окупается подписчик с YouTube или Telegram.</li>
                         <li><i class="fa-solid fa-check"></i> <strong>A/B тестирование обложек:</strong> Постоянная замена превью на старых роликах для поддержания "вечнозеленого" трафика.</li>
                     </ul>
+                </div>
+            </div>
+
+            <div class="t-social-box">
+                <h3 class="t-social-title">Агрессивный охват (Full Digital)</h3>
+                <div class="t-social-grid">
+                    <div class="t-social-item s-yt"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
+                    <div class="t-social-item s-tg"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
+                    <div class="t-social-item s-vk"><i class="fa-brands fa-vk"></i><span>VKontakte</span></div>
+                    <div class="t-social-item s-ig"><i class="fa-brands fa-instagram"></i><span>НельзяГрам</span></div>
+                    <div class="t-social-item s-dz"><i class="fa-solid fa-star"></i><span>Я.Дзен</span></div>
+                    <div class="t-social-item s-tt"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
+                    <div class="t-social-item s-max-msg"><i class="fa-solid fa-bolt"></i><span>Мессенджер<br>Макс</span></div>
                 </div>
             </div>
 
@@ -3090,6 +3249,22 @@
                         <li><i class="fa-solid fa-check"></i> <strong>Брендинг каналов:</strong> Разработка уникального визуального языка (Айдентики) для YouTube, TG, VK.</li>
                         <li><i class="fa-solid fa-check"></i> <strong>Редизайн Воронок:</strong> Создание высококонверсионных лендингов (Taplink/Tilda) для приема трафика из соцсетей.</li>
                     </ul>
+                </div>
+            </div>
+
+            <div class="t-social-box">
+                <h3 class="t-social-title">Абсолютное доминирование (MAX)</h3>
+                <div class="t-social-grid">
+                    <div class="t-social-item s-yt"><i class="fa-brands fa-youtube"></i><span>YouTube</span></div>
+                    <div class="t-social-item s-tg"><i class="fa-brands fa-telegram"></i><span>Telegram</span></div>
+                    <div class="t-social-item s-vk"><i class="fa-brands fa-vk"></i><span>VKontakte</span></div>
+                    <div class="t-social-item s-ig"><i class="fa-brands fa-instagram"></i><span>НельзяГрам</span></div>
+                    <div class="t-social-item s-dz"><i class="fa-solid fa-star"></i><span>Я.Дзен</span></div>
+                    <div class="t-social-item s-tt"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></div>
+                    <div class="t-social-item s-av"><i class="fa-solid fa-store"></i><span>Avito</span></div>
+                    <div class="t-social-item s-geo"><i class="fa-solid fa-map-location-dot"></i><span>Geo Maps</span></div>
+                    <div class="t-social-item s-pt"><i class="fa-brands fa-pinterest"></i><span>Pinterest</span></div>
+                    <div class="t-social-item s-max-msg"><i class="fa-solid fa-bolt"></i><span>Мессенджер<br>Макс</span></div>
                 </div>
             </div>
 
@@ -3324,95 +3499,64 @@
                 gsap.to("#pb-video-card", { y: -10, rotationX: 0, rotationY: 0, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut" });
             }
 
-            // 9. Путь Клиента (Архитектура Захвата - 6 шагов)
-            if(document.getElementById("client-journey")) {
-                // Прогресс-бар по истории
-                gsap.to("#jp-bar", { height: "100%", ease: "none", scrollTrigger: { trigger: "#client-journey", start: "top center", end: "bottom center", scrub: 0.5 } });
+            // 9. Простой путь клиента (Аккордеоны GSAP)
+            const processItems = document.querySelectorAll('.sp-item');
+            
+            if (processItems.length > 0) {
+                processItems.forEach(item => {
+                    const header = item.querySelector('.sp-header');
+                    const body = item.querySelector('.sp-body');
+                    const textElements = item.querySelectorAll('.sp-body-inner > *'); // Внутренние элементы для каскадного появления
 
-                // Общая анимация всех шагов (слайд текста/визуала)
-                document.querySelectorAll('.cp-step').forEach(step => {
-                    const text = step.querySelector('.cp-text');
-                    const visual = step.querySelector('.cp-visual');
-                    const marker = step.querySelector('.step-marker');
-                    const dot = step.querySelector('.marker-dot');
-                    const dir = text ? (text.getAttribute('data-dir') || -1) : -1;
-                    const isMobile = window.innerWidth <= 768;
+                    header.addEventListener('click', () => {
+                        const isActive = item.classList.contains('active');
 
-                    if(marker && dot) {
-                        gsap.to(marker, { scrollTrigger: { trigger: step, start: "top center", toggleClass: "border-yt" } });
-                        gsap.to(dot, { opacity: 1, scale: 1.2, scrollTrigger: { trigger: step, start: "top center" } });
-                    }
-                    if(text) gsap.from(text, { scrollTrigger: { trigger: step, start: "top 85%" }, x: isMobile ? 0 : 40 * dir, y: isMobile ? 40 : 0, opacity: 0, duration: 1.2, ease: "power3.out" });
-                    if(visual) gsap.from(visual, { scrollTrigger: { trigger: step, start: "top 85%" }, y: 50, scale: 0.9, opacity: 0, duration: 1.2, delay: 0.3, ease: "power3.out" });
-                });
-
-                // === ШАГ 1: Глубинная Распаковка (War Room Grid + Expert Cards) ===
-                const step1Tl = gsap.timeline({ scrollTrigger: { trigger: "#step-1", start: "top 70%" } });
-                step1Tl.from(".ec-1, .ec-2, .ec-3, .ec-4", { scale: 0, opacity: 0, duration: 0.5, stagger: 0.15, ease: "back.out(2)" })
-                        .to(".strategy-core", { scale: 1, opacity: 1, duration: 0.6, ease: "elasticOut" }, "-=0.2");
-
-                // === ШАГ 2: Инженерия Воронок (Funnel Flow - Sequential Nodes) ===
-                const step2Tl = gsap.timeline({ scrollTrigger: { trigger: "#step-2", start: "top 70%" } });
-                step2Tl.from(".f-n1", { x: -50, opacity: 0, duration: 0.5, ease: "power3.out" })
-                        .from(".f-l1", { scaleY: 0, opacity: 0, duration: 0.4, ease: "power2.inOut" }, "-=0.1")
-                        .from(".f-n2", { x: -50, opacity: 0, duration: 0.5, ease: "power3.out" }, "-=0.2")
-                        .from(".f-l2", { scaleY: 0, opacity: 0, duration: 0.4, ease: "power2.inOut" }, "-=0.1")
-                        .from(".f-split", { y: 20, opacity: 0, duration: 0.4 }, "-=0.1")
-                        .from(".f-n3, .f-n4", { scale: 0, opacity: 0, duration: 0.5, stagger: 0.15, ease: "back.out(1.5)" }, "-=0.2")
-                        .from(".f-l3", { scaleY: 0, opacity: 0, duration: 0.4, ease: "power2.inOut" }, "-=0.25")
-                        .from(".f-n5", { scale: 0, opacity: 0, y: 20, duration: 0.5, ease: "back.out(2)" }, "-=0.2");
-
-                // === ШАГ 3: Премиальный Продакшн (Studio/Home Toggle) ===
-                const toggleBtns = document.querySelectorAll('.toggle-btn');
-                const toggleBg = document.getElementById('toggle-bg');
-                const views = document.querySelectorAll('.view-content');
-
-                toggleBtns.forEach((btn, index) => {
-                    btn.addEventListener('click', () => {
-                        if(toggleBg) toggleBg.style.transform = index === 0 ? 'translateX(0)' : 'translateX(100%)';
-                        toggleBtns.forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-
-                        const targetId = btn.getAttribute('data-target');
-                        views.forEach(view => {
-                            if(view.id === targetId) {
-                                view.classList.add('active');
-                                gsap.to(view, { opacity: 1, duration: 0.4, ease: "power2.inOut" });
-                            } else {
-                                view.classList.remove('active');
-                                gsap.to(view, { opacity: 0, duration: 0.3, ease: "power2.inOut" });
+                        // Плавно закрываем все остальные открытые вкладки
+                        processItems.forEach(otherItem => {
+                            if (otherItem !== item && otherItem.classList.contains('active')) {
+                                otherItem.classList.remove('active');
+                                gsap.to(otherItem.querySelector('.sp-body'), { height: 0, duration: 0.4, ease: "power2.inOut" });
                             }
                         });
+
+                        if (!isActive) {
+                            // Открываем текущую вкладку
+                            item.classList.add('active');
+                            
+                            // Вычисляем реальную высоту контента
+                            gsap.set(body, { height: "auto" });
+                            const targetHeight = body.offsetHeight;
+                            gsap.set(body, { height: 0 });
+
+                            // Анимируем разворачивание
+                            gsap.to(body, { height: targetHeight, duration: 0.5, ease: "power3.inOut" });
+                            
+                            // Красиво и каскадно выводим текст внутри
+                            gsap.fromTo(textElements, 
+                                { y: 20, opacity: 0 }, 
+                                { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, delay: 0.2, ease: "power2.out" }
+                            );
+                            
+                            // Скроллим страницу к началу открытого элемента, если он уходит за экран (небольшой бонус для удобства)
+                            setTimeout(() => {
+                                const rect = item.getBoundingClientRect();
+                                if (rect.top < 100) {
+                                    window.scrollBy({ top: rect.top - 120, behavior: 'smooth' });
+                                }
+                            }, 500);
+
+                        } else {
+                            // Закрываем текущую вкладку
+                            item.classList.remove('active');
+                            gsap.to(body, { height: 0, duration: 0.4, ease: "power2.inOut" });
+                        }
                     });
                 });
 
-                // === ШАГ 4: Нейромонтаж & Удержание (Editor Timeline) ===
-                const step4Tl = gsap.timeline({ scrollTrigger: { trigger: "#step-4", start: "top 70%" } });
-                step4Tl.from(".e-track", { opacity: 0, y: 20, duration: 0.4, stagger: 0.15, ease: "power3.out" })
-                        .from(".e-clip", { scaleX: 0, opacity: 0, duration: 0.5, stagger: 0.08, ease: "back.out(1.5)" }, "-=0.2")
-                        .to(".e-playhead", { left: "80%", duration: 1.5, ease: "sine.inOut" }, "-=0.3");
-
-                // === ШАГ 5: Синдикат Трафика (Orbit System) ===
-                const step5Tl = gsap.timeline({ scrollTrigger: { trigger: "#step-5", start: "top 70%" } });
-                step5Tl.from(".orbit-core", { scale: 0, opacity: 0, duration: 0.6, ease: "back.out(2)" })
-                        .from(".or-1", { scale: 0, opacity: 0, duration: 0.5, ease: "back.out(2)" }, "-=0.2")
-                        .from(".or-2", { scale: 0, opacity: 0, duration: 0.5, ease: "back.out(2)" }, "-=0.3")
-                        .from(".orbit-sat", { scale: 0, opacity: 0, duration: 0.4, stagger: { amount: 0.4, from: "edges" }, ease: "back.out(1.8)" }, "-=0.2");
-
-                // === ШАГ 6: Капитализация (Lead Counter + Burst) ===
-                ScrollTrigger.create({
-                    trigger: "#step-6", start: "top 70%", once: true,
-                    onEnter: () => {
-                        // Счетчик лидов (0 → 850)
-                        gsap.to("#lead-counter", { innerHTML: 850, duration: 2.8, snap: { innerHTML: 1 }, ease: "power3.out" });
-                        
-                        // Взрывная анимация карточек лидов
-                        gsap.to(".lc-1", { y: -20, x: -30, opacity: 1, scale: 1, duration: 0.7, delay: 0.3, ease: "back.out(1.5)" });
-                        gsap.to(".lc-2", { y: 20, x: 30, opacity: 1, scale: 1, duration: 0.7, delay: 0.6, ease: "back.out(1.5)" });
-                        gsap.to(".lc-3", { y: -25, x: 35, opacity: 1, scale: 1, duration: 0.7, delay: 0.9, ease: "back.out(1.5)" });
-                        gsap.to(".lc-4", { y: 30, x: -35, opacity: 1, scale: 1, duration: 0.7, delay: 1.2, ease: "back.out(1.5)" });
-                    }
-                });
+                // Опционально: открыть первый элемент по умолчанию при загрузке
+                // setTimeout(() => {
+                //    processItems[0].querySelector('.sp-header').click();
+                // }, 1500);
             }
 
             // 10. Новые Кейсы (Горизонтальный скролл) + Магнитные кнопки
@@ -3736,6 +3880,14 @@
                   .fromTo(modal.querySelectorAll('.t-feature-card'), 
                         { y: 40, opacity: 0, scale: 0.95 }, 
                         { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" }, "-=0.2")
+                  // АНИМАЦИЯ НОВОГО БЛОКА СОЦСЕТЕЙ
+                  .fromTo(modal.querySelector('.t-social-title'), 
+                        { y: 20, opacity: 0 }, 
+                        { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, "-=0.2")
+                  .fromTo(modal.querySelectorAll('.t-social-item'), 
+                        { scale: 0, rotation: -20, opacity: 0 }, 
+                        { scale: 1, rotation: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: "back.out(1.8)" }, "-=0.3")
+                  // Анимация команды и кнопки
                   .fromTo(modal.querySelectorAll('.t-team-box, .t-cta-wrapper'), 
                         { y: 30, opacity: 0 }, 
                         { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out" }, "-=0.2")
