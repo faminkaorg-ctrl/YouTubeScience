@@ -1337,6 +1337,54 @@
             85% { opacity: 1; }
             100% { transform: translateY(-180px) rotate(20deg); opacity: 0; }
         }
+
+            /* --- СТИЛИ ДЛЯ КНОПОК И ГАЛЕРЕИ В 4 ШАГЕ --- */
+            
+            .sp-action-btn {
+                display: inline-flex; align-items: center; gap: 8px; margin-top: auto; align-self: flex-start;
+                padding: 10px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1);
+                background: rgba(255,255,255,0.03); color: #fff; font-family: 'Unbounded', sans-serif; font-size: 0.65rem; 
+                text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer;
+            }
+            @media (min-width: 768px) { .sp-action-btn { font-size: 0.75rem; padding: 12px 24px; } }
+            .sp-action-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+            .sp-action-btn i { transition: transform 0.3s; }
+            .sp-action-btn:hover i { transform: translateX(5px); }
+            
+            /* Цветные ховеры для кнопок разных отделов */
+            .group:hover .btn-yt:hover { background: rgba(229,45,39,0.2); border-color: #E52D27; box-shadow: 0 0 20px rgba(229,45,39,0.4); }
+            .group:hover .btn-purple:hover { background: rgba(168,85,247,0.2); border-color: #A855F7; box-shadow: 0 0 20px rgba(168,85,247,0.4); }
+            .group:hover .btn-blue:hover { background: rgba(42,171,238,0.2); border-color: #2AABEE; box-shadow: 0 0 20px rgba(42,171,238,0.4); }
+            .group:hover .btn-green:hover { background: rgba(34,197,94,0.2); border-color: #22C55E; box-shadow: 0 0 20px rgba(34,197,94,0.4); }
+            .group:hover .btn-yellow:hover { background: rgba(245,158,11,0.2); border-color: #F59E0B; box-shadow: 0 0 20px rgba(245,158,11,0.4); }
+            .group:hover .btn-red:hover { background: rgba(239,68,68,0.2); border-color: #EF4444; box-shadow: 0 0 20px rgba(239,68,68,0.4); }
+
+            /* Галерея Дизайна */
+            .design-track-container { position: relative; width: 100%; margin-top: 2rem; }
+            .design-track { 
+                display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; 
+                padding-bottom: 20px; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; 
+            }
+            .design-track::-webkit-scrollbar { display: none; }
+            .design-card { 
+                scroll-snap-align: center; flex-shrink: 0; width: 85vw; max-width: 500px; aspect-ratio: 16/9; 
+                border-radius: 1rem; overflow: hidden; position: relative; cursor: pointer; 
+                border: 1px solid rgba(255,255,255,0.1); transition: all 0.5s; 
+            }
+            .design-card:hover { border-color: #A855F7; box-shadow: 0 15px 40px rgba(168,85,247,0.3); transform: scale(1.02); z-index: 10; }
+            .design-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s; }
+            .design-card:hover img { transform: scale(1.1); }
+            
+            /* Бейджик при наведении */
+            .design-card-overlay { 
+                position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent 50%, rgba(168,85,247,0.2)); 
+                opacity: 0; transition: opacity 0.4s; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; 
+            }
+            .design-card:hover .design-card-overlay { opacity: 1; }
+            .ctr-badge { 
+                align-self: flex-end; background: #A855F7; color: white; font-family: 'Syncopate', sans-serif; 
+                font-size: 0.6rem; font-weight: bold; padding: 5px 12px; border-radius: 50px; box-shadow: 0 0 15px #A855F7; 
+            }
     </style>
 
     <section id="services-matrix" class="py-20 md:py-32 relative z-10 bg-[#050505] overflow-hidden border-t border-white/5">
@@ -1717,75 +1765,185 @@
 </div>
 
 <div class="sp-item gsap-fade-up">
-    <div class="sp-header">
-        <div class="sp-number">04</div>
-        <div class="sp-header-content">
-            <h3 class="sp-title">Комплексная работа Экспертов (Пост-продакшн)</h3>
-            <p class="sp-brief">Исходники уходят на сервер. В работу включается армия из 10+ узких специалистов. Монтаж, звук, дизайн, SEO и интеграции.</p>
-        </div>
-        <div class="sp-icon-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-    </div>
-    <div class="sp-body">
-        <div class="sp-body-inner">
-            <p class="text-xl text-white font-bold mb-8">Как только флешки с материалом копируются на наши серверы, начинается настоящая магия. Мы превращаем "сырое" видео в высококонверсионный медиа-продукт, который удерживает внимание и продает.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl relative overflow-hidden group hover:border-yt/50 transition-colors">
-                    <div class="absolute -right-4 -top-4 text-8xl text-yt/5 group-hover:text-yt/10 transition-colors pointer-events-none"><i class="fa-solid fa-scissors"></i></div>
-                    <h4 class="text-yt font-black uppercase tracking-widest text-sm mb-4 border-b border-white/10 pb-2 flex items-center gap-3">
-                        <i class="fa-solid fa-film text-xl"></i> Динамический Монтаж
-                    </h4>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-3">Мы используем технику "Retention Cut" (монтаж на удержание). Мы вырезаем все микро-паузы, вздохи, запинки, слова-паразиты.</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">Каждые 3-5 секунд происходит смена плана (Zoom In/Out, смена ракурса). Мы перекрываем вашу речь дорогими B-Roll вставками (стоковые видео, графики, всплывающие элементы), чтобы визуализировать каждое произнесенное слово. Добавляем динамичные, анимированные субтитры, так как 70% людей смотрят Reels без звука. Это гарантирует удержание зрителя (Retention) выше 50-60%.</p>
-                </div>
+                    <div class="sp-header">
+                        <div class="sp-number">04</div>
+                        <div class="sp-header-content">
+                            <h3 class="sp-title">Технологический Пост-Продакшн</h3>
+                            <p class="sp-brief">Работа 10+ экспертов над вашим материалом. Жесткая оптимизация и упаковка каждого кадра.</p>
+                        </div>
+                        <div class="sp-icon-toggle"><i class="fa-solid fa-chevron-down"></i></div>
+                    </div>
+                    <div class="sp-body">
+                        <div class="sp-body-inner">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                
+                                <div class="border border-white/10 bg-white/5 p-6 rounded-3xl hover:border-yt/50 transition-all group flex flex-col">
+                                    <div class="text-yt text-4xl mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-film"></i></div>
+                                    <h4 class="text-white font-bold mb-2 uppercase">Dynamic Cut Монтаж</h4>
+                                    <p class="text-xs text-gray-400 mb-4">Удаляем "э-э", "ну", лишние вдохи. Создаем бешеный ритм. Используем перебивки (B-Roll), которые визуализируют каждое ваше слово. Удержание внимания — наш приоритет.</p>
+                                    <button class="sp-action-btn btn-yt" onclick="openMontage()">Подробнее <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
 
-                <div class="bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl relative overflow-hidden group hover:border-[#2AABEE]/50 transition-colors">
-                    <div class="absolute -right-4 -top-4 text-8xl text-[#2AABEE]/5 group-hover:text-[#2AABEE]/10 transition-colors pointer-events-none"><i class="fa-solid fa-headphones"></i></div>
-                    <h4 class="text-[#2AABEE] font-black uppercase tracking-widest text-sm mb-4 border-b border-white/10 pb-2 flex items-center gap-3">
-                        <i class="fa-solid fa-wave-square text-xl"></i> Премиум Аудиодизайн
-                    </h4>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-3">Звук важнее картинки. Мы пропускаем ваш голос через нейросети для студийной очистки, накладываем эквализацию, компрессию и сатурацию. Ваш голос начинает звучать "бархатно", уверенно и дорого, как на радио.</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">Далее идет Sound Design. Мы добавляем звуковые эффекты (SFX): свуши при появлении текста, райзеры для нагнетания напряжения, клики, глитчи. Подкладываем фоновую музыку, которая задает правильное эмоциональное состояние зрителю (от спокойного доверия до агрессивной мотивации).</p>
-                </div>
+                                <div class="border border-white/10 bg-white/5 p-6 rounded-3xl hover:border-[#A855F7]/50 transition-all group flex flex-col">
+                                    <div class="text-[#A855F7] text-4xl mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                                    <h4 class="text-white font-bold mb-2 uppercase">High-CTR Фотодизайн</h4>
+                                    <p class="text-xs text-gray-400 mb-4">Создаем обложки, на которые невозможно не кликнуть. Психология цвета, работа с лицами, шрифты. Ваш CTR будет выше среднего по рынку в 2-3 раза.</p>
+                                    <button class="sp-action-btn btn-purple" onclick="toggleDesignGallery()">Показать работы <i id="design-btn-icon" class="fa-solid fa-arrow-right"></i></button>
+                                </div>
 
-                <div class="bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl relative overflow-hidden group hover:border-[#22C55E]/50 transition-colors">
-                    <div class="absolute -right-4 -top-4 text-8xl text-[#22C55E]/5 group-hover:text-[#22C55E]/10 transition-colors pointer-events-none"><i class="fa-brands fa-google"></i></div>
-                    <h4 class="text-[#22C55E] font-black uppercase tracking-widest text-sm mb-4 border-b border-white/10 pb-2 flex items-center gap-3">
-                        <i class="fa-solid fa-magnifying-glass-chart text-xl"></i> Глубокое SEO
-                    </h4>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-3">Мы парсим поисковые запросы через Wordstat, VidIQ и TubeBuddy. Находим те запросы, которые ваша аудитория вводит прямо сейчас.</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">Наши SEO-инженеры пишут алгоритмические заголовки, проставляют скрытые теги, формируют правильные таймкоды и пишут описания длиной в 3000 символов, напичканные ключевыми словами. Мы делаем так, чтобы алгоритмы Яндекса, Google и YouTube сами рекомендовали ваше видео бесплатно.</p>
-                </div>
+                                <div class="border border-white/10 bg-white/5 p-6 rounded-3xl hover:border-[#2AABEE]/50 transition-all group flex flex-col">
+                                    <div class="text-[#2AABEE] text-4xl mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-microphone-lines"></i></div>
+                                    <h4 class="text-white font-bold mb-2 uppercase">Premium Audio Design</h4>
+                                    <p class="text-xs text-gray-400 mb-4">Голос проходит 5 этапов обработки: от чистки нейросетями до мастеринга в студии. Добавляем саунд-эффекты (SFX), создающие объем и вовлечение.</p>
+                                    <button class="sp-action-btn btn-blue">Подробнее <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
 
-                <div class="bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl relative overflow-hidden group hover:border-[#A855F7]/50 transition-colors">
-                    <div class="absolute -right-4 -top-4 text-8xl text-[#A855F7]/5 group-hover:text-[#A855F7]/10 transition-colors pointer-events-none"><i class="fa-solid fa-palette"></i></div>
-                    <h4 class="text-[#A855F7] font-black uppercase tracking-widest text-sm mb-4 border-b border-white/10 pb-2 flex items-center gap-3">
-                        <i class="fa-solid fa-image text-xl"></i> Фотодизайн (Превью)
-                    </h4>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-3">Обложка видео (Thumbnail) решает всё. Если на нее не кликнут, идеальный монтаж никто не увидит. Арт-отдел отрисовывает сочные, "ядовитые" превью по законам психологии цвета.</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">Мы делаем ретушь лица, увеличиваем глаза (для усиления эмоции), добавляем 3D-объекты, свечения, контрастные плашки с триггерными надписями. Мы добиваемся показателя CTR (кликабельности) от 8 до 15%, пробивая баннерную слепоту аудитории.</p>
-                </div>
+                                <div class="border border-white/10 bg-white/5 p-6 rounded-3xl hover:border-[#22C55E]/50 transition-all group flex flex-col">
+                                    <div class="text-[#22C55E] text-4xl mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                                    <h4 class="text-white font-bold mb-2 uppercase">Deep SEO Optimization</h4>
+                                    <p class="text-xs text-gray-400 mb-4">Находим "золотые" ключи. Оптимизируем заголовки и теги так, чтобы алгоритмы сами начали продвигать ваше видео в ТОП поисковиков.</p>
+                                    <button class="sp-action-btn btn-green">Подробнее <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
 
-                <div class="bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl relative overflow-hidden group hover:border-[#F59E0B]/50 transition-colors">
-                    <div class="absolute -right-4 -top-4 text-8xl text-[#F59E0B]/5 group-hover:text-[#F59E0B]/10 transition-colors pointer-events-none"><i class="fa-solid fa-keyboard"></i></div>
-                    <h4 class="text-[#F59E0B] font-black uppercase tracking-widest text-sm mb-4 border-b border-white/10 pb-2 flex items-center gap-3">
-                        <i class="fa-solid fa-feather-pointed text-xl"></i> Посты и Адаптация
-                    </h4>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-3">Видео — это только часть системы. Смыслы из видео извлекаются нашими редакторами и превращаются в текстовые форматы.</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">Мы пишем экспертные лонгриды для Telegram, структурированные статьи для VK и Дзена, короткие продающие заметки для Instagram. Один отснятый смысл превращается в 5 разных единиц контента, закрывая потребности тех, кто любит читать, а не смотреть.</p>
-                </div>
+                                <div class="border border-white/10 bg-white/5 p-6 rounded-3xl hover:border-[#F59E0B]/50 transition-all group flex flex-col">
+                                    <div class="text-[#F59E0B] text-4xl mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-quote-right"></i></div>
+                                    <h4 class="text-white font-bold mb-2 uppercase">Multi-Platform Writing</h4>
+                                    <p class="text-xs text-gray-400 mb-4">Адаптируем смыслы под форматы: лонгриды для ТГ, короткие тексты для IG, SEO-статьи для Дзена и VK.</p>
+                                    <button class="sp-action-btn btn-yellow">Подробнее <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
 
-                <div class="bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl relative overflow-hidden group hover:border-red-500/50 transition-colors">
-                    <div class="absolute -right-4 -top-4 text-8xl text-red-500/5 group-hover:text-red-500/10 transition-colors pointer-events-none"><i class="fa-solid fa-filter"></i></div>
-                    <h4 class="text-red-500 font-black uppercase tracking-widest text-sm mb-4 border-b border-white/10 pb-2 flex items-center gap-3">
-                        <i class="fa-solid fa-network-wired text-xl"></i> Интеграция Воронок
-                    </h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">Финальный штрих. Мы вшиваем в каждый ролик, в каждое описание и закрепленный комментарий линки на ваши воронки. Мы настраиваем чат-ботов (ManyChat, Senler), проверяем работоспособность автоответов на триггерные слова в директе. Мы убеждаемся, что трафик не утечет в трубу, а попадет в вашу CRM-систему.</p>
+                                <div class="border border-white/10 bg-white/5 p-6 rounded-3xl hover:border-red-500/50 transition-all group flex flex-col">
+                                    <div class="text-red-500 text-4xl mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-filter"></i></div>
+                                    <h4 class="text-white font-bold mb-2 uppercase">Интеграция Воронок</h4>
+                                    <p class="text-xs text-gray-400 mb-4">Вшиваем в каждый ролик линки на воронки. Настраиваем ботов, чтобы трафик сразу попадал в вашу CRM.</p>
+                                    <button class="sp-action-btn btn-red">Подробнее <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+
+                            <div id="design-showcase-wrapper" class="hidden opacity-0 overflow-hidden mt-8">
+                                <div class="bg-[#050505] border border-[#A855F7]/30 rounded-3xl p-6 md:p-10 relative">
+                                    <div class="absolute top-0 right-0 w-[300px] h-[300px] bg-[#A855F7]/10 rounded-full blur-[100px] pointer-events-none"></div>
+                                    
+                                    <div class="flex items-center gap-4 mb-8 relative z-10">
+                                        <div class="w-14 h-14 bg-[#A855F7]/20 text-[#A855F7] rounded-xl flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(168,85,247,0.4)]">
+                                            <i class="fa-solid fa-fire"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-2xl md:text-3xl font-display font-black text-white uppercase">Арт-Отдел</h4>
+                                            <p class="text-[#A855F7] font-bold tracking-widest text-xs uppercase">Кликабельные превью (High-CTR)</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="design-track-container relative z-10">
+                                        <button onclick="scrollDesignTrack(-1)" class="absolute left-0 md:-left-5 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/80 border border-white/20 rounded-full text-white hover:bg-[#A855F7] transition-colors flex items-center justify-center backdrop-blur-md z-20 shadow-[0_0_20px_rgba(0,0,0,0.8)]"><i class="fa-solid fa-chevron-left"></i></button>
+                                        <button onclick="scrollDesignTrack(1)" class="absolute right-0 md:-right-5 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/80 border border-white/20 rounded-full text-white hover:bg-[#A855F7] transition-colors flex items-center justify-center backdrop-blur-md z-20 shadow-[0_0_20px_rgba(0,0,0,0.8)]"><i class="fa-solid fa-chevron-right"></i></button>
+                                        
+                                        <div id="design-track" class="design-track">
+                                            <div class="design-card">
+                                                <img src="qwe7.jpg" alt="Превью">
+                                                <div class="design-card-overlay">
+                                                    <div class="ctr-badge">CTR 14.2%</div>
+                                                    <div class="text-white font-bold uppercase tracking-wide text-sm">Глубокая Цветокоррекция</div>
+                                                </div>
+                                            </div>
+                                            <div class="design-card">
+                                                <img src="qwe2.jpg" alt="Превью">
+                                                <div class="design-card-overlay">
+                                                    <div class="ctr-badge">CTR 11.8%</div>
+                                                    <div class="text-white font-bold uppercase tracking-wide text-sm">Фокус на эмоции</div>
+                                                </div>
+                                            </div>
+                                            <div class="design-card">
+                                                <img src="qwe11.jpg" alt="Превью">
+                                                <div class="design-card-overlay">
+                                                    <div class="ctr-badge">CTR 15.1%</div>
+                                                    <div class="text-white font-bold uppercase tracking-wide text-sm">3D Объекты</div>
+                                                </div>
+                                            </div>
+                                            <div class="design-card">
+                                                <img src="qwe4.jpg" alt="Превью">
+                                                <div class="design-card-overlay">
+                                                    <div class="ctr-badge">CTR 12.4%</div>
+                                                    <div class="text-white font-bold uppercase tracking-wide text-sm">Типографика</div>
+                                                </div>
+                                            </div>
+                                            <div class="design-card">
+                                                <img src="qwe9.jpg" alt="Превью">
+                                                <div class="design-card-overlay">
+                                                    <div class="ctr-badge">CTR 13.9%</div>
+                                                    <div class="text-white font-bold uppercase tracking-wide text-sm">Контраст фона</div>
+                                                </div>
+                                            </div>
+                                            <div class="design-card">
+                                                <img src="qwe14.jpg" alt="Превью">
+                                                <div class="design-card-overlay">
+                                                    <div class="ctr-badge">CTR 16.0%</div>
+                                                    <div class="text-white font-bold uppercase tracking-wide text-sm">Агрессивный неон</div>
+                                                </div>
+                                            </div>
+                                            <div class="design-card">
+                                                <img src="qwe1.jpg" alt="Превью">
+                                                <div class="design-card-overlay">
+                                                    <div class="ctr-badge">CTR 10.5%</div>
+                                                    <div class="text-white font-bold uppercase tracking-wide text-sm">Минимализм</div>
+                                                </div>
+                                            </div>
+                                            <div class="design-card">
+                                                <img src="qwe8.jpg" alt="Превью">
+                                                <div class="design-card-overlay">
+                                                    <div class="ctr-badge">CTR 14.8%</div>
+                                                    <div class="text-white font-bold uppercase tracking-wide text-sm">Сложный коллаж</div>
+                                                </div>
+                                            </div>
+                                            <div class="design-card">
+                                                <img src="qwe3.jpg" alt="Превью">
+                                                <div class="design-card-overlay">
+                                                    <div class="ctr-badge">CTR 12.1%</div>
+                                                    <div class="text-white font-bold uppercase tracking-wide text-sm">Выделение деталей</div>
+                                                </div>
+                                            </div>
+                                            <div class="design-card">
+                                                <img src="qwe12.jpg" alt="Превью">
+                                                <div class="design-card-overlay">
+                                                    <div class="ctr-badge">CTR 13.5%</div>
+                                                    <div class="text-white font-bold uppercase tracking-wide text-sm">Психология цвета</div>
+                                                </div>
+                                            </div>
+                                            <div class="design-card">
+                                                <img src="qwe6.jpg" alt="Превью">
+                                                <div class="design-card-overlay">
+                                                    <div class="ctr-badge">CTR 11.2%</div>
+                                                    <div class="text-white font-bold uppercase tracking-wide text-sm">Кино-стиль</div>
+                                                </div>
+                                            </div>
+                                            <div class="design-card">
+                                                <img src="qwe10.jpg" alt="Превью">
+                                                <div class="design-card-overlay">
+                                                    <div class="ctr-badge">CTR 15.5%</div>
+                                                    <div class="text-white font-bold uppercase tracking-wide text-sm">Ретушь лиц</div>
+                                                </div>
+                                            </div>
+                                            <div class="design-card">
+                                                <img src="qwe5.jpg" alt="Превью">
+                                                <div class="design-card-overlay">
+                                                    <div class="ctr-badge">CTR 12.9%</div>
+                                                    <div class="text-white font-bold uppercase tracking-wide text-sm">Акцент на текст</div>
+                                                </div>
+                                            </div>
+                                            <div class="design-card">
+                                                <img src="qwe13.jpg" alt="Превью">
+                                                <div class="design-card-overlay">
+                                                    <div class="ctr-badge">CTR 14.4%</div>
+                                                    <div class="text-white font-bold uppercase tracking-wide text-sm">Эпичный масштаб</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="sp-item gsap-fade-up">
     <div class="sp-header">
@@ -4224,6 +4382,54 @@
             });
 
         });
+
+            // --- ЛОГИКА ДЛЯ 4 ШАГА (ГАЛЕРЕЯ И КНОПКИ) ---
+            
+            // Пустышка для Монтажа (на будущее)
+            window.openMontage = function() {
+                console.log("Открыт блок Монтажа - место для твоего будущего кода!");
+                // Здесь потом можно добавить модалку или другой код
+            };
+
+            // Открытие/Закрытие Галереи Дизайна
+            window.toggleDesignGallery = function() {
+                const showcase = document.getElementById('design-showcase-wrapper');
+                const btnIcon = document.getElementById('design-btn-icon');
+                
+                if (showcase.classList.contains('hidden')) {
+                    showcase.classList.remove('hidden');
+                    if(btnIcon) btnIcon.classList.replace('fa-arrow-right', 'fa-chevron-up');
+                    
+                    gsap.fromTo(showcase, 
+                        { height: 0, opacity: 0 }, 
+                        { height: 'auto', opacity: 1, duration: 0.6, ease: "power3.out", onComplete: () => ScrollTrigger.refresh() }
+                    );
+                    
+                    // Небольшой сдвиг скролла, чтобы галерею было видно
+                    setTimeout(() => {
+                        const rect = showcase.getBoundingClientRect();
+                        window.scrollBy({ top: rect.top - 150, behavior: 'smooth' });
+                    }, 100);
+                } else {
+                    if(btnIcon) btnIcon.classList.replace('fa-chevron-up', 'fa-arrow-right');
+                    
+                    gsap.to(showcase, { 
+                        height: 0, opacity: 0, duration: 0.4, ease: "power2.inOut", 
+                        onComplete: () => { 
+                            showcase.classList.add('hidden'); 
+                            ScrollTrigger.refresh(); 
+                        }
+                    });
+                }
+            };
+
+            // Скролл стрелочками внутри галереи
+            window.scrollDesignTrack = function(direction) {
+                const track = document.getElementById('design-track');
+                // Скроллим на ширину одной карточки + отступ
+                const scrollAmount = window.innerWidth > 768 ? 520 : track.clientWidth * 0.85;
+                track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+            };
     </script>
 </body>
 </html>
