@@ -344,8 +344,66 @@
         .sc-title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 0.95rem; color: #fff; } @media (min-width: 768px) { .sc-title { font-size: 1rem; } }
         .sc-desc { font-size: 0.8rem; color: #888; line-height: 1.4; } @media (min-width: 768px) { .sc-desc { font-size: 0.85rem; line-height: 1.5; } }
         
-        .vk-color { color: #0077FF; } .tg-color { color: #2AABEE; } .yt-color { color: #E52D27; } 
+        .vk-color { color: #0077FF; } .tg-color { color: #2AABEE; } .yt-color { color: #E52D27; }
         .rt-color { color: #00B48B; } .dz-color { color: #FFCC00; } .tt-color { color: #00f2fe; }
+
+        /* ── MOBILE GLOBAL FIXES ── */
+        html { overflow-x: hidden; }
+        .overflow-y-auto, .overflow-auto { -webkit-overflow-scrolling: touch; }
+
+        /* ── HAMBURGER BUTTON ── */
+        #burger-btn { display: none; background: none; border: none; cursor: pointer; padding: 6px; z-index: 60; }
+        #burger-btn span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: transform .3s, opacity .3s, width .3s; }
+        #burger-btn span:nth-child(2) { margin: 5px 0; }
+        #burger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        #burger-btn.open span:nth-child(2) { opacity: 0; width: 0; }
+        #burger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        @media (max-width: 1023px) { #burger-btn { display: flex; flex-direction: column; justify-content: center; } }
+
+        /* ── MOBILE NAV OVERLAY ── */
+        #mobile-nav-overlay {
+            position: fixed; inset: 0; z-index: 9999;
+            background: rgba(5,5,5,.97);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0;
+            opacity: 0; pointer-events: none;
+            transition: opacity .35s ease;
+        }
+        #mobile-nav-overlay.open { opacity: 1; pointer-events: all; }
+        #mob-nav-close {
+            position: absolute; top: 1.2rem; right: 1.2rem;
+            background: rgba(255,255,255,.08); border: none; border-radius: 50%;
+            width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.3rem; cursor: pointer;
+        }
+        .mob-nav-link {
+            font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: clamp(1.6rem, 8vw, 2.4rem);
+            color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: .05em;
+            padding: .6rem 0; transition: color .2s;
+        }
+        .mob-nav-link:hover, .mob-nav-link:active { color: #E52D27; }
+        .mob-nav-divider { width: 40px; height: 1px; background: rgba(255,255,255,.12); margin: .5rem 0; }
+
+        /* ── MOBILE MEDIA QUERY FIXES ── */
+        @media (max-width: 1023px) {
+            /* Agent / team cards */
+            .agent-card { min-height: 260px !important; }
+            /* Matrix bento cards */
+            .matrix-card { min-height: 220px !important; }
+            /* Remove perspective distortion on carousel wrapper */
+            .yt-super-wrapper { perspective: none !important; }
+            /* Tariff modals */
+            .tariff-modal-content { padding: 2rem 1rem !important; }
+            .tariff-modal-content h2 { font-size: 1.5rem !important; }
+            /* Cases horizontal scroll: show normally stacked on mobile */
+            .cases-horizontal-track { flex-direction: column !important; transform: none !important; width: 100% !important; }
+        }
+        @media (max-width: 639px) {
+            /* Process section general padding */
+            .process-step-body { padding: 1rem !important; }
+            /* FAQ items */
+            .faq-question { padding: .9rem 1rem !important; }
+        }
     </style>
 </head>
 <body class="selection:bg-yt selection:text-white">
@@ -407,10 +465,17 @@
                 <a href="#team" class="hover:text-white transition-colors hover-trigger">Команда</a>
                 <a href="#pricing" class="hover:text-white transition-colors hover-trigger">Услуги</a>
             </div>
-            <a href="#" class="bg-yt text-white px-4 md:px-6 py-2 rounded-full text-[10px] md:text-sm font-bold uppercase tracking-wider hover:bg-white hover:text-yt transition-colors hover-trigger shadow-[0_0_15px_rgba(229,45,39,0.4)] open-modal-btn whitespace-nowrap">
-                <span class="hidden sm:inline">Оставить заявку</span>
-                <span class="inline sm:hidden">Заявка</span>
-            </a>
+            <div class="flex items-center gap-3">
+                <a href="#" class="bg-yt text-white px-4 md:px-6 py-2 rounded-full text-[10px] md:text-sm font-bold uppercase tracking-wider hover:bg-white hover:text-yt transition-colors hover-trigger shadow-[0_0_15px_rgba(229,45,39,0.4)] open-modal-btn whitespace-nowrap">
+                    <span class="hidden sm:inline">Оставить заявку</span>
+                    <span class="inline sm:hidden">Заявка</span>
+                </a>
+                <button id="burger-btn" aria-label="Меню" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -1337,6 +1402,57 @@
             85% { opacity: 1; }
             100% { transform: translateY(-180px) rotate(20deg); opacity: 0; }
         }
+
+            /* --- СТИЛИ ДЛЯ КНОПОК И ГАЛЕРЕИ В 4 ШАГЕ (РОВНАЯ СЕТКА) --- */
+            .sp-action-btn {
+                display: inline-flex; align-items: center; gap: 8px; margin-top: auto; align-self: flex-start;
+                padding: 10px 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);
+                background: rgba(255,255,255,0.05); color: #fff; font-family: 'Unbounded', sans-serif; font-size: 0.7rem; 
+                text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; cursor: pointer;
+            }
+            .sp-action-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.4); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+            
+            /* Ровная сетка для картинок (без искажений) */
+            .design-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                margin-top: 25px;
+            }
+            @media (min-width: 768px) {
+                .design-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+            }
+            @media (min-width: 1024px) {
+                .design-grid { grid-template-columns: repeat(4, 1fr); }
+            }
+            
+            /* Правильные пропорции 16:9 */
+            .design-item {
+                aspect-ratio: 16/9;
+                border-radius: 12px;
+                overflow: hidden;
+                border: 1px solid rgba(255,255,255,0.1);
+                transition: transform 0.4s ease, border-color 0.4s ease;
+                background: #050505;
+                cursor: zoom-in;
+                position: relative;
+            }
+            .design-item:hover {
+                transform: scale(1.05);
+                border-color: #A855F7;
+                box-shadow: 0 10px 25px rgba(168,85,247,0.3);
+                z-index: 10;
+            }
+            .design-item img {
+                width: 100%; 
+                height: 100%; 
+                object-fit: cover; /* КАРТИНКИ БОЛЬШЕ НЕ ПЛЮЩИТ */
+                display: block;
+                transition: transform 0.5s ease;
+            }
+            .design-item:hover img {
+                transform: scale(1.08);
+            }
     </style>
 
     <section id="services-matrix" class="py-20 md:py-32 relative z-10 bg-[#050505] overflow-hidden border-t border-white/5">
@@ -1640,7 +1756,7 @@
                 </ul>
             </div>
             
-            <div class="bg-gradient-to-r from-white/5 to-transparent p-8 rounded-2xl border-l-4 border-white mb-6">
+            <div class="bg-gradient-to-r from-white/5 to-transparent p-4 md:p-8 rounded-2xl border-l-4 border-white mb-6">
                 <h4 class="text-white font-bold mb-4 uppercase text-xl">Результат 1-го этапа:</h4>
                 <p class="text-gray-300">У вас на руках пошаговая, научно обоснованная контент-стратегия на месяцы вперед. Утвержденные УТП, прописанные аватары клиентов и кристально ясное понимание того, как каждый вложенный рубль будет возвращаться через контент. Мы забрали вашу экспертизу и превратили её в чертеж машины продаж.</p>
             </div>
@@ -1662,14 +1778,14 @@
             <p class="text-white text-xl font-bold mb-6">Мы не играем в рулетку с одной платформой. Мы выстраиваем Паутину.</p>
             <p class="text-gray-300 mb-6">Этап длится от 1 до 1.5 недель. Пока вы занимаетесь своим бизнесом, наш in-house отдел начинает тотальную пересборку ваших активов. Мы запрашиваем доступы (или создаем с нуля по корпоративным стандартам безопасности) ко ВСЕМ ключевым площадкам: <strong class="text-white">YouTube, Нельзяграм, TikTok, Telegram, ВКонтакте, Дзен</strong>.</p>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div class="bg-black/40 p-6 rounded-2xl border border-white/10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mb-6 md:mb-8">
+                <div class="bg-black/40 p-4 md:p-6 rounded-2xl border border-white/10">
                     <h5 class="text-yt font-bold mb-4 text-lg flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench"></i> Техническая упаковка</h5>
                     <p class="text-sm text-gray-400 mb-3">Наши дизайнеры отрисовывают единый визуальный код для всех сетей: баннеры, аватарки, обложки хайлайтсов. SEO-специалисты переписывают описания профилей, вставляют ключевые слова и линки на ваши воронки (Taplink, боты).</p>
                     <p class="text-sm text-gray-400">Мы настраиваем бизнес-менеджеры, привязываем аналитику и подготавливаем аккаунты к алгоритмическому бусту, чтобы платформы сразу распознали вас как трастового автора.</p>
                 </div>
                 
-                <div class="bg-black/40 p-6 rounded-2xl border border-white/10">
+                <div class="bg-black/40 p-4 md:p-6 rounded-2xl border border-white/10">
                     <h5 class="text-[#2AABEE] font-bold mb-4 text-lg flex items-center gap-2"><i class="fa-solid fa-pen-clip"></i> Сценарный Цех и Посты</h5>
                     <p class="text-sm text-gray-400 mb-3">Копирайтеры УЖЕ начинают писать прогревающие посты для Telegram и VK. Аудитория не должна скучать в ожидании роликов. Мы публикуем текстовый контент, который уже начинает генерировать лиды.</p>
                     <p class="text-sm text-gray-400">Сценаристы пишут тексты для будущих видео по структуре: <span class="text-white">Крючок (3 сек) -> Разрыв шаблона -> Мясо (польза) -> Жесткий CTA (призыв в воронку)</span>. Вы получаете на утверждение готовые тексты, которые читаются на одном дыхании.</p>
@@ -1716,76 +1832,89 @@
     </div>
 </div>
 
-<div class="sp-item gsap-fade-up">
-    <div class="sp-header">
-        <div class="sp-number">04</div>
-        <div class="sp-header-content">
-            <h3 class="sp-title">Комплексная работа Экспертов (Пост-продакшн)</h3>
-            <p class="sp-brief">Исходники уходят на сервер. В работу включается армия из 10+ узких специалистов. Монтаж, звук, дизайн, SEO и интеграции.</p>
-        </div>
-        <div class="sp-icon-toggle"><i class="fa-solid fa-chevron-down"></i></div>
-    </div>
-    <div class="sp-body">
-        <div class="sp-body-inner">
-            <p class="text-xl text-white font-bold mb-8">Как только флешки с материалом копируются на наши серверы, начинается настоящая магия. Мы превращаем "сырое" видео в высококонверсионный медиа-продукт, который удерживает внимание и продает.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl relative overflow-hidden group hover:border-yt/50 transition-colors">
-                    <div class="absolute -right-4 -top-4 text-8xl text-yt/5 group-hover:text-yt/10 transition-colors pointer-events-none"><i class="fa-solid fa-scissors"></i></div>
-                    <h4 class="text-yt font-black uppercase tracking-widest text-sm mb-4 border-b border-white/10 pb-2 flex items-center gap-3">
-                        <i class="fa-solid fa-film text-xl"></i> Динамический Монтаж
-                    </h4>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-3">Мы используем технику "Retention Cut" (монтаж на удержание). Мы вырезаем все микро-паузы, вздохи, запинки, слова-паразиты.</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">Каждые 3-5 секунд происходит смена плана (Zoom In/Out, смена ракурса). Мы перекрываем вашу речь дорогими B-Roll вставками (стоковые видео, графики, всплывающие элементы), чтобы визуализировать каждое произнесенное слово. Добавляем динамичные, анимированные субтитры, так как 70% людей смотрят Reels без звука. Это гарантирует удержание зрителя (Retention) выше 50-60%.</p>
-                </div>
+                <div class="sp-item gsap-fade-up">
+                    <div class="sp-header">
+                        <div class="sp-number">04</div>
+                        <div class="sp-header-content">
+                            <h3 class="sp-title">Комплексная работа Экспертов (Пост-продакшн)</h3>
+                            <p class="sp-brief">Вся рутина на нас. Монтаж, аудиодизайн, фотодизайн, SEO, написание и выпуск постов по всем площадкам.</p>
+                        </div>
+                        <div class="sp-icon-toggle"><i class="fa-solid fa-chevron-down"></i></div>
+                    </div>
+                    <div class="sp-body">
+                        <div class="sp-body-inner">
+                            <p class="sp-text mb-8">Как только исходники попадают на наши серверы, в работу включается целый in-house отдел специалистов. Мы создаем высококонверсионный медиа-продукт.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                
+                                <div class="bg-white/5 border border-white/10 p-5 rounded-xl hover:bg-white/10 transition-colors flex flex-col">
+                                    <div class="text-yt text-2xl mb-3"><i class="fa-solid fa-scissors"></i></div>
+                                    <h4 class="text-white font-bold uppercase mb-2 text-sm tracking-wider">Нейромонтаж</h4>
+                                    <p class="text-gray-400 text-xs mb-5">Удаление пауз, вздохов и ошибок. Динамичная склейка, смена планов, B-Roll перебивки и субтитры для удержания (Retention 50%+).</p>
+                                    <button class="sp-action-btn" onclick="openMontage()">Подробнее <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
 
-                <div class="bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl relative overflow-hidden group hover:border-[#2AABEE]/50 transition-colors">
-                    <div class="absolute -right-4 -top-4 text-8xl text-[#2AABEE]/5 group-hover:text-[#2AABEE]/10 transition-colors pointer-events-none"><i class="fa-solid fa-headphones"></i></div>
-                    <h4 class="text-[#2AABEE] font-black uppercase tracking-widest text-sm mb-4 border-b border-white/10 pb-2 flex items-center gap-3">
-                        <i class="fa-solid fa-wave-square text-xl"></i> Премиум Аудиодизайн
-                    </h4>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-3">Звук важнее картинки. Мы пропускаем ваш голос через нейросети для студийной очистки, накладываем эквализацию, компрессию и сатурацию. Ваш голос начинает звучать "бархатно", уверенно и дорого, как на радио.</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">Далее идет Sound Design. Мы добавляем звуковые эффекты (SFX): свуши при появлении текста, райзеры для нагнетания напряжения, клики, глитчи. Подкладываем фоновую музыку, которая задает правильное эмоциональное состояние зрителю (от спокойного доверия до агрессивной мотивации).</p>
-                </div>
+                                <div class="bg-white/5 border border-white/10 p-5 rounded-xl hover:bg-white/10 transition-colors flex flex-col">
+                                    <div class="text-[#A855F7] text-2xl mb-3"><i class="fa-solid fa-image"></i></div>
+                                    <h4 class="text-white font-bold uppercase mb-2 text-sm tracking-wider">Фотодизайн</h4>
+                                    <p class="text-gray-400 text-xs mb-5">Отрисовка сочных, кликабельных превью с CTR от 8%. Цветокоррекция лиц, работа со шрифтами и 3D-элементами для привлечения кликов.</p>
+                                    <button class="sp-action-btn" onclick="toggleDesignGallery()">Показать работы <i class="fa-solid fa-arrow-down"></i></button>
+                                </div>
 
-                <div class="bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl relative overflow-hidden group hover:border-[#22C55E]/50 transition-colors">
-                    <div class="absolute -right-4 -top-4 text-8xl text-[#22C55E]/5 group-hover:text-[#22C55E]/10 transition-colors pointer-events-none"><i class="fa-brands fa-google"></i></div>
-                    <h4 class="text-[#22C55E] font-black uppercase tracking-widest text-sm mb-4 border-b border-white/10 pb-2 flex items-center gap-3">
-                        <i class="fa-solid fa-magnifying-glass-chart text-xl"></i> Глубокое SEO
-                    </h4>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-3">Мы парсим поисковые запросы через Wordstat, VidIQ и TubeBuddy. Находим те запросы, которые ваша аудитория вводит прямо сейчас.</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">Наши SEO-инженеры пишут алгоритмические заголовки, проставляют скрытые теги, формируют правильные таймкоды и пишут описания длиной в 3000 символов, напичканные ключевыми словами. Мы делаем так, чтобы алгоритмы Яндекса, Google и YouTube сами рекомендовали ваше видео бесплатно.</p>
-                </div>
+                                <div class="bg-white/5 border border-white/10 p-5 rounded-xl hover:bg-white/10 transition-colors flex flex-col">
+                                    <div class="text-[#2AABEE] text-2xl mb-3"><i class="fa-solid fa-wave-square"></i></div>
+                                    <h4 class="text-white font-bold uppercase mb-2 text-sm tracking-wider">Аудиодизайн</h4>
+                                    <p class="text-gray-400 text-xs">Многослойный Sound Design. Чистка шумов, эквализация голоса (делаем его дорогим), добавление SFX-эффектов и фоновой музыки.</p>
+                                </div>
 
-                <div class="bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl relative overflow-hidden group hover:border-[#A855F7]/50 transition-colors">
-                    <div class="absolute -right-4 -top-4 text-8xl text-[#A855F7]/5 group-hover:text-[#A855F7]/10 transition-colors pointer-events-none"><i class="fa-solid fa-palette"></i></div>
-                    <h4 class="text-[#A855F7] font-black uppercase tracking-widest text-sm mb-4 border-b border-white/10 pb-2 flex items-center gap-3">
-                        <i class="fa-solid fa-image text-xl"></i> Фотодизайн (Превью)
-                    </h4>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-3">Обложка видео (Thumbnail) решает всё. Если на нее не кликнут, идеальный монтаж никто не увидит. Арт-отдел отрисовывает сочные, "ядовитые" превью по законам психологии цвета.</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">Мы делаем ретушь лица, увеличиваем глаза (для усиления эмоции), добавляем 3D-объекты, свечения, контрастные плашки с триггерными надписями. Мы добиваемся показателя CTR (кликабельности) от 8 до 15%, пробивая баннерную слепоту аудитории.</p>
-                </div>
+                                <div class="bg-white/5 border border-white/10 p-5 rounded-xl hover:bg-white/10 transition-colors flex flex-col">
+                                    <div class="text-[#22C55E] text-2xl mb-3"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                                    <h4 class="text-white font-bold uppercase mb-2 text-sm tracking-wider">SEO Оптимизация</h4>
+                                    <p class="text-gray-400 text-xs">Внедрение ключевых тегов, парсинг Wordstat/VidIQ. Написание алгоритмических названий для вывода в ТОП поиска Яндекса и YouTube.</p>
+                                </div>
 
-                <div class="bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl relative overflow-hidden group hover:border-[#F59E0B]/50 transition-colors">
-                    <div class="absolute -right-4 -top-4 text-8xl text-[#F59E0B]/5 group-hover:text-[#F59E0B]/10 transition-colors pointer-events-none"><i class="fa-solid fa-keyboard"></i></div>
-                    <h4 class="text-[#F59E0B] font-black uppercase tracking-widest text-sm mb-4 border-b border-white/10 pb-2 flex items-center gap-3">
-                        <i class="fa-solid fa-feather-pointed text-xl"></i> Посты и Адаптация
-                    </h4>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-3">Видео — это только часть системы. Смыслы из видео извлекаются нашими редакторами и превращаются в текстовые форматы.</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">Мы пишем экспертные лонгриды для Telegram, структурированные статьи для VK и Дзена, короткие продающие заметки для Instagram. Один отснятый смысл превращается в 5 разных единиц контента, закрывая потребности тех, кто любит читать, а не смотреть.</p>
-                </div>
+                                <div class="bg-white/5 border border-white/10 p-5 rounded-xl hover:bg-white/10 transition-colors flex flex-col">
+                                    <div class="text-[#F59E0B] text-2xl mb-3"><i class="fa-solid fa-feather"></i></div>
+                                    <h4 class="text-white font-bold uppercase mb-2 text-sm tracking-wider">Дистрибуция & Посты</h4>
+                                    <p class="text-gray-400 text-xs">Параллельное написание лонгридов, адаптация сценариев под посты в TG/VK. Настройка отложенного постинга.</p>
+                                </div>
 
-                <div class="bg-[#0a0a0a] border border-white/10 p-6 rounded-2xl relative overflow-hidden group hover:border-red-500/50 transition-colors">
-                    <div class="absolute -right-4 -top-4 text-8xl text-red-500/5 group-hover:text-red-500/10 transition-colors pointer-events-none"><i class="fa-solid fa-filter"></i></div>
-                    <h4 class="text-red-500 font-black uppercase tracking-widest text-sm mb-4 border-b border-white/10 pb-2 flex items-center gap-3">
-                        <i class="fa-solid fa-network-wired text-xl"></i> Интеграция Воронок
-                    </h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">Финальный штрих. Мы вшиваем в каждый ролик, в каждое описание и закрепленный комментарий линки на ваши воронки. Мы настраиваем чат-ботов (ManyChat, Senler), проверяем работоспособность автоответов на триггерные слова в директе. Мы убеждаемся, что трафик не утечет в трубу, а попадет в вашу CRM-систему.</p>
+                                <div class="bg-white/5 border border-white/10 p-5 rounded-xl hover:bg-white/10 transition-colors flex flex-col">
+                                    <div class="text-[#EF4444] text-2xl mb-3"><i class="fa-solid fa-filter"></i></div>
+                                    <h4 class="text-white font-bold uppercase mb-2 text-sm tracking-wider">Интеграция Воронок</h4>
+                                    <p class="text-gray-400 text-xs">Зашиваем ссылки на чат-ботов во все видео. Настраиваем призывы к действию (CTA), чтобы трафик шел в базу.</p>
+                                </div>
+                            </div>
+
+                            <div id="design-showcase-wrapper" class="hidden opacity-0 overflow-hidden">
+                                <div class="bg-[#050505] border border-[#A855F7]/30 rounded-2xl p-6 md:p-8 mt-6 relative">
+                                    <div class="absolute top-0 right-0 w-[200px] h-[200px] bg-[#A855F7]/10 rounded-full blur-[80px] pointer-events-none"></div>
+                                    
+                                    <h4 class="text-2xl font-display font-black text-white uppercase mb-1 relative z-10">Арт-Отдел</h4>
+                                    <p class="text-sm text-[#A855F7] font-bold tracking-widest uppercase mb-6 relative z-10">Примеры кликабельных превью</p>
+                                    
+                                    <div class="design-grid relative z-10">
+                                        <div class="design-item"><img src="qwe1.jpg" alt="Превью 1"></div>
+                                        <div class="design-item"><img src="qwe2.jpg" alt="Превью 2"></div>
+                                        <div class="design-item"><img src="qwe3.jpg" alt="Превью 3"></div>
+                                        <div class="design-item"><img src="qwe4.jpg" alt="Превью 4"></div>
+                                        <div class="design-item"><img src="qwe5.jpg" alt="Превью 5"></div>
+                                        <div class="design-item"><img src="qwe6.jpg" alt="Превью 6"></div>
+                                        <div class="design-item"><img src="qwe7.jpg" alt="Превью 7"></div>
+                                        <div class="design-item"><img src="qwe8.jpg" alt="Превью 8"></div>
+                                        <div class="design-item"><img src="qwe9.jpg" alt="Превью 9"></div>
+                                        <div class="design-item"><img src="qwe10.jpg" alt="Превью 10"></div>
+                                        <div class="design-item"><img src="qwe11.jpg" alt="Превью 11"></div>
+                                        <div class="design-item"><img src="qwe12.jpg" alt="Превью 12"></div>
+                                        <div class="design-item"><img src="qwe13.jpg" alt="Превью 13"></div>
+                                        <div class="design-item"><img src="qwe14.jpg" alt="Превью 14"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="sp-item gsap-fade-up">
     <div class="sp-header">
@@ -1798,7 +1927,7 @@
     </div>
     <div class="sp-body">
         <div class="sp-body-inner">
-            <p class="text-2xl text-white font-display text-center mb-10 leading-tight">ВАШЕ ЛИЦО ТЕПЕРЬ В КАЖДОМ СМАРТФОНЕ<br><span class="text-yt text-xl">Где бы ни находилась ваша ЦА, она увидит вас.</span></p>
+            <p class="text-lg sm:text-xl md:text-2xl text-white font-display text-center mb-6 md:mb-10 leading-tight">ВАШЕ ЛИЦО ТЕПЕРЬ В КАЖДОМ СМАРТФОНЕ<br><span class="text-yt text-base sm:text-lg md:text-xl">Где бы ни находилась ваша ЦА, она увидит вас.</span></p>
             
             <p class="text-gray-300 text-lg mb-8 max-w-4xl mx-auto text-center">Контент готов. Начинается дистрибуция. Мы не просто "жмем кнопку Опубликовать". Мы используем каскадную стратегию выпуска контента, учитывая пики активности алгоритмов каждой отдельной площадки. Мы берем одно длинное видео и дробим его на атомные частицы.</p>
 
@@ -1881,7 +2010,7 @@
 
             <div class="flex flex-col gap-8 relative z-10">
                 
-                <div class="relative bg-[#050505] rounded-3xl p-8 border border-[#2AABEE]/20 overflow-hidden group hover:border-[#2AABEE]/50 transition-colors">
+                <div class="relative bg-[#050505] rounded-2xl md:rounded-3xl p-4 md:p-8 border border-[#2AABEE]/20 overflow-hidden group hover:border-[#2AABEE]/50 transition-colors">
                     <div class="floating-bg-container">
                         <span class="tg-plane" style="top: 10%; left: -5%; animation-duration: 12s; animation-delay: 0s;"><i class="fa-solid fa-paper-plane"></i></span>
                         <span class="tg-plane" style="top: 40%; left: -10%; animation-duration: 15s; animation-delay: 4s;"><i class="fa-solid fa-paper-plane"></i></span>
@@ -1896,7 +2025,7 @@
                                 <i class="fa-brands fa-telegram"></i>
                             </div>
                             <div>
-                                <h4 class="text-3xl font-display font-black text-white uppercase tracking-tight">Telegram</h4>
+                                <h4 class="text-xl sm:text-3xl font-display font-black text-white uppercase tracking-tight">Telegram</h4>
                                 <p class="text-[#2AABEE] font-bold tracking-widest text-sm uppercase">Ядро Продаж и Прогрева</p>
                             </div>
                         </div>
@@ -1909,7 +2038,7 @@
                                     <strong>Как это работает:</strong> Мы написали для канала серию жестких смысловых постов (кейсы, отзывы, разбор болей ЦА). В закрепленном сообщении находится линк на Чат-бота.
                                 </p>
                             </div>
-                            <div class="bg-[#121212] p-6 rounded-xl border border-white/5 relative z-10">
+                            <div class="bg-[#121212] p-3 md:p-6 rounded-xl border border-white/5 relative z-10">
                                 <h5 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-robot text-[#2AABEE]"></i> Автоматизация (Бот)</h5>
                                 <ul class="text-sm text-gray-400 space-y-2">
                                     <li>1. Пользователь жмет /start, чтобы получить бонус.</li>
@@ -1922,7 +2051,7 @@
                     </div>
                 </div>
 
-                <div class="relative bg-[#050505] rounded-3xl p-8 border border-yt/20 overflow-hidden group hover:border-yt/50 transition-colors">
+                <div class="relative bg-[#050505] rounded-2xl md:rounded-3xl p-4 md:p-8 border border-yt/20 overflow-hidden group hover:border-yt/50 transition-colors">
                     <div class="floating-bg-container">
                         <span class="yt-float" style="bottom: -20%; left: 10%; animation-duration: 9s; animation-delay: 0s; font-size: 3rem;"><i class="fa-solid fa-play"></i></span>
                         <span class="yt-float" style="bottom: -20%; right: 15%; animation-duration: 7s; animation-delay: 3s; font-size: 2rem;"><i class="fa-solid fa-play"></i></span>
@@ -1937,7 +2066,7 @@
                                 <i class="fa-brands fa-youtube"></i>
                             </div>
                             <div>
-                                <h4 class="text-3xl font-display font-black text-white uppercase tracking-tight">YouTube</h4>
+                                <h4 class="text-xl sm:text-3xl font-display font-black text-white uppercase tracking-tight">YouTube</h4>
                                 <p class="text-yt font-bold tracking-widest text-sm uppercase">Генератор Длинных Денег</p>
                             </div>
                         </div>
@@ -1950,7 +2079,7 @@
                                     <strong>Как это работает:</strong> Мы выкладываем 20-минутное видео. Оно SEO-оптимизировано (теги, таймкоды). Человек ищет решение своей проблемы -> находит вас -> смотрит видео. За 20 минут формируется колоссальный уровень доверия (парасоциальные связи).
                                 </p>
                             </div>
-                            <div class="bg-[#121212] p-6 rounded-xl border border-white/5 relative z-10">
+                            <div class="bg-[#121212] p-3 md:p-6 rounded-xl border border-white/5 relative z-10">
                                 <h5 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-magnet text-yt"></i> Воронка внутри видео</h5>
                                 <ul class="text-sm text-gray-400 space-y-2">
                                     <li>1. На 1-й минуте (Hook) мы обещаем дать решение.</li>
@@ -1963,7 +2092,7 @@
                     </div>
                 </div>
 
-                <div class="relative bg-[#050505] rounded-3xl p-8 border border-[#E1306C]/20 overflow-hidden group hover:border-[#E1306C]/50 transition-colors">
+                <div class="relative bg-[#050505] rounded-2xl md:rounded-3xl p-4 md:p-8 border border-[#E1306C]/20 overflow-hidden group hover:border-[#E1306C]/50 transition-colors">
                     <div class="floating-bg-container">
                         <span class="ig-heart" style="bottom: -10%; left: 15%; animation-duration: 5s; animation-delay: 0s; font-size: 1.5rem;"><i class="fa-solid fa-heart"></i></span>
                         <span class="ig-heart" style="bottom: -10%; left: 40%; animation-duration: 6s; animation-delay: 2s; font-size: 2.5rem;"><i class="fa-solid fa-heart"></i></span>
@@ -1978,7 +2107,7 @@
                                 <i class="fa-brands fa-instagram"></i>
                             </div>
                             <div>
-                                <h4 class="text-3xl font-display font-black text-white uppercase tracking-tight">Instagram / Reels</h4>
+                                <h4 class="text-xl sm:text-3xl font-display font-black text-white uppercase tracking-tight">Instagram / Reels</h4>
                                 <p class="text-[#E1306C] font-bold tracking-widest text-sm uppercase">Агрессивный Охват и Лидген</p>
                             </div>
                         </div>
@@ -1991,7 +2120,7 @@
                                     <strong>Как это работает:</strong> Мы используем механику кодовых слов. В конце каждого динамичного 30-секундного Reels вы говорите: "Напиши слово СИСТЕМА мне в Директ, и я пришлю тебе пошаговый план".
                                 </p>
                             </div>
-                            <div class="bg-[#121212] p-6 rounded-xl border border-white/5 relative z-10">
+                            <div class="bg-[#121212] p-3 md:p-6 rounded-xl border border-white/5 relative z-10">
                                 <h5 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-bolt text-[#E1306C]"></i> Магия ManyChat</h5>
                                 <ul class="text-sm text-gray-400 space-y-2">
                                     <li>1. Зритель пишет "СИСТЕМА" в комментарии или Директ.</li>
@@ -2003,7 +2132,7 @@
                     </div>
                 </div>
 
-                <div class="relative bg-[#050505] rounded-3xl p-8 border border-white/20 overflow-hidden group hover:border-white/50 transition-colors">
+                <div class="relative bg-[#050505] rounded-2xl md:rounded-3xl p-4 md:p-8 border border-white/20 overflow-hidden group hover:border-white/50 transition-colors">
                     <div class="floating-bg-container">
                         <span class="tt-note" style="bottom: -15%; left: 20%; animation-duration: 8s; animation-delay: 0s; font-size: 2rem;"><i class="fa-solid fa-music"></i></span>
                         <span class="tt-note" style="bottom: -15%; left: 45%; animation-duration: 10s; animation-delay: 3s; font-size: 1.2rem;"><i class="fa-solid fa-music"></i></span>
@@ -2018,7 +2147,7 @@
                                 <i class="fa-brands fa-tiktok"></i>
                             </div>
                             <div>
-                                <h4 class="text-3xl font-display font-black text-white uppercase tracking-tight">TikTok / VK Клипы</h4>
+                                <h4 class="text-xl sm:text-3xl font-display font-black text-white uppercase tracking-tight">TikTok / VK Клипы</h4>
                                 <p class="text-white font-bold tracking-widest text-sm uppercase">Массовый Трафик</p>
                             </div>
                         </div>
@@ -2031,7 +2160,7 @@
                                     <strong>Как это работает:</strong> Мы массово заливаем контент. Весь трафик аккумулируется в шапке профиля (Bio).
                                 </p>
                             </div>
-                            <div class="bg-[#121212] p-6 rounded-xl border border-white/5 relative z-10">
+                            <div class="bg-[#121212] p-3 md:p-6 rounded-xl border border-white/5 relative z-10">
                                 <h5 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-link text-white"></i> Мультиссылка и Перелив</h5>
                                 <ul class="text-sm text-gray-400 space-y-2">
                                     <li>1. Трафик из TikTok переливается напрямую в ваш Telegram-канал (где его ждет бот-продавец) или на YouTube (для длинного прогрева).</li>
@@ -2042,10 +2171,10 @@
                     </div>
                 </div>
 
-                <div class="mt-16 bg-gradient-to-r from-yt to-[#990000] rounded-3xl p-10 text-center shadow-[0_0_50px_rgba(229,45,39,0.3)] transform hover:scale-[1.02] transition-transform duration-500 relative z-10">
-                    <i class="fa-solid fa-check-double text-5xl text-white mb-6"></i>
-                    <h3 class="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-6 font-display">СИСТЕМА ЗАМКНУЛАСЬ</h3>
-                    <p class="text-white/90 text-xl font-bold max-w-4xl mx-auto leading-relaxed">
+                <div class="mt-8 md:mt-16 bg-gradient-to-r from-yt to-[#990000] rounded-2xl md:rounded-3xl p-5 md:p-10 text-center shadow-[0_0_50px_rgba(229,45,39,0.3)] transform hover:scale-[1.02] transition-transform duration-500 relative z-10">
+                    <i class="fa-solid fa-check-double text-4xl md:text-5xl text-white mb-4 md:mb-6"></i>
+                    <h3 class="text-2xl sm:text-3xl md:text-5xl font-black text-white uppercase tracking-tighter mb-4 md:mb-6 font-display">СИСТЕМА ЗАМКНУЛАСЬ</h3>
+                    <p class="text-white/90 text-sm sm:text-base md:text-xl font-bold max-w-4xl mx-auto leading-relaxed">
                         Вы получаете не лайки, не просмотры и не "охваты ради охватов". Вы получаете выстроенную цифровую империю, монополию на рынке. Вы один раз в месяц тратите 4 часа на съемки, а система 24/7 генерирует вам квалифицированные лиды, лояльность аудитории и деньги на расчетном счету.
                     </p>
                 </div>
@@ -3613,6 +3742,14 @@
         </div>
     </footer>
 
+    <div id="lightbox-overlay" class="fixed inset-0 z-[999999] bg-black/95 hidden flex-col justify-center items-center opacity-0 transition-opacity duration-300 backdrop-blur-md">
+        <button id="lightbox-close" class="absolute top-5 right-5 md:top-10 md:right-10 text-white/50 hover:text-white text-3xl md:text-5xl transition-colors z-50"><i class="fa-solid fa-xmark"></i></button>
+        <button id="lightbox-prev" class="absolute left-2 md:left-10 top-1/2 -translate-y-1/2 text-white/50 hover:text-white text-3xl md:text-5xl transition-colors z-50 px-4 py-10"><i class="fa-solid fa-chevron-left"></i></button>
+        <button id="lightbox-next" class="absolute right-2 md:right-10 top-1/2 -translate-y-1/2 text-white/50 hover:text-white text-3xl md:text-5xl transition-colors z-50 px-4 py-10"><i class="fa-solid fa-chevron-right"></i></button>
+        
+        <img id="lightbox-img" src="" alt="Full size" class="max-w-[95vw] max-h-[90vh] object-contain rounded-xl shadow-[0_0_50px_rgba(168,85,247,0.2)] transition-transform duration-300 select-none">
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Проверка на загрузку GSAP
@@ -4223,7 +4360,183 @@
                 });
             });
 
+            // ── MOBILE HAMBURGER MENU ──
+            const burgerBtn = document.getElementById('burger-btn');
+            const mobileOverlay = document.getElementById('mobile-nav-overlay');
+            const mobClose = document.getElementById('mob-nav-close');
+
+            function openMobileMenu() {
+                mobileOverlay.classList.add('open');
+                burgerBtn.classList.add('open');
+                burgerBtn.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeMobileMenu() {
+                mobileOverlay.classList.remove('open');
+                burgerBtn.classList.remove('open');
+                burgerBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+
+            if(burgerBtn) burgerBtn.addEventListener('click', () => {
+                mobileOverlay.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
+            });
+            if(mobClose) mobClose.addEventListener('click', closeMobileMenu);
+
+            document.querySelectorAll('[data-mob-nav]').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            const mobModalBtn = document.querySelector('.mob-modal-btn');
+            if(mobModalBtn) mobModalBtn.addEventListener('click', () => {
+                closeMobileMenu();
+                const tgModal = document.getElementById('tg-modal');
+                const tgModalContent = tgModal ? tgModal.querySelector('.modal-content') : null;
+                if(tgModal) {
+                    tgModal.classList.remove('hidden');
+                    setTimeout(() => {
+                        tgModal.classList.remove('opacity-0');
+                        if(tgModalContent) { tgModalContent.classList.remove('scale-95'); tgModalContent.classList.add('scale-100'); }
+                    }, 10);
+                }
+            });
+
         });
+
+            // --- ЛОГИКА ДЛЯ 4 ШАГА (ПЛАВНОЕ ОТКРЫТИЕ СЕТКИ) ---
+            
+            window.openMontage = function() {
+                console.log("Кнопка монтажа нажата");
+                // Место под твой будущий код модалки монтажа
+            };
+
+            window.toggleDesignGallery = function() {
+                const showcase = document.getElementById('design-showcase-wrapper');
+                
+                if (showcase.classList.contains('hidden')) {
+                    showcase.classList.remove('hidden');
+                    gsap.fromTo(showcase, 
+                        { height: 0, opacity: 0 }, 
+                        { height: 'auto', opacity: 1, duration: 0.6, ease: "power3.out", onComplete: () => ScrollTrigger.refresh() }
+                    );
+                    
+                    // Легкий автоскролл вниз, чтобы клиент увидел открывшуюся галерею
+                    setTimeout(() => {
+                        const rect = showcase.getBoundingClientRect();
+                        window.scrollBy({ top: rect.top - 150, behavior: 'smooth' });
+                    }, 100);
+                } else {
+                    gsap.to(showcase, { 
+                        height: 0, opacity: 0, duration: 0.4, ease: "power2.inOut", 
+                        onComplete: () => { 
+                            showcase.classList.add('hidden'); 
+                            ScrollTrigger.refresh(); 
+                        }
+                    });
+                }
+            };
+
+            // --- LIGHTBOX (ПОЛНОЭКРАННАЯ ГАЛЕРЕЙ ПОВЪЮ) ---
+            const lightbox = document.getElementById('lightbox-overlay');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const btnCloseLb = document.getElementById('lightbox-close');
+            const btnPrevLb = document.getElementById('lightbox-prev');
+            const btnNextLb = document.getElementById('lightbox-next');
+            let currentImgIndex = 0;
+            let designImages = [];
+
+            // Инициализация
+            setTimeout(() => {
+                const items = document.querySelectorAll('.design-item img');
+                designImages = Array.from(items).map(img => img.src);
+                
+                items.forEach((img, index) => {
+                    img.parentElement.addEventListener('click', () => {
+                        currentImgIndex = index;
+                        showLightbox();
+                    });
+                });
+            }, 500);
+
+            function showLightbox() {
+                if(!lightbox) return;
+                lightboxImg.src = designImages[currentImgIndex];
+                lightbox.classList.remove('hidden');
+                setTimeout(() => { lightbox.classList.remove('opacity-0'); }, 10);
+                
+                // Блокируем скролл сайта
+                document.body.style.overflow = 'hidden';
+                if (typeof lenis !== 'undefined') lenis.stop();
+                lightbox.setAttribute('data-lenis-prevent', 'true');
+            }
+
+            function hideLightbox() {
+                if(!lightbox) return;
+                lightbox.classList.add('opacity-0');
+                setTimeout(() => { lightbox.classList.add('hidden'); }, 300);
+                
+                // Возвращаем скролл
+                document.body.style.overflow = '';
+                if (typeof lenis !== 'undefined') lenis.start();
+                lightbox.removeAttribute('data-lenis-prevent');
+            }
+
+            function nextImg() {
+                currentImgIndex = (currentImgIndex + 1) % designImages.length;
+                
+                // Эффект перелистывания
+                gsap.fromTo(lightboxImg, { opacity: 0, x: 50 }, { opacity: 1, x: 0, duration: 0.3 });
+                lightboxImg.src = designImages[currentImgIndex];
+            }
+
+            function prevImg() {
+                currentImgIndex = (currentImgIndex - 1 + designImages.length) % designImages.length;
+                
+                // Эффект перелистывания
+                gsap.fromTo(lightboxImg, { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.3 });
+                lightboxImg.src = designImages[currentImgIndex];
+            }
+
+            // Обработчики кнопок
+            if(btnCloseLb) btnCloseLb.addEventListener('click', hideLightbox);
+            if(btnNextLb) btnNextLb.addEventListener('click', nextImg);
+            if(btnPrevLb) btnPrevLb.addEventListener('click', prevImg);
+            
+            // Закрытие по клику на темный фон
+            if(lightbox) {
+                lightbox.addEventListener('click', (e) => {
+                    if(e.target === lightbox) hideLightbox(); 
+                });
+            }
+
+            // Управление стрелочками и Esc на клавиатуре
+            document.addEventListener('keydown', (e) => {
+                if(lightbox && !lightbox.classList.contains('hidden')) {
+                    if(e.key === 'Escape') hideLightbox();
+                    if(e.key === 'ArrowRight') nextImg();
+                    if(e.key === 'ArrowLeft') prevImg();
+                }
+            });
     </script>
+
+    <!-- MOBILE NAVIGATION OVERLAY -->
+    <div id="mobile-nav-overlay" role="dialog" aria-modal="true" aria-label="Навигация">
+        <button id="mob-nav-close" aria-label="Закрыть меню">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <a href="#about"      class="mob-nav-link" data-mob-nav>О нас</a>
+        <div class="mob-nav-divider"></div>
+        <a href="#cases-pro"  class="mob-nav-link" data-mob-nav>Кейсы</a>
+        <div class="mob-nav-divider"></div>
+        <a href="#team"       class="mob-nav-link" data-mob-nav>Команда</a>
+        <div class="mob-nav-divider"></div>
+        <a href="#pricing"    class="mob-nav-link" data-mob-nav>Услуги</a>
+        <div class="mob-nav-divider"></div>
+        <a href="#process"    class="mob-nav-link" data-mob-nav>Процесс</a>
+        <div style="height:2rem"></div>
+        <button class="mob-modal-btn bg-yt text-white px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(229,45,39,0.5)]">
+            Оставить заявку
+        </button>
+    </div>
 </body>
 </html>
